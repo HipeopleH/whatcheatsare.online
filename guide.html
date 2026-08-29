@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide · whatcheatsareonline.qd.je</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        :root {
+            --bg: #1a1d1f;
+            --header: #212629;
+            --card: #23282b;
+            --card-hover: #2a3033;
+            --border: #333a3d;
+            --border-soft: #2a3134;
+            --text: #e7e9e9;
+            --muted: #888f91;
+            --muted-2: #6a7275;
+            --green: #35d16f;
+            --red: #ff4545;
+            --blue: #4a7cf7;
+            --yellow: #eab308;
+            --purple: #8b5cf6;
+            --gray: #888f91;
+        }
+        html { background: var(--bg); }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 70px;
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            background: var(--header);
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            user-select: none;
+            cursor: pointer;
+        }
+        .logo a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .logo a span.white { color: #ffffff; }
+        .logo a span.green { color: var(--green); }
+        .logo a span.red { color: var(--red); }
+        .logo a span.gray { color: var(--gray); }
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .header-links a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.12s;
+        }
+        .header-links a:hover {
+            color: #ddd;
+        }
+        .header-links svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+        .header-links .site-update {
+            color: var(--muted-2);
+            font-size: 11px;
+            margin-left: 4px;
+        }
+
+        .top-spacer {
+            height: 48px;
+        }
+
+        .layout {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 32px;
+            align-items: flex-start;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 90px;
+            flex: 0 0 220px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 16px;
+            max-height: calc(100vh - 110px);
+            overflow-y: auto;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        .sidebar .sidebar-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .sidebar a {
+            display: block;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            transition: background 0.12s, color 0.12s;
+            margin-bottom: 2px;
+            cursor: pointer;
+        }
+        .sidebar a:hover {
+            background: var(--card-hover);
+            color: #ddd;
+        }
+        .sidebar a.active {
+            background: var(--green);
+            color: #0b0d0e;
+            font-weight: 600;
+        }
+
+        .content {
+            flex: 1;
+            min-width: 0;
+            padding-bottom: 40px;
+        }
+
+        .page-title {
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--border-soft);
+            padding-bottom: 16px;
+        }
+        .page-title h1 {
+            margin: 0 0 6px;
+            font-size: 32px;
+            letter-spacing: -0.5px;
+        }
+        .page-title p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .guide-section {
+            margin-bottom: 40px;
+            scroll-margin-top: 80px;
+        }
+        .guide-section h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            border-bottom: 1px solid var(--border-soft);
+            padding-bottom: 6px;
+        }
+        .guide-section h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin: 18px 0 8px 0;
+            color: #ccc;
+        }
+        .guide-section p {
+            margin: 0 0 12px 0;
+            color: #bbb;
+        }
+        .guide-section ul {
+            margin: 8px 0 16px 20px;
+            color: #bbb;
+        }
+        .guide-section li {
+            margin-bottom: 4px;
+        }
+        .guide-section code {
+            background: #111516;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #ddd;
+            border: 1px solid var(--border);
+            font-family: monospace;
+        }
+        .guide-section .step-box {
+            background: #111516;
+            border-left: 3px solid var(--green);
+            padding: 14px 18px;
+            border-radius: 4px;
+            margin: 12px 0;
+        }
+        .guide-section .step-box .step-num {
+            color: var(--green);
+            font-weight: 700;
+            margin-right: 6px;
+        }
+        .guide-section .callout {
+            background: #0f2628;
+            border-left: 3px solid var(--teal);
+            padding: 12px 16px;
+            border-radius: 4px;
+            color: #99f6e4;
+            font-size: 14px;
+            margin: 12px 0;
+        }
+        .guide-section .callout.warning {
+            background: #2a1a1a;
+            border-left-color: var(--red);
+            color: #fca5a5;
+        }
+        .guide-section .callout a {
+            color: var(--green);
+            text-decoration: none;
+        }
+        .guide-section .callout a:hover {
+            text-decoration: underline;
+        }
+        .guide-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 16px 0;
+            font-size: 14px;
+        }
+        .guide-section table th {
+            background: var(--card);
+            color: var(--text);
+            text-align: left;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            font-weight: 600;
+        }
+        .guide-section table td {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            color: #bbb;
+        }
+        .guide-section table tr:hover td {
+            background: var(--card-hover);
+        }
+        .guide-section .glossary-term {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 32px 0 16px;
+            border-top: 1px solid var(--border-soft);
+            text-align: center;
+            color: var(--muted-2);
+            font-size: 12px;
+        }
+
+        @media (max-width: 820px) {
+            .layout {
+                flex-direction: column;
+                padding: 0 16px;
+            }
+            .sidebar {
+                position: relative;
+                top: 0;
+                flex: 1 1 auto;
+                width: 100%;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 14px 16px;
+            }
+            .sidebar .sidebar-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+            .sidebar a {
+                display: inline-block;
+                font-size: 12px;
+                padding: 4px 10px;
+                margin-bottom: 0;
+            }
+            .sidebar .sidebar-title {
+                margin-bottom: 8px;
+            }
+            .guide-section h2 {
+                font-size: 20px;
+            }
+            .top-spacer {
+                height: 24px;
+            }
+        }
+
+        @media (max-width: 750px) {
+            header {
+                height: auto;
+                min-height: 62px;
+                flex-wrap: wrap;
+                padding: 8px 18px;
+                gap: 6px;
+            }
+            .logo { font-size: 20px; }
+            .header-links { gap: 10px; flex-wrap: wrap; }
+            .header-links a { font-size: 11px; }
+            .header-links svg { width: 16px; height: 16px; }
+            body { padding-top: 90px; }
+            .page-title h1 { font-size: 26px; }
+            .guide-section table { font-size: 12px; }
+            .guide-section table th,
+            .guide-section table td { padding: 6px 8px; }
+            .top-spacer { height: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="/">
+            <span class="white">what</span><span class="green">cheats</span><span class="white">are</span><span class="red">online</span><span class="gray">.qd.je</span>
+        </a>
+    </div>
+    <div class="header-links">
+        <a href="/" title="Home">
+            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+            Home
+        </a>
+        <a href="/docs" title="Docs">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12h8v2H8zm0 4h5v2H8zm0-8h3v2H8z"/></svg>
+            Docs
+        </a>
+        <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            Discord
+        </a>
+        <span class="site-update">Updated: 08/28/2026</span>
+    </div>
+</header>
+
+<div class="top-spacer"></div>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-title">📖 On this page</div>
+        <div class="sidebar-links">
+            <a href="#welcome">Welcome</a>
+            <a href="#getting-started">Getting Started</a>
+            <a href="#categories">Tool Categories</a>
+            <a href="#bookmarklets">Bookmarklets</a>
+            <a href="#extensions">Chrome Extensions</a>
+            <a href="#web-based">Web-based Tools</a>
+            <a href="#tampermonkey">Tampermonkey</a>
+            <a href="#external">External Tools</a>
+            <a href="#safety">Safety Tips</a>
+            <a href="#donations">Donations</a>
+            <a href="#contribute">How to Contribute</a>
+            <a href="#faq">FAQ</a>
+            <a href="#glossary">Glossary</a>
+        </div>
+    </aside>
+
+    <main class="content">
+
+        <div class="page-title">
+            <h1>📘 Guide</h1>
+            <p>Everything you need to know to get started with WCAO.</p>
+        </div>
+
+        <section class="guide-section" id="welcome">
+            <h2>Welcome</h2>
+            <p>
+                You found the guide! This site is a community-driven directory of cheats, tools, proxies, and AI assistants built by students, for students. Whether you need help with schoolwork, gaming, or just want to bypass a filter — we've got you covered.
+            </p>
+            <div class="callout">
+                💡 <strong>Remember:</strong> Use these tools responsibly. They're meant to help, not get you in trouble.
+            </div>
+        </section>
+
+        <section class="guide-section" id="getting-started">
+            <h2>Getting Started</h2>
+            <p>
+                Using the site is simple:
+            </p>
+            <ul>
+                <li><strong>Pick a tool</strong> from the list on the homepage</li>
+                <li><strong>Check the status</strong> (green = online, red = offline)</li>
+                <li><strong>Look at the price</strong> (Free, Paid, API-key, or Freemium)</li>
+                <li><strong>Choose your execution method</strong> (bookmarklet, extension, etc.)</li>
+                <li><strong>Follow the instructions</strong> below for your method</li>
+            </ul>
+        </section>
+
+        <section class="guide-section" id="categories">
+            <h2>Tool Categories</h2>
+            <table>
+                <thead>
+                    <tr><th>Category</th><th>What It Does</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>⚡ Cheats</strong></td><td>Hacks for games and school platforms</td></tr>
+                    <tr><td><strong>💬 AI</strong></td><td>AI chatbots and writing assistants</td></tr>
+                    <tr><td><strong>🌐 Proxies</strong></td><td>Bypass school filters</td></tr>
+                    <tr><td><strong>📦 Other</strong></td><td>Useful utilities and tools</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="guide-section" id="bookmarklets">
+            <h2>How to Use Bookmarklets</h2>
+            <p>Bookmarklets are bookmarks that run JavaScript code. They're quick and easy to use.</p>
+            <div class="step-box">
+                <p><span class="step-num">1.</span> Copy the bookmarklet code from the tool's website</p>
+                <p><span class="step-num">2.</span> Create a new bookmark in your browser</p>
+                <p><span class="step-num">3.</span> Paste the code as the URL</p>
+                <p><span class="step-num">4.</span> Click the bookmark when you're on the target site</p>
+                <p><span class="step-num">5.</span> Enjoy! 🎉</p>
+            </div>
+        </section>
+
+        <section class="guide-section" id="extensions">
+            <h2>How to Use Chrome Extensions</h2>
+            <div class="step-box">
+                <p><span class="step-num">1.</span> Click the link to the Chrome Web Store</p>
+                <p><span class="step-num">2.</span> Click "Add to Chrome"</p>
+                <p><span class="step-num">3.</span> Pin the extension for easy access</p>
+                <p><span class="step-num">4.</span> Use it on the target site</p>
+            </div>
+            <div class="callout warning">
+                ⚠️ Some school Chromebooks block extensions. If that's the case, try a bookmarklet or web-based tool instead.
+            </div>
+        </section>
+
+        <section class="guide-section" id="web-based">
+            <h2>How to Use Web-based Tools</h2>
+            <div class="step-box">
+                <p><span class="step-num">1.</span> Click the website link</p>
+                <p><span class="step-num">2.</span> Follow the on-screen instructions</p>
+                <p><span class="step-num">3.</span> Usually just paste a game code or URL</p>
+            </div>
+        </section>
+
+        <section class="guide-section" id="tampermonkey">
+            <h2>How to Use Tampermonkey Scripts</h2>
+            <div class="step-box">
+                <p><span class="step-num">1.</span> Install the Tampermonkey extension from the Chrome Web Store</p>
+                <p><span class="step-num">2.</span> Click the script link (usually a <code>.user.js</code> file)</p>
+                <p><span class="step-num">3.</span> Tampermonkey will ask to install it — click "Install"</p>
+                <p><span class="step-num">4.</span> Enable the script and refresh the target page</p>
+            </div>
+            <div class="callout">
+                🔧 Tampermonkey scripts only work if you have the extension installed. Make sure it's enabled!
+            </div>
+        </section>
+
+        <section class="guide-section" id="external">
+            <h2>How to Use External Tools</h2>
+            <p>Some tools run locally on your computer. These are usually downloads from GitHub.</p>
+            <div class="step-box">
+                <p><span class="step-num">1.</span> Download the file from GitHub</p>
+                <p><span class="step-num">2.</span> Run it on your computer</p>
+                <p><span class="step-num">3.</span> Follow the tool's specific instructions</p>
+            </div>
+            <div class="callout warning">
+                ⚠️ Only download external tools from trusted sources. Check the Discord server for reviews before running anything.
+            </div>
+        </section>
+
+        <section class="guide-section" id="safety">
+            <h2>Safety Tips</h2>
+
+            <h3>🛡️ Avoid Detection</h3>
+            <ul>
+                <li>Don't use cheats during proctored exams</li>
+                <li>Clear your browser history after using tools</li>
+                <li>Use incognito/private mode</li>
+                <li>Don't brag about cheating — keep it low-key</li>
+            </ul>
+
+            <h3>🧪 Avoid Malware</h3>
+            <ul>
+                <li>Only use tools from trusted sources</li>
+                <li>Check the Discord server for reviews</li>
+                <li>Use <strong>uBlock Origin</strong> to block sketchy ads</li>
+                <li>Don't download suspicious <code>.exe</code> files</li>
+            </ul>
+
+            <h3>🌐 Use a VPN (if needed)</h3>
+            <ul>
+                <li>If a tool is blocked by your school, try a proxy or VPN</li>
+                <li><strong>X-VPN</strong> is a good free option</li>
+                <li>Check the Proxies section for more options</li>
+            </ul>
+
+            <div class="callout warning">
+                🚨 <strong>Disclaimer:</strong> We are not responsible for any consequences of using these tools. Use at your own risk.
+            </div>
+        </section>
+
+        <section class="guide-section" id="donations">
+            <h2>Donations</h2>
+            <p>
+                This site is completely free and always will be. But keeping it running costs money — and we're just students building this in our free time.
+            </p>
+            <p>
+                <strong>Why we take donations:</strong>
+            </p>
+            <ul>
+                <li><strong>💰 A proper .com domain</strong> — right now we're on <code>.qd.je</code>, which gets flagged by some school filters. A <code>.com</code> domain means <strong>no VPN required</strong> for most users, making the site way more accessible.</li>
+                <li><strong>📢 Marketing & growth</strong> — we want to get this site in front of more students who need it. A little budget for promotion helps us reach people who could actually use these tools.</li>
+                <li><strong>🛠️ Server costs</strong> — if we ever move beyond GitHub Pages, we'll need to cover hosting.</li>
+            </ul>
+            <div class="callout">
+                💚 <strong>Every bit helps.</strong> Even sharing the site with a friend is a huge help. If you can chip in, we'd be grateful — and we'll keep this project alive and free for everyone.
+            </div>
+        </section>
+
+        <section class="guide-section" id="contribute">
+            <h2>How to Contribute</h2>
+            <p>
+                This site is open-source and community-driven. Here's how you can help:
+            </p>
+            <ul>
+                <li><strong>Join the <a href="https://discord.gg/55qN4ucGUF" target="_blank" style="color: var(--green);">Discord</a></strong> — share tools, report issues, and chat with the community</li>
+                <li><strong>Report broken tools</strong> — let us know if something's offline</li>
+                <li><strong>Submit a new tool</strong> — open a pull request on <a href="https://github.com/HipeopleH/whatcheatsare.online" target="_blank" style="color: var(--green);">GitHub</a></li>
+                <li><strong>Leave a star</strong> — if you like the project, star it on GitHub</li>
+                <li><strong>Suggest features</strong> — have an idea? Share it on Discord or GitHub</li>
+            </ul>
+            <div class="callout">
+                ⭐ <strong>Every contribution helps!</strong> Whether it's a new tool, a bug report, or just spreading the word — you're making this project better for everyone.
+            </div>
+        </section>
+
+        <section class="guide-section" id="faq">
+            <h2>FAQ</h2>
+            <table>
+                <thead>
+                    <tr><th>Question</th><th>Answer</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Are these tools legal?</strong></td><td>Most are in a gray area — use at your own risk.</td></tr>
+                    <tr><td><strong>Will I get caught?</strong></td><td>Probably not if you follow the safety tips.</td></tr>
+                    <tr><td><strong>Are these tools free?</strong></td><td>Some are free, some have premium options. Check the badge on each card.</td></tr>
+                    <tr><td><strong>How do I know if a tool is online?</strong></td><td>Check the status badge (green = online, red = offline).</td></tr>
+                    <tr><td><strong>What if a tool doesn't work?</strong></td><td>Check the Discord or report it on GitHub.</td></tr>
+                    <tr><td><strong>Can I request a tool?</strong></td><td>Yes! Join the Discord and let us know what you need.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="guide-section" id="glossary">
+            <h2>Glossary</h2>
+            <ul>
+                <li><span class="glossary-term">Bookmarklet</span> — A bookmark that runs JavaScript code on a webpage</li>
+                <li><span class="glossary-term">Tampermonkey</span> — A browser extension that runs user scripts</li>
+                <li><span class="glossary-term">Proxy</span> — A service that hides your IP and bypasses filters</li>
+                <li><span class="glossary-term">API-key</span> — A key required to use a tool (often paid)</li>
+                <li><span class="glossary-term">Undetected</span> — The tool hasn't been flagged by the platform</li>
+                <li><span class="glossary-term">Freemium</span> — Free with optional paid features</li>
+                <li><span class="glossary-term">GoGuardian / Securly</span> — School monitoring software that blocks certain sites</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            © 2026 WCAO. Built by students, for students.
+        </footer>
+
+    </main>
+
+</div>
+
+<script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerOffset = 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    const sections = document.querySelectorAll('.guide-section');
+    const navLinks = document.querySelectorAll('.sidebar a');
+
+    function updateActiveLink() {
+        let current = '';
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= 120) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateActiveLink);
+    window.addEventListener('load', updateActiveLink);
+</script>
+
+</body>
+</html>
