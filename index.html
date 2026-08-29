@@ -1,10 +1,2531 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>What Cheats Are Online</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>whatcheatsareonline.qd.je</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #1a1d1f;
+            --header: #212629;
+            --card: #23282b;
+            --card-hover: #2a3033;
+            --border: #333a3d;
+            --border-soft: #2a3134;
+            --text: #e7e9e9;
+            --muted: #888f91;
+            --muted-2: #6a7275;
+            --green: #35d16f;
+            --red: #ff4545;
+            --blue: #4a7cf7;
+            --teal: #2dd4bf;
+            --yellow: #eab308;
+            --purple: #8b5cf6;
+        }
+
+        html {
+            background: var(--bg);
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            padding-top: 70px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            background: var(--header);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-links a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.12s;
+        }
+
+        .header-links a:hover {
+            color: #ddd;
+        }
+
+        .header-links svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .header-links .site-update {
+            color: var(--muted-2);
+            font-size: 11px;
+            margin-left: 4px;
+        }
+
+        main {
+            width: 66.6667%;
+            max-width: 950px;
+            margin: 32px auto 60px;
+        }
+
+        .page-title {
+            margin-bottom: 21px;
+        }
+
+        .page-title h1 {
+            margin: 0 0 6px;
+            font-size: 27px;
+            line-height: 1.15;
+            letter-spacing: -0.4px;
+        }
+
+        .page-title p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .search {
+            flex: 1;
+            min-width: 0;
+            height: 42px;
+            padding: 0 13px;
+            background: #15181a;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            color: #eee;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.12s, background 0.12s;
+        }
+
+        .search::placeholder {
+            color: #626769;
+        }
+
+        .search:focus {
+            border-color: #383f41;
+            background: #131819;
+        }
+
+        .filter-btn, .about-btn {
+            height: 42px;
+            padding: 0 18px;
+            background: #1d2223;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            color: #aaa;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.12s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-btn:hover, .about-btn:hover {
+            background: #272c2e;
+            border-color: #363c3e;
+            color: #ddd;
+        }
+
+        .filter-badge {
+            display: inline-block;
+            background: var(--green);
+            color: #0b0d0e;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 0 6px;
+            border-radius: 3px;
+            margin-left: 6px;
+        }
+
+        .section-header {
+            margin: 28px 0 14px 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            border-bottom: 1px solid var(--border-soft);
+            padding-bottom: 6px;
+        }
+
+        .section-header:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-header.hidden {
+            display: none;
+        }
+
+        .exec-card {
+            position: relative;
+            height: 120px;
+            margin-bottom: 10px;
+            padding: 17px 70px 17px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .exec-card:hover {
+            background: var(--card-hover);
+            border-color: #3a4245;
+            transform: scale(1.008);
+        }
+
+        .status-wall {
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            bottom: -1px;
+            width: 13px;
+            background: var(--green);
+        }
+
+        .exec-card.offline .status-wall {
+            background: var(--red);
+        }
+
+        .top-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
+        }
+
+        .exec-name {
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.2;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+
+        .detail-btn {
+            height: 24px;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1d2223;
+            border: 1px solid #2c3234;
+            border-radius: 4px;
+            color: #999fa0;
+            font-family: inherit;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.12s;
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
+
+        .detail-btn:hover {
+            background: #272c2e;
+            border-color: #363c3e;
+            color: #ddd;
+        }
+
+        .badge-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 4px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 14px;
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+            color: #ffffff;
+            border: none;
+        }
+
+        .badge-version {
+            background: #2a3033;
+            color: #c0c6c8;
+        }
+
+        .badge-price {
+            background: var(--blue);
+            color: #ffffff;
+        }
+
+        .badge-price.free {
+            background: var(--green);
+            color: #ffffff;
+        }
+
+        .badge-price.api-key {
+            background: var(--yellow);
+            color: #ffffff;
+        }
+
+        .badge-price.purple {
+            background: var(--purple);
+            color: #ffffff;
+        }
+
+        .badge-price.risky {
+            background: #dc2626;
+            color: #ffffff;
+        }
+
+        .status-area {
+            position: absolute;
+            top: 17px;
+            right: 39px;
+            text-align: right;
+        }
+
+        .status {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.15px;
+        }
+
+        .status.online {
+            color: var(--green);
+        }
+
+        .status.offline {
+            color: var(--red);
+        }
+
+        .status-square {
+            font-size: 13px;
+            margin-right: 5px;
+        }
+
+        .last-update {
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .bottom {
+            position: absolute;
+            left: 20px;
+            right: 39px;
+            bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .buttons a,
+        .buttons button {
+            height: 26px;
+            padding: 0 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1d2223;
+            border: 1px solid #2c3234;
+            border-radius: 4px;
+            color: #999fa0;
+            font-family: inherit;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.12s;
+        }
+
+        .buttons a:hover,
+        .buttons button:hover {
+            background: #272c2e;
+            border-color: #363c3e;
+            color: #ddd;
+        }
+
+        .methods {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #858b8d;
+            font-size: 11px;
+        }
+
+        .methods-label {
+            color: #626769;
+        }
+
+        .method {
+            color: #a4aaab;
+        }
+
+        .method + .method::before {
+            content: "·";
+            color: #555b5d;
+            margin-right: 6px;
+        }
+
+        .no-results {
+            display: none;
+            padding: 32px;
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        /* Discord Banner */
+        .discord-banner {
+            margin: 0 0 16px 0;
+            padding: 20px 28px;
+            background: #1a1f2a;
+            border: 1px solid #2c323e;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .discord-banner .discord-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .discord-banner .discord-text svg {
+            width: 28px;
+            height: 28px;
+            fill: #5865f2;
+            flex-shrink: 0;
+        }
+
+        .discord-banner .discord-text span {
+            color: #e7e9e9;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .discord-banner .discord-text small {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .discord-banner .discord-btn {
+            padding: 8px 20px;
+            background: #5865f2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.12s;
+            white-space: nowrap;
+        }
+
+        .discord-banner .discord-btn:hover {
+            background: #4752c4;
+        }
+
+        /* Guide Section */
+        .guide-section {
+            margin: 0 0 28px 0;
+            padding: 14px 20px;
+            background: #0f2628;
+            border: 1px solid #1a4a4a;
+            border-radius: 8px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px 10px;
+        }
+
+        .guide-section .guide-text {
+            color: #99f6e4;
+            font-size: 14px;
+        }
+
+        .guide-section .guide-link {
+            display: inline-block;
+            padding: 4px 16px;
+            background: var(--teal);
+            color: #0b0d0e;
+            font-weight: 700;
+            font-size: 13px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: opacity 0.12s;
+            letter-spacing: 0.3px;
+        }
+
+        .guide-section .guide-link:hover {
+            opacity: 0.85;
+        }
+
+        /* Filter Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 32px;
+            max-width: 520px;
+            width: 92%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .modal-header .clear-all {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .modal-header .clear-all:hover {
+            color: #ddd;
+        }
+
+        .btn-close {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .btn-close:hover {
+            color: #ddd;
+        }
+
+        .filter-section {
+            margin-bottom: 16px;
+        }
+
+        .filter-section .label {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #aaa;
+            cursor: pointer;
+            padding: 3px 10px;
+            background: #111516;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            transition: 0.12s;
+        }
+
+        .filter-options label:hover {
+            border-color: #383f41;
+        }
+
+        .filter-options label.active {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .filter-options input[type="checkbox"],
+        .filter-options input[type="radio"] {
+            accent-color: var(--green);
+            width: 13px;
+            height: 13px;
+            margin: 0;
+        }
+
+        .modal .actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .modal .actions button {
+            height: 38px;
+            padding: 0 20px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.12s;
+            border: none;
+        }
+
+        .modal .btn-apply {
+            background: var(--green);
+            color: #0b0d0e;
+            flex: 1;
+        }
+
+        .modal .btn-apply:hover {
+            opacity: 0.85;
+        }
+
+        .modal .btn-reset {
+            background: #1d2223;
+            color: #999fa0;
+            border: 1px solid var(--border);
+        }
+
+        .modal .btn-reset:hover {
+            background: #272c2e;
+            color: #ddd;
+        }
+
+        .about-text {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .about-text a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        .about-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Terms Modal */
+        .terms-text {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .terms-text strong {
+            color: #ddd;
+        }
+
+        .terms-text a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Detail Popup Overlay */
+        .detail-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .detail-overlay.show {
+            display: flex;
+        }
+
+        .detail-popup {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px 36px;
+            max-width: 550px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .detail-popup .btn-close-popup {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.12s;
+        }
+
+        .detail-popup .btn-close-popup:hover {
+            color: #ddd;
+        }
+
+        .detail-popup .detail-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+        }
+
+        .detail-popup .detail-sub {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .detail-popup .detail-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 20px;
+            padding: 12px 0;
+            border-top: 1px solid var(--border-soft);
+            border-bottom: 1px solid var(--border-soft);
+            margin-bottom: 16px;
+        }
+
+        .detail-popup .detail-meta-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 4px 0;
+        }
+
+        .detail-popup .detail-meta-item .key {
+            color: var(--muted);
+        }
+
+        .detail-popup .detail-meta-item .val {
+            color: #ddd;
+            font-weight: 500;
+        }
+
+        .detail-popup .detail-desc {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .detail-popup .detail-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .detail-popup .detail-actions a {
+            padding: 6px 16px;
+            background: #1d2223;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: #aaa;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.12s;
+        }
+
+        .detail-popup .detail-actions a:hover {
+            background: #272c2e;
+            color: #ddd;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding: 32px 0 16px;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+        }
+
+        .footer-brand {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .footer-brand .name {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .footer-brand .tagline {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .footer-brand .copyright {
+            color: var(--muted-2);
+            font-size: 12px;
+        }
+
+        .footer-col {
+            min-width: 80px;
+        }
+
+        .footer-col .label {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 2px 0;
+            transition: color 0.12s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+
+        .footer-col a:hover {
+            color: #ddd;
+        }
+
+        .footer-col .feedback-link {
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .footer-col .feedback-link:hover {
+            color: var(--green);
+            opacity: 0.8;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: var(--muted-2);
+            font-size: 12px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        @media (max-width: 750px) {
+            header {
+                height: auto;
+                min-height: 62px;
+                flex-wrap: wrap;
+                padding: 8px 18px;
+                gap: 6px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .header-links {
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .header-links a {
+                font-size: 11px;
+            }
+
+            .header-links svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            body {
+                padding-top: 90px;
+            }
+
+            main {
+                width: calc(100% - 30px);
+                margin-top: 25px;
+            }
+
+            .page-title h1 {
+                font-size: 24px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .filter-btn, .about-btn {
+                width: 100%;
+            }
+
+            .exec-card {
+                height: 205px;
+                padding-right: 45px;
+            }
+
+            .top-row {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .badge-group {
+                flex-wrap: wrap;
+            }
+
+            .status-area {
+                top: 53px;
+                left: 20px;
+                right: auto;
+                text-align: left;
+            }
+
+            .bottom {
+                left: 20px;
+                right: 33px;
+                bottom: 17px;
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .methods {
+                flex-wrap: wrap;
+            }
+
+            .status-wall {
+                width: 10px;
+            }
+
+            .modal {
+                padding: 20px;
+            }
+
+            .discord-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .discord-banner .discord-text {
+                flex-direction: column;
+            }
+
+            .guide-section {
+                flex-direction: column;
+                padding: 12px 16px;
+            }
+
+            .detail-popup {
+                padding: 24px 20px;
+            }
+
+            .detail-popup .detail-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>What Cheats Are Online</h1>
-    <p>Coming soon — school cheats, organized.</p>
+
+<header>
+    <div class="logo">
+        <span style="color: #ffffff;">what</span><span style="color: #35d16f;">cheats</span><span style="color: #ffffff;">are</span><span style="color: #ff4545;">online</span><span style="color: #777777;">.qd.je</span>
+    </div>
+    <div class="header-links">
+        <a href="#" target="_blank" title="Discord">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            Discord
+        </a>
+        <a href="/docs" title="Docs">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12h8v2H8zm0 4h5v2H8zm0-8h3v2H8z"/></svg>
+            Docs
+        </a>
+        <a href="/html" title="Download HTML">
+            <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10l4 4-4 4 1.5 1.5L13 14l-5.5-5.5L6 10z"/></svg>
+            HTML
+        </a>
+        <span class="site-update">Updated: 08/28/2026</span>
+    </div>
+</header>
+
+<main>
+
+    <div class="page-title">
+        <h1>Cheats</h1>
+        <p>A community-driven directory of cheats and tools, built by students for students.</p>
+    </div>
+
+    <div class="controls">
+        <input id="search" class="search" type="text" placeholder="Search cheats, games, proxies..." autocomplete="off">
+        <button id="filterBtn" class="filter-btn">
+            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor; flex-shrink: 0;"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39c.51-.66.04-1.61-.79-1.61H5.04c-.83 0-1.3.95-.79 1.61z"/></svg>
+            Filters
+            <span id="filterBadge" class="filter-badge" style="display:none;">0</span>
+        </button>
+        <button id="aboutBtn" class="about-btn">About</button>
+    </div>
+
+    <!-- Discord Banner -->
+    <div class="discord-banner">
+        <div class="discord-text">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            <div>
+                <span>Join the WCAO Discord Community!</span>
+                <br>
+                <small>Get live status updates, support, and pings whenever we update!</small>
+            </div>
+        </div>
+        <a href="#" target="_blank" class="discord-btn">Join Discord →</a>
+    </div>
+
+    <!-- Guide Section -->
+    <div class="guide-section">
+        <span class="guide-text">Need help getting started? Check out our comprehensive guide — it contains all you need to know to get started right away.</span>
+        <a href="/guide" class="guide-link">Our Guide →</a>
+    </div>
+
+    <section id="cards">
+
+        <!-- ===== CHEATS ===== -->
+        <div class="section-header" data-section="cheats">⚡ Cheats</div>
+
+        <!-- X-Network -->
+        <article class="exec-card" data-platform="X-Network" data-games="Blooket Kahoot Prodigy" data-methods="Bookmarklet Inspect Web-based" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="8.0.0x">
+            <div class="top-row">
+                <h2 class="exec-name">X-Network</h2>
+                <button class="detail-btn" onclick="openDetail('X-Network', 'The best free Blooket hack — also works on Kahoot and Prodigy. Completely free and undetected.', 'Free', 'Bookmarklet, Inspect, Web-based', 'Undetected', 'Online', '8/24/2026', 'https://x-network.lol', 'https://discord.gg/xKD4zVRH4F')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v8.0.0x</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/24/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://x-network.lol" target="_blank">WEBSITE</a>
+                    <a href="https://discord.gg/xKD4zVRH4F" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Bookmarklet</span>
+                    <span class="method">Inspect</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Gimkit Cheats -->
+        <article class="exec-card" data-platform="Gimkit Cheats" data-games="Gimkit" data-methods="Bookmarklet Inspect" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="4.0">
+            <div class="top-row">
+                <h2 class="exec-name">Gimkit Cheats</h2>
+                <button class="detail-btn" onclick="openDetail('Gimkit Cheats', 'The best free Gimkit hack — bookmarklet and inspect element methods. Currently the best free Gimkit hacks available.', 'Free', 'Bookmarklet, Inspect', 'Undetected', 'Online', '9/19/2026', 'https://github.com/TheLazySquid/GimkitCheat', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v4.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 9/19/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://github.com/TheLazySquid/GimkitCheat" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://github.com/TheLazySquid/GimkitCheat')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Bookmarklet</span>
+                    <span class="method">Inspect</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- edpuzzle-answers -->
+        <article class="exec-card" data-platform="edpuzzle-answers" data-games="Edpuzzle" data-methods="Bookmarklet" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="m14">
+            <div class="top-row">
+                <h2 class="exec-name">edpuzzle-answers</h2>
+                <button class="detail-btn" onclick="openDetail('edpuzzle-answers', 'A free bookmarklet that reveals Edpuzzle answers and skips videos.', 'Free', 'Bookmarklet', 'Undetected', 'Online', '5/8/2026', 'https://edpuzzle.hgci.org/', 'https://edpuzzle.hgci.org/discord')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">m14</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 5/8/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://edpuzzle.hgci.org/" target="_blank">WEBSITE</a>
+                    <a href="https://edpuzzle.hgci.org/discord" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Bookmarklet</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- IXLAutoAnswer -->
+        <article class="exec-card offline" data-platform="IXLAutoAnswer" data-games="IXL" data-methods="Tampermonkey" data-price="API-key" data-type="Cheats" data-detection="Undetected" data-status="Offline" data-version="8.7">
+            <div class="top-row">
+                <h2 class="exec-name">IXLAutoAnswer</h2>
+                <button class="detail-btn" onclick="openDetail('IXLAutoAnswer', 'A Tampermonkey script that auto-answers IXL problems using an OpenAI API key. Currently offline.', 'API-key', 'Tampermonkey', 'Undetected', 'Offline', '1/14/2026', 'https://github.com/Felix3322/IXLAutoAnswer_OpenAI_API_Requid', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v8.7</span>
+                    <span class="badge badge-price api-key">API-key</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status offline"><span class="status-square">█</span>OFFLINE</div>
+                <div class="last-update">Last update: 1/14/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://github.com/Felix3322/IXLAutoAnswer_OpenAI_API_Requid" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://github.com/Felix3322/IXLAutoAnswer_OpenAI_API_Requid')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Tampermonkey</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- MRET -->
+        <article class="exec-card" data-platform="MRET" data-games="DeltaMath IXL" data-methods="Web-based Bookmarklet" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="3">
+            <div class="top-row">
+                <h2 class="exec-name">MRET</h2>
+                <button class="detail-btn" onclick="openDetail('MRET', 'The best free IXL cheat available — also works on DeltaMath. Web-based and bookmarklet methods.', 'Free', 'Web-based, Bookmarklet', 'Undetected', 'Online', '8/17/2026', 'https://mret.northstreetumc.org/-/', 'https://discord.gg/BE2qA9vGhT')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v3</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/17/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://mret.northstreetumc.org/-/" target="_blank">WEBSITE</a>
+                    <a href="https://discord.gg/BE2qA9vGhT" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                    <span class="method">Bookmarklet</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- ExamRipper -->
+        <article class="exec-card" data-platform="ExamRipper" data-games="Apex Learning IXL Google Forms Edpuzzle Quizizz Kahoot Blooket" data-methods="Chrome Extension Web-based" data-price="Paid" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="23.5.0">
+            <div class="top-row">
+                <h2 class="exec-name">ExamRipper</h2>
+                <button class="detail-btn" onclick="openDetail('ExamRipper', 'ExamRipper is currently the #1 cheating tool for IXL, google forms, and more. However, with the enormous price tag it might be worth it just to do the assignments yourself.', 'Paid', 'Chrome Extension, Web-based', 'Undetected', 'Online', '8/17/2026', 'https://examripper.com', 'https://discord.com/invite/examripper')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v23.5.0</span>
+                    <span class="badge badge-price">$24/mo</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/17/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://examripper.com" target="_blank">WEBSITE</a>
+                    <a href="https://discord.com/invite/examripper" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Chrome Extension</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- CheatNetwork -->
+        <article class="exec-card" data-platform="CheatNetwork" data-games="Wayground Kahoot Blooket Edmentum Apex Learning Quizlet Edpuzzle Gimkit Edulastic Pear Deck Liveworksheets Education Perfect Nearpod Wordwall Learning Apps" data-methods="Web-based" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="3000">
+            <div class="top-row">
+                <h2 class="exec-name">CheatNetwork</h2>
+                <button class="detail-btn" onclick="openDetail('CheatNetwork', 'One of the best all-in-one cheating sites available. Focused on giving you the correct answers across 15+ platforms — free with a premium option for more features.', 'Free or $9/mo', 'Web-based', 'Undetected', 'Online', '8/18/2026', 'https://cheatnetwork.eu', 'https://discord.gg/VAkQdGBntT')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v3000</span>
+                    <span class="badge badge-price purple">Free or $9/mo</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/18/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://cheatnetwork.eu" target="_blank">WEBSITE</a>
+                    <a href="https://discord.gg/VAkQdGBntT" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Borang -->
+        <article class="exec-card" data-platform="Borang" data-games="Google Forms" data-methods="Chrome Extension" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="5.3.6">
+            <div class="top-row">
+                <h2 class="exec-name">Borang</h2>
+                <button class="detail-btn" onclick="openDetail('Borang', 'A Chrome extension that spams Google Forms with automatic responses. Useful for testing, flooding, or just messing around — slightly more useful than a regular flooder. Free with premium options.', 'Free or $7/mo', 'Chrome Extension', 'Undetected', 'Online', 'Unknown', 'https://borang.skrin.xyz', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v5.3.6</span>
+                    <span class="badge badge-price purple">Free or $7/mo</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: Unknown</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://borang.skrin.xyz" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://borang.skrin.xyz')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Chrome Extension</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Floodia -->
+        <article class="exec-card" data-platform="Floodia" data-games="Gimkit" data-methods="External" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="2">
+            <div class="top-row">
+                <h2 class="exec-name">Floodia</h2>
+                <button class="detail-btn" onclick="openDetail('Floodia', 'An external Gimkit spammer — download and run locally. Simple, free, and effective for flooding Gimkit games. No Discord, just a solid tool.', 'Free', 'External', 'Undetected', 'Online', 'Unknown', 'https://github.com/empxthetics/Floodia', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v2</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: Unknown</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://github.com/empxthetics/Floodia" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://github.com/empxthetics/Floodia')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">External</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Kahoot-Bot -->
+        <article class="exec-card" data-platform="Kahoot-Bot" data-games="Kahoot" data-methods="Web-based" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="1.0">
+            <div class="top-row">
+                <h2 class="exec-name">Kahoot-Bot</h2>
+                <button class="detail-btn" onclick="openDetail('Kahoot-Bot', 'A free web-based bot for Kahoot. Automatically joins games and answers questions. Simple, effective, and undetected.', 'Free', 'Web-based', 'Undetected', 'Online', '5/2/2026', 'https://kahoot-bot.net', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 5/2/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://kahoot-bot.net" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://kahoot-bot.net')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Natural Typist -->
+        <article class="exec-card" data-platform="Natural Typist" data-games="Google Docs" data-methods="Chrome Extension" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="Unknown">
+            <div class="top-row">
+                <h2 class="exec-name">Natural Typist</h2>
+                <button class="detail-btn" onclick="openDetail('Natural Typist', 'The best free tool for avoiding copy and paste checks. Currently only works on Google Docs.', 'Free', 'Chrome Extension', 'Undetected', 'Online', '1/3/2026', 'https://www.naturaltypist.com', 'https://discord.com/invite/SZdHy8FaCs')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">Unknown</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 1/3/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://www.naturaltypist.com" target="_blank">WEBSITE</a>
+                    <a href="https://discord.com/invite/SZdHy8FaCs" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Chrome Extension</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- ===== AI ===== -->
+        <div class="section-header" data-section="ai">💬 AI</div>
+
+        <!-- Gemini -->
+        <article class="exec-card" data-platform="Gemini" data-games="" data-methods="Web-based" data-price="Free" data-type="AI" data-detection="Undetected" data-status="Online" data-version="1.5">
+            <div class="top-row">
+                <h2 class="exec-name">Gemini</h2>
+                <button class="detail-btn" onclick="openDetail('Gemini', 'Google\'s AI assistant — great for research, writing, and homework help. Often unblocked in schools where ChatGPT is blocked.', 'Free', 'Web-based', 'Undetected', 'Online', '8/28/2026', 'https://gemini.google.com', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.5</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/28/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showAITools(this)">TOOLS</button>
+                    <a href="https://gemini.google.com" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://gemini.google.com')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Perplexity AI -->
+        <article class="exec-card offline" data-platform="Perplexity AI" data-games="" data-methods="Web-based" data-price="Free" data-type="AI" data-detection="Detected" data-status="Offline" data-version="1.0">
+            <div class="top-row">
+                <h2 class="exec-name">Perplexity AI</h2>
+                <button class="detail-btn" onclick="openDetail('Perplexity AI', 'An AI search engine that provides cited answers. Used to be unblocked, but is now blocked in about 75% of schools. Might still work on some networks.', 'Free', 'Web-based', 'Detected', 'Offline', '8/28/2026', 'https://perplexity.ai', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status offline"><span class="status-square">█</span>OFFLINE</div>
+                <div class="last-update">Last update: 8/28/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showAITools(this)">TOOLS</button>
+                    <a href="https://perplexity.ai" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://perplexity.ai')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- EaseMate AI -->
+        <article class="exec-card" data-platform="EaseMate AI" data-games="" data-methods="Web-based" data-price="Free" data-type="AI" data-detection="Undetected" data-status="Online" data-version="v3">
+            <div class="top-row">
+                <h2 class="exec-name">EaseMate AI</h2>
+                <button class="detail-btn" onclick="openDetail('EaseMate AI', 'The best unblocked AI assistant for students. Hosts multiple AI models in one place — ChatGPT, Claude, and more. Perfect for schools where other AIs are blocked.', 'Free or $9/mo', 'Web-based', 'Undetected', 'Online', '6/12/2026', 'https://easemate.ai/webapp/chat', 'https://discord.com/invite/74cqS36UFZ')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v3</span>
+                    <span class="badge badge-price purple">Free or $9/mo</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 6/12/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showAITools(this)">TOOLS</button>
+                    <a href="https://easemate.ai/webapp/chat" target="_blank">WEBSITE</a>
+                    <a href="https://discord.com/invite/74cqS36UFZ" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Merlin AI -->
+        <article class="exec-card" data-platform="Merlin AI" data-games="" data-methods="Web-based" data-price="Free" data-type="AI" data-detection="Undetected" data-status="Online" data-version="Unknown">
+            <div class="top-row">
+                <h2 class="exec-name">Merlin AI</h2>
+                <button class="detail-btn" onclick="openDetail('Merlin AI', 'Probably the best unblocked AI out there. Sadly you only get 30 free credits. You can extend this by using tempmail which will bypass this limit completely (as long as you rotate emails).', 'Free or $19/mo', 'Web-based', 'Undetected', 'Online', '8/28/2026', 'https://getmerlin.in', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">Unknown</span>
+                    <span class="badge badge-price purple">Free or $19/mo</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/28/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showAITools(this)">TOOLS</button>
+                    <a href="https://getmerlin.in" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://getmerlin.in')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Hugging Face -->
+        <article class="exec-card" data-platform="Hugging Face" data-games="" data-methods="Web-based" data-price="Free" data-type="AI" data-detection="Undetected" data-status="Online" data-version="1.0">
+            <div class="top-row">
+                <h2 class="exec-name">Hugging Face</h2>
+                <button class="detail-btn" onclick="openDetail('Hugging Face', 'An open-source AI chatbot that\'s often unblocked in schools. Free, private, and runs multiple open-source models — great alternative when ChatGPT is blocked.', 'Free', 'Web-based', 'Undetected', 'Online', '8/28/2026', 'https://huggingface.co/chat', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/28/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showAITools(this)">TOOLS</button>
+                    <a href="https://huggingface.co/chat" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://huggingface.co/chat')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- QuillBot -->
+        <article class="exec-card" data-platform="QuillBot" data-games="" data-methods="Web-based" data-price="Free" data-type="AI" data-detection="Undetected" data-status="Online" data-version="1.0">
+            <div class="top-row">
+                <h2 class="exec-name">QuillBot</h2>
+                <button class="detail-btn" onclick="openDetail('QuillBot', 'AI-powered paraphrasing, grammar checking, and summarization tool. Essential for essay writing, rewriting, and improving your writing — free with premium options.', 'Free or $20/mo', 'Web-based', 'Undetected', 'Online', '7/25/2026', 'https://quillbot.com', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0</span>
+                    <span class="badge badge-price purple">Free or $20/mo</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 7/25/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showAITools(this)">TOOLS</button>
+                    <a href="https://quillbot.com" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://quillbot.com')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Clever AI Humanizer -->
+        <article class="exec-card" data-platform="Clever AI Humanizer" data-games="" data-methods="Web-based" data-price="Free" data-type="AI" data-detection="Undetected" data-status="Online" data-version="v3">
+            <div class="top-row">
+                <h2 class="exec-name">Clever AI Humanizer</h2>
+                <button class="detail-btn" onclick="openDetail('Clever AI Humanizer', 'The #1 free AI humanizer tool. It\'s not the best, but is great for a completely free tool — helps make AI-generated text sound more natural.', 'Free', 'Web-based', 'Undetected', 'Online', 'Unknown', 'https://cleverhumanizer.ai', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v3</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: Unknown</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showAITools(this)">TOOLS</button>
+                    <a href="https://cleverhumanizer.ai" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://cleverhumanizer.ai')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- ===== PROXIES ===== -->
+        <div class="section-header" data-section="proxies">🌐 Proxies</div>
+
+        <!-- WolfUnblock -->
+        <article class="exec-card" data-platform="WolfUnblock" data-games="" data-methods="Web-based" data-price="Free" data-type="Proxies" data-detection="Unknown" data-status="Online" data-version="2">
+            <div class="top-row">
+                <h2 class="exec-name">WolfUnblock</h2>
+                <button class="detail-btn" onclick="openDetail('WolfUnblock', 'A Google Sites page with 20+ working proxy links for school Chromebooks. Bypasses most school filters including GoGuardian, Securly, and Lightspeed.', 'Free', 'Web-based', 'Unknown', 'Online', '8/28/2026', 'https://sites.google.com/view/wolfunblock/unblocker-archive/20-proxy-links-for-school-chromebooks', 'https://discord.com/invite/KcdS8NjrZ4')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v2</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/28/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showGames(this)">PROXIES</button>
+                    <a href="https://sites.google.com/view/wolfunblock/unblocker-archive/20-proxy-links-for-school-chromebooks" target="_blank">WEBSITE</a>
+                    <a href="https://discord.com/invite/KcdS8NjrZ4" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Space Proxy -->
+        <article class="exec-card offline" data-platform="Space Proxy" data-games="" data-methods="Web-based" data-price="Free" data-type="Proxies" data-detection="Detected" data-status="Offline" data-version="1.0">
+            <div class="top-row">
+                <h2 class="exec-name">Space Proxy</h2>
+                <button class="detail-btn" onclick="openDetail('Space Proxy', 'Currently offline and detected. If you find a working link, please submit it on our GitHub or let us know in the Discord — we\'ll update it ASAP.', 'Free', 'Web-based', 'Detected', 'Offline', '7/31/2026', 'https://gointospace.app', 'https://discord.com/invite/2xtRtawncs')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status offline"><span class="status-square">█</span>OFFLINE</div>
+                <div class="last-update">Last update: 7/31/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showGames(this)">PROXIES</button>
+                    <a href="https://gointospace.app" target="_blank">WEBSITE</a>
+                    <a href="https://discord.com/invite/2xtRtawncs" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Kazwire -->
+        <article class="exec-card" data-platform="Kazwire" data-games="" data-methods="Web-based" data-price="Free" data-type="Proxies" data-detection="Unknown" data-status="Online" data-version="9.0.0">
+            <div class="top-row">
+                <h2 class="exec-name">Kazwire</h2>
+                <button class="detail-btn" onclick="openDetail('Kazwire', 'A secure and extremely fast proxy that routes traffic through its own servers. However, like all proxies, the challenge is finding a working link. Check their Discord for updates.', 'Free', 'Web-based', 'Unknown', 'Online', '8/10/2026', 'https://kazwire.com', 'https://joinkaz.com')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v9.0.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/10/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showGames(this)">PROXIES</button>
+                    <a href="https://kazwire.com" target="_blank">WEBSITE</a>
+                    <a href="https://joinkaz.com" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Truffled -->
+        <article class="exec-card" data-platform="Truffled" data-games="" data-methods="Web-based" data-price="Free" data-type="Proxies" data-detection="Unknown" data-status="Online" data-version="2">
+            <div class="top-row">
+                <h2 class="exec-name">Truffled</h2>
+                <button class="detail-btn" onclick="openDetail('Truffled', 'A secure and extremely fast proxy that unblocks DuckDuckGo. However, like all proxies, the challenge is finding a working link. Check their Discord for updates.', 'Free', 'Web-based', 'Unknown', 'Online', 'Unknown', 'https://truffled.lol', 'https://discord.gg/truffled')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v2</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: Unknown</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showGames(this)">PROXIES</button>
+                    <a href="https://truffled.lol" target="_blank">WEBSITE</a>
+                    <a href="https://discord.gg/truffled" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Darkness -->
+        <article class="exec-card" data-platform="Darkness" data-games="" data-methods="Web-based" data-price="Risky" data-type="Proxies" data-detection="Undetected" data-status="Online" data-version="hub">
+            <div class="top-row">
+                <h2 class="exec-name">Darkness</h2>
+                <button class="detail-btn" onclick="openDetail('Darkness', 'Currently undetected by most filters. However, it is not of great quality and searching takes a long time. The free version may contain malicious pop-ups — but if you don\'t click them, you should be fine. Use at your own risk.', 'Risky', 'Web-based', 'Undetected', 'Online', 'Unknown', 'https://darkness-site.vercel.app', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">hub</span>
+                    <span class="badge badge-price risky">Risky</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: Unknown</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showGames(this)">PROXIES</button>
+                    <a href="https://darkness-site.vercel.app" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://darkness-site.vercel.app')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Cheesy Proxy -->
+        <article class="exec-card" data-platform="Cheesy" data-games="" data-methods="Web-based" data-price="Free" data-type="Proxies" data-detection="Unknown" data-status="Online" data-version="3">
+            <div class="top-row">
+                <h2 class="exec-name">Cheesy Proxy</h2>
+                <button class="detail-btn" onclick="openDetail('Cheesy Proxy', 'A kind of slow proxy that unblocks DuckDuckGo. Depending on your school it may not be unblocked — not usually a go-to, but worth trying if others fail.', 'Free', 'Web-based', 'Unknown', 'Online', '5/2/2026', 'https://cheesy.vip', 'https://discord.com/invite/GFGD9kfMmp')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v3</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 5/2/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showGames(this)">PROXIES</button>
+                    <a href="https://cheesy.vip" target="_blank">WEBSITE</a>
+                    <a href="https://discord.com/invite/GFGD9kfMmp" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Free Proxy List -->
+        <article class="exec-card" data-platform="Free Proxy List" data-games="" data-methods="Web-based" data-price="Free" data-type="Proxies" data-detection="Unknown" data-status="Online" data-version="1.0">
+            <div class="top-row">
+                <h2 class="exec-name">Free Proxy List</h2>
+                <button class="detail-btn" onclick="openDetail('Free Proxy List', 'A directory of working web proxies for school Chromebooks. Constantly updated with fresh proxy links — if one gets blocked, try another from the list.', 'Free', 'Web-based', 'Unknown', 'Online', '8/28/2026', 'https://free-proxy-list.net/en/web-proxy.html#list', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/28/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showGames(this)">PROXIES</button>
+                    <a href="https://free-proxy-list.net/en/web-proxy.html#list" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://free-proxy-list.net/en/web-proxy.html#list')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Proxy-Site.net -->
+        <article class="exec-card" data-platform="Proxy-Site.net" data-games="" data-methods="Web-based" data-price="Free" data-type="Proxies" data-detection="Unknown" data-status="Online" data-version="1.0">
+            <div class="top-row">
+                <h2 class="exec-name">Proxy-Site.net</h2>
+                <button class="detail-btn" onclick="openDetail('Proxy-Site.net', 'A hub of working proxy links for school Chromebooks. Simple list of proxies that you can try — if one fails, move to the next.', 'Free', 'Web-based', 'Unknown', 'Online', '8/28/2026', 'https://proxy-site.net', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/28/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showGames(this)">PROXIES</button>
+                    <a href="https://proxy-site.net" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://proxy-site.net')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- ===== OTHER ===== -->
+        <div class="section-header" data-section="other">📦 Other</div>
+
+        <!-- FMHY -->
+        <article class="exec-card" data-platform="FMHY" data-games="" data-methods="Web-based" data-price="Free" data-type="Other" data-detection="Undetected" data-status="Online" data-version="1.0.0">
+            <div class="top-row">
+                <h2 class="exec-name">FMHY</h2>
+                <button class="detail-btn" onclick="openDetail('FMHY', 'A directory of free media resources including movies, TV shows, books, software, games, and anime', 'Free', 'Web-based', 'Undetected', 'Online', '8/27/2026', 'https://fmhy.net', 'https://discord.com/invite/RMsEmcX6rm')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/27/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showServices(this)">SERVICES</button>
+                    <a href="https://fmhy.net" target="_blank">WEBSITE</a>
+                    <a href="https://discord.com/invite/RMsEmcX6rm" target="_blank">DISCORD</a>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Temp-Mail -->
+        <article class="exec-card" data-platform="Temp-Mail" data-games="" data-methods="Web-based" data-price="Free" data-type="Other" data-detection="Undetected" data-status="Online" data-version="1.0">
+            <div class="top-row">
+                <h2 class="exec-name">Temp-Mail</h2>
+                <button class="detail-btn" onclick="openDetail('Temp-Mail', 'A temporary email service that lets you bypass registration limits. Perfect for getting unlimited free trials, verifying accounts, and avoiding spam — works great with Merlin AI and other freemium tools.', 'Free', 'Web-based', 'Undetected', 'Online', '8/28/2026', 'https://temp-mail.org', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/28/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showServices(this)">SERVICES</button>
+                    <a href="https://temp-mail.org" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://temp-mail.org')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- X-VPN -->
+        <article class="exec-card" data-platform="X-VPN" data-games="" data-methods="Web-based" data-price="Free" data-type="Other" data-detection="Undetected" data-status="Online" data-version="30.2.1_ca">
+            <div class="top-row">
+                <h2 class="exec-name">X-VPN</h2>
+                <button class="detail-btn" onclick="openDetail('X-VPN', 'The best possible VPN for school overall. Extremely fast with no data caps, however, compared to other VPNs it has one of the worst data storing policies for the free tier.', 'Free', 'Web-based', 'Undetected', 'Online', '8/25/2026', 'https://xvpn.io', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">30.2.1_ca</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/25/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showServices(this)">SERVICES</button>
+                    <a href="https://xvpn.io" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://xvpn.io')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Image to Text -->
+        <article class="exec-card" data-platform="Image to Text" data-games="" data-methods="Web-based" data-price="Free" data-type="Other" data-detection="Unknown" data-status="Online" data-version="2">
+            <div class="top-row">
+                <h2 class="exec-name">Image to Text</h2>
+                <button class="detail-btn" onclick="openDetail('Image to Text', 'Just convert images to text. Helpful for taking a picture of your homework and extracting the text. Most AIs can do this as well, but this is a simple dedicated tool.', 'Free', 'Web-based', 'Unknown', 'Online', 'Unknown', 'https://www.imagetotext.info', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v2</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: Unknown</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showServices(this)">SERVICES</button>
+                    <a href="https://www.imagetotext.info" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://www.imagetotext.info')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- Grammarly -->
+        <article class="exec-card" data-platform="Grammarly" data-games="" data-methods="Web-based" data-price="Free" data-type="Other" data-detection="Undetected" data-status="Online" data-version="1.0">
+            <div class="top-row">
+                <h2 class="exec-name">Grammarly</h2>
+                <button class="detail-btn" onclick="openDetail('Grammarly', 'AI-powered writing assistant for grammar checking, spelling correction, and style improvements. Essential for essays, assignments, and emails — free with premium options.', 'Free or $12/mo', 'Web-based', 'Undetected', 'Online', '8/28/2026', 'https://grammarly.com', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0</span>
+                    <span class="badge badge-price purple">Free or $12/mo</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/28/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showServices(this)">SERVICES</button>
+                    <a href="https://grammarly.com" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://grammarly.com')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Web-based</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <!-- uBlock Origin -->
+        <article class="exec-card" data-platform="uBlock Origin" data-games="" data-methods="Chrome Extension" data-price="Free" data-type="Other" data-detection="Unknown" data-status="Online" data-version="1.61.2">
+            <div class="top-row">
+                <h2 class="exec-name">uBlock Origin</h2>
+                <button class="detail-btn" onclick="openDetail('uBlock Origin', 'A powerful ad blocker and privacy tool. Blocks ads, trackers, and malicious content — makes browsing faster and safer. Essential for avoiding sketchy ads on cheat sites.', 'Free', 'Chrome Extension', 'Unknown', 'Online', '8/28/2026', 'https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.61.2</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 8/28/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showServices(this)">SERVICES</button>
+                    <a href="https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Chrome Extension</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+    </section>
+
+    <div id="noResults" class="no-results">
+        No results found.
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="name">whatcheatsareonline<span style="color: #555b5d;">.qd.je</span></div>
+                <div class="tagline">The community-driven directory of cheats and tools.</div>
+                <div class="copyright">© 2026 WCAO. Built by students, for students.</div>
+            </div>
+            <div class="footer-col">
+                <div class="label">Site</div>
+                <a href="/status">Status</a>
+                <a href="/docs">Docs</a>
+            </div>
+            <div class="footer-col">
+                <div class="label">Legal</div>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+            </div>
+            <div class="footer-col">
+                <div class="label">Connect</div>
+                <a href="#" target="_blank">Discord</a>
+                <a href="#" target="_blank">Email</a>
+            </div>
+            <div class="footer-col">
+                <div class="label">Feedback</div>
+                <a href="#" class="feedback-link" target="_blank">Share your experience →</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 WCAO. All rights reserved.
+        </div>
+    </footer>
+
+</main>
+
+<!-- Detail Popup -->
+<div id="detailOverlay" class="detail-overlay">
+    <div class="detail-popup">
+        <button class="btn-close-popup" onclick="closeDetail()">&times;</button>
+        <h2 class="detail-title" id="detailName">X-Network</h2>
+        <div class="detail-sub" id="detailDesc">The best free Blooket hack — also works on Kahoot and Prodigy.</div>
+        <div class="detail-meta" id="detailMeta">
+            <div class="detail-meta-item"><span class="key">Price</span><span class="val" id="detailPrice">Free</span></div>
+            <div class="detail-meta-item"><span class="key">Method</span><span class="val" id="detailMethod">Bookmarklet, Inspect, Web-based</span></div>
+            <div class="detail-meta-item"><span class="key">Detection</span><span class="val" id="detailDetection">Undetected</span></div>
+            <div class="detail-meta-item"><span class="key">Status</span><span class="val" id="detailStatus">Online</span></div>
+            <div class="detail-meta-item"><span class="key">Last Updated</span><span class="val" id="detailUpdated">8/24/2026</span></div>
+        </div>
+        <div class="detail-actions">
+            <a href="#" id="detailWebsite" target="_blank">Website</a>
+            <a href="#" id="detailDiscord" target="_blank">Discord</a>
+        </div>
+    </div>
+</div>
+
+<!-- Terms Modal -->
+<div id="termsModal" class="modal-overlay">
+    <div class="modal">
+        <button class="btn-close" id="closeTermsModal">&times;</button>
+
+        <div class="modal-header">
+            <h2>Terms of Use</h2>
+        </div>
+
+        <div class="terms-text">
+            <p><strong>1. Acceptance of Terms</strong><br>
+            By using this site, you agree to these terms. If you don't agree, don't use the site.</p>
+
+            <p><strong>2. Content Usage</strong><br>
+            All content on this site is provided for educational and informational purposes only. You may use, share, and modify the content, but you <strong>must</strong> include a clear attribution stating that it was forked from <strong>whatcheatsareonline.qd.je</strong> or derived from this project. This applies to any code, design, or information you take from this site.</p>
+
+            <p><strong>3. Contributions</strong><br>
+            If you contribute to this project (by submitting cheats, tools, or code), you agree that your contributions may be used, modified, and shared under the same terms. You also agree to give proper credit to the original source.</p>
+
+            <p><strong>4. No Warranty</strong><br>
+            This site is provided "as is" without any warranties. We are not responsible for any consequences of using the tools or information found here.</p>
+
+            <p><strong>5. Changes to Terms</strong><br>
+            We may update these terms at any time. Continued use of the site means you accept the updated terms.</p>
+
+            <p><strong>6. Contact</strong><br>
+            If you have questions, reach out on our Discord or email us at the address provided in the footer.</p>
+
+            <p style="color: var(--muted-2); font-size: 12px; margin-top: 12px;">Last updated: August 27, 2026</p>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Modal -->
+<div id="filterModal" class="modal-overlay">
+    <div class="modal">
+        <button class="btn-close" id="closeModal">&times;</button>
+
+        <div class="modal-header">
+            <h2>Filters</h2>
+            <button class="clear-all" id="clearAll">Clear All</button>
+        </div>
+
+        <div class="filter-section">
+            <span class="label">Pricing</span>
+            <div class="filter-options" id="pricingOptions">
+                <label><input type="checkbox" value="Free"> Free</label>
+                <label><input type="checkbox" value="Paid"> Paid</label>
+                <label><input type="checkbox" value="API-key"> API-key</label>
+                <label><input type="checkbox" value="Free or $7/mo"> Free or $7/mo</label>
+                <label><input type="checkbox" value="Free or $9/mo"> Free or $9/mo</label>
+                <label><input type="checkbox" value="Free or $12/mo"> Free or $12/mo</label>
+                <label><input type="checkbox" value="Free or $19/mo"> Free or $19/mo</label>
+                <label><input type="checkbox" value="Free or $20/mo"> Free or $20/mo</label>
+                <label><input type="checkbox" value="Risky"> Risky</label>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <span class="label">Type</span>
+            <div class="filter-options" id="typeOptions">
+                <label><input type="checkbox" value="Cheats"> Cheats</label>
+                <label><input type="checkbox" value="AI"> AI</label>
+                <label><input type="checkbox" value="Proxies"> Proxies</label>
+                <label><input type="checkbox" value="Other"> Other</label>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <span class="label">Execution Method</span>
+            <div class="filter-options" id="methodOptions">
+                <label><input type="checkbox" value="Bookmarklet"> Bookmarklet</label>
+                <label><input type="checkbox" value="Web-based"> Web-based</label>
+                <label><input type="checkbox" value="Inspect"> Inspect</label>
+                <label><input type="checkbox" value="Tampermonkey"> Tampermonkey</label>
+                <label><input type="checkbox" value="Chrome Extension"> Chrome Extension</label>
+                <label><input type="checkbox" value="External"> External</label>
+                <label><input type="checkbox" value="Code"> Code</label>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <span class="label">Detection</span>
+            <div class="filter-options" id="detectionOptions">
+                <label><input type="checkbox" value="Undetected"> Undetected</label>
+                <label><input type="checkbox" value="Detected"> Detected</label>
+                <label><input type="checkbox" value="Unknown"> Unknown</label>
+                <label><input type="checkbox" value="File"> File</label>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <span class="label">Status</span>
+            <div class="filter-options" id="statusOptions">
+                <label><input type="checkbox" value="Online"> Online</label>
+                <label><input type="checkbox" value="Offline"> Offline</label>
+                <label><input type="checkbox" value="Unknown"> Unknown</label>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn-apply" id="applyFilter">Apply Filters</button>
+            <button class="btn-reset" id="resetFilter">Reset</button>
+        </div>
+    </div>
+</div>
+
+<!-- About Modal -->
+<div id="aboutModal" class="modal-overlay">
+    <div class="modal">
+        <button class="btn-close" id="closeAboutModal">&times;</button>
+
+        <div class="modal-header">
+            <h2>About</h2>
+        </div>
+
+        <p class="about-text">
+            This site was built because school tools shouldn't be hard to find. We're a small group of students who got tired of digging through sketchy forums and dead links just to find something that actually works.
+        </p>
+        <p class="about-text">
+            Everything here is community-driven — students submit what works, we verify it, and it goes up. No ads, no paywalls, no bullshit.
+        </p>
+        <p class="about-text">
+            If you want to contribute, you can open a pull request on our <a href="https://github.com/HipeopleH/whatcheatsare.online" target="_blank">GitHub repository</a> and <strong>leave a star</strong> if you find it helpful.
+        </p>
+    </div>
+</div>
+
+<script>
+    const search = document.getElementById("search");
+    const filterBtn = document.getElementById("filterBtn");
+    const filterModal = document.getElementById("filterModal");
+    const closeModal = document.getElementById("closeModal");
+    const applyFilter = document.getElementById("applyFilter");
+    const resetFilter = document.getElementById("resetFilter");
+    const clearAll = document.getElementById("clearAll");
+    const filterBadge = document.getElementById("filterBadge");
+    const noResults = document.getElementById("noResults");
+    const aboutBtn = document.getElementById("aboutBtn");
+    const aboutModal = document.getElementById("aboutModal");
+    const closeAboutModal = document.getElementById("closeAboutModal");
+    const detailOverlay = document.getElementById("detailOverlay");
+    const termsModal = document.getElementById("termsModal");
+    const closeTermsModal = document.getElementById("closeTermsModal");
+
+    function openTerms() {
+        termsModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeTerms() {
+        termsModal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    closeTermsModal.addEventListener('click', closeTerms);
+    termsModal.addEventListener('click', function(e) {
+        if (e.target === this) closeTerms();
+    });
+
+    function openDetail(name, desc, price, method, detection, status, updated, website, discord) {
+        document.getElementById('detailName').textContent = name;
+        document.getElementById('detailDesc').textContent = desc;
+        document.getElementById('detailPrice').textContent = price;
+        document.getElementById('detailMethod').textContent = method;
+        document.getElementById('detailDetection').textContent = detection;
+        document.getElementById('detailStatus').textContent = status;
+        document.getElementById('detailStatus').style.color = status === 'Online' ? 'var(--green)' : 'var(--red)';
+        document.getElementById('detailUpdated').textContent = updated;
+
+        const websiteLink = document.getElementById('detailWebsite');
+        websiteLink.href = website || '#';
+
+        const discordLink = document.getElementById('detailDiscord');
+        if (discord && discord !== '') {
+            discordLink.href = discord;
+            discordLink.target = '_blank';
+            discordLink.onclick = null;
+            discordLink.style.cursor = 'pointer';
+        } else {
+            discordLink.href = 'javascript:void(0)';
+            discordLink.target = '';
+            discordLink.style.cursor = 'pointer';
+            discordLink.onclick = function(e) {
+                e.preventDefault();
+                noDiscordPopup(website || '#');
+            };
+        }
+
+        detailOverlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDetail() {
+        detailOverlay.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    detailOverlay.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeDetail();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (detailOverlay.classList.contains('show')) closeDetail();
+            if (termsModal.classList.contains('show')) closeTerms();
+            if (filterModal.classList.contains('show')) filterModal.classList.remove('show');
+            if (aboutModal.classList.contains('show')) aboutModal.classList.remove('show');
+        }
+    });
+
+    function noDiscordPopup(websiteUrl) {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.2s ease;
+        `;
+
+        const popup = document.createElement('div');
+        popup.style.cssText = `
+            background: #23282b;
+            border: 1px solid #333a3d;
+            border-radius: 12px;
+            padding: 32px 36px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: fadeIn 0.2s ease;
+        `;
+
+        popup.innerHTML = `
+            <h3 style="margin: 0 0 8px 0; color: #e7e9e9; font-size: 18px;">No Discord Available</h3>
+            <p style="color: #888f91; font-size: 14px; margin: 0 0 20px 0; line-height: 1.5;">
+                This tool doesn't have a Discord server.<br>
+                Would you like to visit the website instead?
+            </p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button onclick="this.closest('body').querySelector('[style*=\\'position: fixed;\\']')?.remove() || this.closest('[style*=\\'position: fixed;\\']')?.remove()" style="
+                    padding: 8px 24px;
+                    background: #1d2223;
+                    border: 1px solid #333a3d;
+                    border-radius: 6px;
+                    color: #888f91;
+                    font-size: 13px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: 0.12s;
+                " onmouseover="this.style.background='#272c2e'; this.style.color='#ddd';" onmouseout="this.style.background='#1d2223'; this.style.color='#888f91';">Cancel</button>
+                <a href="${websiteUrl}" target="_blank" style="
+                    padding: 8px 24px;
+                    background: #4a7cf7;
+                    border: none;
+                    border-radius: 6px;
+                    color: #fff;
+                    font-size: 13px;
+                    font-weight: 600;
+                    text-decoration: none;
+                    cursor: pointer;
+                    transition: 0.12s;
+                " onmouseover="this.style.opacity='0.85';" onmouseout="this.style.opacity='1';">Visit Website →</a>
+            </div>
+        `;
+
+        overlay.appendChild(popup);
+        document.body.appendChild(overlay);
+
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.remove();
+            }
+        });
+
+        const escHandler = function(e) {
+            if (e.key === 'Escape') {
+                overlay.remove();
+                document.removeEventListener('keydown', escHandler);
+            }
+        };
+        document.addEventListener('keydown', escHandler);
+    }
+
+    function showCheats(button) {
+        const card = button.closest('.exec-card');
+        const name = card.querySelector('.exec-name').textContent;
+        const cheats = card.dataset.games ? card.dataset.games.split(' ') : ['No cheats listed'];
+        alert(`Cheats available for ${name}:\n\n${cheats.join('\n')}`);
+    }
+
+    function showGames(button) {
+        const card = button.closest('.exec-card');
+        const name = card.querySelector('.exec-name').textContent;
+        const games = card.dataset.games ? card.dataset.games.split(' ') : ['No games listed'];
+        alert(`Games available for ${name}:\n\n${games.join('\n')}`);
+    }
+
+    function showAITools(button) {
+        const card = button.closest('.exec-card');
+        const name = card.querySelector('.exec-name').textContent;
+        alert(`AI tools available for ${name}:\n\nEssay writing, coding help, research, and more.`);
+    }
+
+    function showServices(button) {
+        const card = button.closest('.exec-card');
+        const name = card.querySelector('.exec-name').textContent;
+        const services = {
+            'FMHY': ['Movies', 'TV Shows', 'Books', 'Software', 'Games', 'Anime'],
+        };
+        const items = services[name] || ['No services listed'];
+        alert(`Services offered by ${name}:\n\n${items.join('\n')}`);
+    }
+
+    function getActiveFilters() {
+        const pricing = [...document.querySelectorAll('#pricingOptions input:checked')].map(cb => cb.value);
+        const types = [...document.querySelectorAll('#typeOptions input:checked')].map(cb => cb.value);
+        const methods = [...document.querySelectorAll('#methodOptions input:checked')].map(cb => cb.value);
+        const detection = [...document.querySelectorAll('#detectionOptions input:checked')].map(cb => cb.value);
+        const statuses = [...document.querySelectorAll('#statusOptions input:checked')].map(cb => cb.value);
+        return { pricing, types, methods, detection, statuses };
+    }
+
+    function updateBadge() {
+        const filters = getActiveFilters();
+        const activeCount = filters.pricing.length + filters.types.length + filters.methods.length + filters.detection.length + filters.statuses.length;
+
+        if (activeCount > 0) {
+            filterBadge.style.display = "inline";
+            filterBadge.textContent = activeCount;
+        } else {
+            filterBadge.style.display = "none";
+        }
+    }
+
+    function filterCards() {
+        const searchText = search.value.toLowerCase().trim();
+        const filters = getActiveFilters();
+        const cards = document.querySelectorAll(".exec-card");
+        const sectionHeaders = document.querySelectorAll(".section-header");
+
+        const hasActiveFilters = filters.pricing.length > 0 || filters.types.length > 0 || filters.methods.length > 0 || filters.detection.length > 0 || filters.statuses.length > 0;
+
+        let visibleCards = 0;
+
+        cards.forEach(card => {
+            const cardText = card.innerText.toLowerCase();
+            const games = card.dataset.games?.toLowerCase() || '';
+            const methods = card.dataset.methods || '';
+            const price = card.dataset.price || '';
+            const type = card.dataset.type || '';
+            const detection = card.dataset.detection || '';
+            const status = card.dataset.status || '';
+
+            const matchesSearch = cardText.includes(searchText) || games.includes(searchText);
+
+            let matchesPricing = true;
+            let matchesType = true;
+            let matchesMethod = true;
+            let matchesDetection = true;
+            let matchesStatus = true;
+
+            if (hasActiveFilters) {
+                matchesPricing = filters.pricing.length === 0 || filters.pricing.includes(price);
+                matchesType = filters.types.length === 0 || filters.types.includes(type);
+                matchesMethod = filters.methods.length === 0 || filters.methods.some(m => methods.includes(m));
+                matchesDetection = filters.detection.length === 0 || filters.detection.includes(detection);
+                matchesStatus = filters.statuses.length === 0 || filters.statuses.includes(status);
+            }
+
+            if (matchesSearch && matchesPricing && matchesType && matchesMethod && matchesDetection && matchesStatus) {
+                card.style.display = "";
+                visibleCards++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        sectionHeaders.forEach(header => {
+            let hasVisibleCard = false;
+            let nextElement = header.nextElementSibling;
+            while (nextElement && !nextElement.classList.contains('section-header')) {
+                if (nextElement.classList.contains('exec-card') && nextElement.style.display !== 'none') {
+                    hasVisibleCard = true;
+                    break;
+                }
+                nextElement = nextElement.nextElementSibling;
+            }
+            if (hasVisibleCard) {
+                header.classList.remove('hidden');
+            } else {
+                header.classList.add('hidden');
+            }
+        });
+
+        noResults.style.display = visibleCards === 0 ? "block" : "none";
+        updateBadge();
+    }
+
+    filterBtn.addEventListener("click", () => filterModal.classList.add("show"));
+    closeModal.addEventListener("click", () => filterModal.classList.remove("show"));
+    filterModal.addEventListener("click", (e) => {
+        if (e.target === filterModal) filterModal.classList.remove("show");
+    });
+
+    aboutBtn.addEventListener("click", () => aboutModal.classList.add("show"));
+    closeAboutModal.addEventListener("click", () => aboutModal.classList.remove("show"));
+    aboutModal.addEventListener("click", (e) => {
+        if (e.target === aboutModal) aboutModal.classList.remove("show");
+    });
+
+    applyFilter.addEventListener("click", () => {
+        filterModal.classList.remove("show");
+        filterCards();
+    });
+
+    resetFilter.addEventListener("click", () => {
+        document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => cb.checked = false);
+        filterModal.classList.remove("show");
+        filterCards();
+    });
+
+    clearAll.addEventListener("click", () => {
+        document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => cb.checked = false);
+    });
+
+    search.addEventListener("input", filterCards);
+
+    filterCards();
+</script>
+
 </body>
 </html>
