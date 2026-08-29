@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status · whatcheatsareonline.qd.je</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        :root {
+            --bg: #1a1d1f;
+            --header: #212629;
+            --card: #23282b;
+            --card-hover: #2a3033;
+            --border: #333a3d;
+            --border-soft: #2a3134;
+            --text: #e7e9e9;
+            --muted: #888f91;
+            --muted-2: #6a7275;
+            --green: #35d16f;
+            --red: #ff4545;
+            --yellow: #eab308;
+            --blue: #4a7cf7;
+        }
+        html { background: var(--bg); }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 70px;
+            min-height: 100vh;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            background: var(--header);
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            user-select: none;
+            cursor: pointer;
+        }
+        .logo a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .header-links a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.12s;
+        }
+        .header-links a:hover {
+            color: #ddd;
+        }
+        .header-links svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+        .header-links .site-update {
+            color: var(--muted-2);
+            font-size: 11px;
+            margin-left: 4px;
+        }
+        main {
+            width: 66.6667%;
+            max-width: 950px;
+            margin: 32px auto 60px;
+        }
+        .page-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+        .page-title svg {
+            width: 36px;
+            height: 36px;
+            fill: none;
+            stroke: var(--green);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+        .page-title h1 {
+            margin: 0;
+            font-size: 27px;
+            letter-spacing: -0.4px;
+        }
+        .page-title p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* Site status card */
+        .site-status-card {
+            background: var(--card);
+            border: 2px solid var(--green);
+            border-radius: 8px;
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            transition: border-color 0.2s;
+        }
+        .site-status-card .left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .site-status-card .site-icon {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: var(--green);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+        .site-status-card .site-name {
+            font-weight: 700;
+            font-size: 17px;
+        }
+        .site-status-card .site-name span {
+            color: var(--muted-2);
+            font-weight: 400;
+        }
+        .site-status-card .indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .site-status-card .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .dot.online { background: var(--green); }
+        .dot.offline { background: var(--red); }
+        .dot.pending { background: var(--yellow); }
+        .site-status-card .value.online { color: var(--green); }
+        .site-status-card .value.offline { color: var(--red); }
+        .site-status-card .value.pending { color: var(--yellow); }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+        .status-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .status-card:hover {
+            background: var(--card-hover);
+            border-color: #3a4245;
+        }
+        .status-card .name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .status-card .indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .status-card .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .status-card .label {
+            color: var(--muted);
+            font-weight: 400;
+        }
+        .status-card .value.online { color: var(--green); }
+        .status-card .value.offline { color: var(--red); }
+        .status-card .value.pending { color: var(--yellow); }
+        .legend {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            padding: 16px 0;
+            border-top: 1px solid var(--border-soft);
+            border-bottom: 1px solid var(--border-soft);
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+        .legend-item .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .last-updated {
+            text-align: center;
+            color: var(--muted-2);
+            font-size: 12px;
+            margin-top: 12px;
+        }
+        .footer {
+            margin-top: 40px;
+            padding: 32px 0 16px;
+            border-top: 1px solid var(--border-soft);
+            text-align: center;
+            color: var(--muted-2);
+            font-size: 12px;
+        }
+        @media (max-width: 750px) {
+            header {
+                height: auto;
+                min-height: 62px;
+                flex-wrap: wrap;
+                padding: 8px 18px;
+                gap: 6px;
+            }
+            .logo { font-size: 20px; }
+            .header-links { gap: 10px; flex-wrap: wrap; }
+            .header-links a { font-size: 11px; }
+            .header-links svg { width: 16px; height: 16px; }
+            body { padding-top: 90px; }
+            main { width: calc(100% - 30px); margin-top: 25px; }
+            .status-grid { grid-template-columns: 1fr; }
+            .legend { gap: 12px; }
+            .page-title svg { width: 28px; height: 28px; }
+            .site-status-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .site-status-card .indicator {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="/"><span style="color: #ffffff;">what</span><span style="color: #35d16f;">cheats</span><span style="color: #ffffff;">are</span><span style="color: #ff4545;">online</span><span style="color: #777777;">.qd.je</span></a>
+    </div>
+    <div class="header-links">
+        <!-- Home (house) SVG -->
+        <a href="/" title="Home">
+            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+            Home
+        </a>
+        <!-- Docs (book) SVG -->
+        <a href="/docs" title="Docs">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12h8v2H8zm0 4h5v2H8zm0-8h3v2H8z"/></svg>
+            Docs
+        </a>
+        <!-- Discord SVG -->
+        <a href="#" target="_blank" title="Discord">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            Discord
+        </a>
+        <span class="site-update">Updated: 08/28/2026</span>
+    </div>
+</header>
+
+<main>
+    <div class="page-title">
+        <!-- Signal / pulse SVG icon -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 16 L8 16 L8 8 L12 8 L12 12 L16 12 L16 4 L20 4 L20 20 L4 20 Z" />
+            <polyline points="4,20 20,20" />
+        </svg>
+        <div>
+            <h1>Status</h1>
+            <p>Current service status for all tools listed on the site. Updated in real‑time.</p>
+        </div>
+    </div>
+
+    <!-- SITE STATUS CARD -->
+    <div class="site-status-card" id="siteStatusCard">
+        <div class="left">
+            <!-- Custom site health icon: a shield with a checkmark -->
+            <svg class="site-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3z" />
+                <polyline points="9,12 11,14 15,10" />
+            </svg>
+            <span class="site-name">whatcheatsareonline<span>.qd.je</span></span>
+        </div>
+        <div class="indicator">
+            <span class="dot online"></span>
+            <span class="value online">Online</span>
+        </div>
+    </div>
+
+    <div class="legend">
+        <span class="legend-item"><span class="dot online"></span> Online</span>
+        <span class="legend-item"><span class="dot offline"></span> Offline</span>
+        <span class="legend-item"><span class="dot pending"></span> Pending / Unknown</span>
+    </div>
+
+    <div class="status-grid" id="statusGrid">
+        <!-- populated by JavaScript -->
+    </div>
+
+    <div class="last-updated" id="lastUpdated">Last checked: —</div>
+
+    <footer class="footer">
+        © 2026 WCAO. Built by students, for students.
+    </footer>
+</main>
+
+<script>
+    // Hard‑coded status list – matches your homepage cards
+    const SERVICES = [
+        { name: "X-Network", status: "online" },
+        { name: "Gimkit Cheats", status: "online" },
+        { name: "edpuzzle-answers", status: "online" },
+        { name: "IXLAutoAnswer", status: "offline" },
+        { name: "MRET", status: "online" },
+        { name: "ExamRipper", status: "online" },
+        { name: "CheatNetwork", status: "online" },
+        { name: "Borang", status: "online" },
+        { name: "Floodia", status: "online" },
+        { name: "Kahoot-Bot", status: "online" },
+        { name: "Natural Typist", status: "online" },
+        { name: "Gemini", status: "online" },
+        { name: "Perplexity AI", status: "offline" },
+        { name: "EaseMate AI", status: "online" },
+        { name: "Merlin AI", status: "online" },
+        { name: "Hugging Face", status: "online" },
+        { name: "QuillBot", status: "online" },
+        { name: "Clever AI Humanizer", status: "online" },
+        { name: "WolfUnblock", status: "online" },
+        { name: "Space Proxy", status: "offline" },
+        { name: "Kazwire", status: "online" },
+        { name: "Truffled", status: "online" },
+        { name: "Darkness", status: "online" },
+        { name: "Cheesy Proxy", status: "online" },
+        { name: "Free Proxy List", status: "online" },
+        { name: "Proxy-Site.net", status: "online" },
+        { name: "FMHY", status: "online" },
+        { name: "Temp-Mail", status: "online" },
+        { name: "X-VPN", status: "online" },
+        { name: "Image to Text", status: "online" },
+        { name: "Grammarly", status: "online" },
+        { name: "uBlock Origin", status: "online" }
+    ];
+
+    const grid = document.getElementById('statusGrid');
+    const updatedEl = document.getElementById('lastUpdated');
+
+    function renderStatuses() {
+        grid.innerHTML = '';
+        SERVICES.forEach(service => {
+            const card = document.createElement('div');
+            card.className = 'status-card';
+            const statusClass = service.status;
+            const label = statusClass.charAt(0).toUpperCase() + statusClass.slice(1);
+            card.innerHTML = `
+                <span class="name">${service.name}</span>
+                <span class="indicator">
+                    <span class="dot ${statusClass}"></span>
+                    <span class="value ${statusClass}">${label}</span>
+                </span>
+            `;
+            grid.appendChild(card);
+        });
+        // Update timestamp
+        const now = new Date();
+        updatedEl.textContent = `Last checked: ${now.toLocaleString()}`;
+    }
+
+    renderStatuses();
+
+    // Optional: "ping" simulation – re‑render after 2s to show dynamic feel
+    // In a real implementation you'd fetch from a backend or use a WebSocket.
+    setTimeout(() => {
+        // You could also randomly flip one or two statuses here for demo.
+        // For now, we just update the timestamp.
+        const now = new Date();
+        updatedEl.textContent = `Last checked: ${now.toLocaleString()}`;
+    }, 2000);
+</script>
+</body>
+</html>
