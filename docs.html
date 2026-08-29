@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs · whatcheatsareonline.qd.je</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        :root {
+            --bg: #ffffff;
+            --header: #ffffff;
+            --card: #f5f5f5;
+            --card-hover: #eeeeee;
+            --border: #ddd;
+            --border-soft: #e5e5e5;
+            --text: #1a1d1f;
+            --muted: #555;
+            --muted-2: #888;
+            --green: #35d16f;
+            --red: #ff4545;
+            --blue: #4a7cf7;
+            --yellow: #eab308;
+            --purple: #8b5cf6;
+            --gray: #888f91;
+        }
+        html { background: var(--bg); }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 70px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            background: var(--header);
+            border-bottom: 1px solid var(--border);
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            user-select: none;
+            cursor: pointer;
+        }
+        .logo a {
+            color: #1a1d1f;
+            text-decoration: none;
+        }
+        .logo a span.white { color: #1a1d1f; }
+        .logo a span.green { color: var(--green); }
+        .logo a span.red { color: var(--red); }
+        .logo a span.gray { color: var(--gray); }
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .header-links a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.12s;
+        }
+        .header-links a:hover {
+            color: #1a1d1f;
+        }
+        .header-links svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+        .header-links .site-update {
+            color: #ccc;
+            font-size: 11px;
+            margin-left: 4px;
+        }
+        main {
+            width: 66.6667%;
+            max-width: 950px;
+            margin: 32px auto 60px;
+        }
+        .page-title {
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 16px;
+        }
+        .page-title h1 {
+            margin: 0 0 6px;
+            font-size: 32px;
+            letter-spacing: -0.5px;
+            color: var(--text);
+        }
+        .page-title p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .doc-section {
+            margin-bottom: 40px;
+        }
+        .doc-section h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            border-bottom: 1px solid var(--border-soft);
+            padding-bottom: 6px;
+        }
+        .doc-section h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin: 18px 0 8px 0;
+            color: var(--text);
+        }
+        .doc-section p {
+            margin: 0 0 12px 0;
+            color: var(--text);
+        }
+        .doc-section ul {
+            margin: 8px 0 16px 20px;
+            color: var(--text);
+        }
+        .doc-section li {
+            margin-bottom: 4px;
+        }
+        .doc-section code {
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #1a1d1f;
+            border: 1px solid var(--border);
+            font-family: monospace;
+        }
+        .doc-section pre {
+            background: #f5f5f5;
+            padding: 16px 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+            font-size: 13px;
+            color: #1a1d1f;
+            font-family: monospace;
+            line-height: 1.5;
+            margin: 8px 0 16px 0;
+        }
+        .doc-section pre code {
+            background: transparent;
+            padding: 0;
+            border: none;
+            font-size: 13px;
+            color: #1a1d1f;
+        }
+        .doc-section .note {
+            background: #f0faf0;
+            border-left: 3px solid var(--green);
+            padding: 12px 16px;
+            border-radius: 4px;
+            color: #1a3d1a;
+            font-size: 14px;
+            margin: 12px 0;
+        }
+        .doc-section .note a {
+            color: var(--green);
+            text-decoration: none;
+        }
+        .doc-section .note a:hover {
+            text-decoration: underline;
+        }
+        .doc-section .badge-example {
+            display: inline-block;
+            padding: 3px 14px;
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+            color: #ffffff;
+            border: none;
+            margin-right: 4px;
+        }
+        .badge-version {
+            background: #888f91;
+            color: #ffffff;
+        }
+        .badge-free { background: var(--green); color: #ffffff; }
+        .badge-paid { background: var(--blue); color: #ffffff; }
+        .badge-api { background: var(--yellow); color: #ffffff; }
+        .badge-purple { background: var(--purple); color: #ffffff; }
+        .badge-risky { background: #dc2626; color: #ffffff; }
+
+        .footer {
+            margin-top: 60px;
+            padding: 32px 0 16px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--muted-2);
+            font-size: 12px;
+        }
+
+        @media (max-width: 750px) {
+            header {
+                height: auto;
+                min-height: 62px;
+                flex-wrap: wrap;
+                padding: 8px 18px;
+                gap: 6px;
+            }
+            .logo { font-size: 20px; }
+            .header-links { gap: 10px; flex-wrap: wrap; }
+            .header-links a { font-size: 11px; }
+            .header-links svg { width: 16px; height: 16px; }
+            body { padding-top: 90px; }
+            main { width: calc(100% - 30px); margin-top: 25px; }
+            .page-title h1 { font-size: 26px; }
+            .doc-section h2 { font-size: 20px; }
+            .doc-section pre { font-size: 12px; padding: 12px 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="/">
+            <span class="white">what</span><span class="green">cheats</span><span class="white">are</span><span class="red">online</span><span class="gray">.qd.je</span>
+        </a>
+    </div>
+    <div class="header-links">
+        <a href="/" title="Home">
+            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+            Home
+        </a>
+        <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            Discord
+        </a>
+        <span class="site-update">Updated: 08/28/2026</span>
+    </div>
+</header>
+
+<main>
+
+    <div class="page-title">
+        <h1>📘 Technical Documentation</h1>
+        <p>Everything you need to know about how the site works, how to contribute, and how to use the tools.</p>
+    </div>
+
+    <!-- ============================== -->
+    <!-- 1. OVERVIEW -->
+    <!-- ============================== -->
+    <section class="doc-section">
+        <h2>1. Overview</h2>
+        <p>
+            <strong>whatcheatsareonline.qd.je</strong> is a community-driven directory of cheats, tools, proxies, and AI assistants built by students, for students. The goal is simple: make it easy to find working tools for school, gaming, and productivity — without the sketchy ads, paywalls, or dead links.
+        </p>
+        <p>
+            The site is completely static (HTML + CSS + JavaScript) and hosted on GitHub Pages. All data is stored directly in the HTML, making it fast, lightweight, and easy to contribute to.
+        </p>
+    </section>
+
+    <!-- ============================== -->
+    <!-- 2. HOW IT WORKS -->
+    <!-- ============================== -->
+    <section class="doc-section">
+        <h2>2. How It Works</h2>
+        <p>
+            Each tool is displayed as a <strong>card</strong> on the homepage. Cards contain:
+        </p>
+        <ul>
+            <li><strong>Tool name</strong> — the name of the cheat or tool</li>
+            <li><strong>Status</strong> — online (green) or offline (red)</li>
+            <li><strong>Version</strong> — the current version number</li>
+            <li><strong>Price</strong> — Free, Paid, API-key, or Freemium</li>
+            <li><strong>Execution methods</strong> — how to use it (bookmarklet, extension, etc.)</li>
+            <li><strong>Games/platforms</strong> — which platforms it works on</li>
+            <li><strong>Links</strong> — website and Discord (if available)</li>
+        </ul>
+        <p>
+            The <strong>search bar</strong> filters cards by name, game, or platform. The <strong>filter modal</strong> lets you refine by price, type, execution method, detection status, and online/offline status.
+        </p>
+    </section>
+
+    <!-- ============================== -->
+    <!-- 3. CARD STRUCTURE -->
+    <!-- ============================== -->
+    <section class="doc-section">
+        <h2>3. Tool Card Structure</h2>
+        <p>
+            Each card uses <code>data-*</code> attributes to store metadata. These are used for filtering and search.
+        </p>
+        <pre><code>&lt;article class="exec-card"
+         data-platform="X-Network"
+         data-games="Blooket Kahoot Prodigy"
+         data-methods="Bookmarklet Inspect Web-based"
+         data-price="Free"
+         data-type="Cheats"
+         data-detection="Undetected"
+         data-status="Online"
+         data-version="8.0.0x"&gt;
+    &lt;!-- card content --&gt;
+&lt;/article&gt;</code></pre>
+
+        <h3>Attribute Reference</h3>
+        <ul>
+            <li><code>data-platform</code> — The name of the tool/cheat</li>
+            <li><code>data-games</code> — Space-separated list of games or platforms it supports</li>
+            <li><code>data-methods</code> — Space-separated list of execution methods (e.g., <code>Bookmarklet</code>, <code>Web-based</code>, <code>Chrome Extension</code>)</li>
+            <li><code>data-price</code> — Pricing model: <code>Free</code>, <code>Paid</code>, <code>API-key</code>, <code>Risky</code>, or <code>Free or $X/mo</code></li>
+            <li><code>data-type</code> — Category: <code>Cheats</code>, <code>AI</code>, <code>Proxies</code>, or <code>Other</code></li>
+            <li><code>data-detection</code> — <code>Undetected</code>, <code>Detected</code>, <code>Unknown</code>, or <code>File</code></li>
+            <li><code>data-status</code> — <code>Online</code>, <code>Offline</code>, or <code>Unknown</code></li>
+            <li><code>data-version</code> — Version string (e.g., <code>8.0.0x</code>, <code>v3</code>)</li>
+        </ul>
+
+        <div class="note">
+            💡 <strong>Tip:</strong> When adding a new tool, make sure all <code>data-*</code> attributes are filled out correctly so the filters and search work properly.
+        </div>
+    </section>
+
+    <!-- ============================== -->
+    <!-- 4. BADGES -->
+    <!-- ============================== -->
+    <section class="doc-section">
+        <h2>4. Badges</h2>
+        <p>Badges are used to quickly convey information about a tool.</p>
+        <ul>
+            <li><span class="badge-example badge-version">v8.0.0x</span> — Version badge (gray)</li>
+            <li><span class="badge-example badge-free">Free</span> — Free badge (green)</li>
+            <li><span class="badge-example badge-paid">$24/mo</span> — Paid badge (blue)</li>
+            <li><span class="badge-example badge-api">API-key</span> — API-key badge (yellow)</li>
+            <li><span class="badge-example badge-purple">Free or $9/mo</span> — Freemium badge (purple)</li>
+            <li><span class="badge-example badge-risky">Risky</span> — Risky badge (red)</li>
+        </ul>
+        <p>
+            To add a new badge style, define a class in <code>.badge-price</code> and reference it in the card:
+        </p>
+        <pre><code>&lt;span class="badge badge-price free"&gt;Free&lt;/span&gt;</code></pre>
+    </section>
+
+    <!-- ============================== -->
+    <!-- 5. FILTER SYSTEM -->
+    <!-- ============================== -->
+    <section class="doc-section">
+        <h2>5. Filter System</h2>
+        <p>
+            The filter modal allows users to refine the tool list by:
+        </p>
+        <ul>
+            <li><strong>Pricing</strong> — Free, Paid, API-key, Freemium options, Risky</li>
+            <li><strong>Type</strong> — Cheats, AI, Proxies, Other</li>
+            <li><strong>Execution Method</strong> — Bookmarklet, Web-based, Inspect, Tampermonkey, Chrome Extension, External, Code</li>
+            <li><strong>Detection</strong> — Undetected, Detected, Unknown, File</li>
+            <li><strong>Status</strong> — Online, Offline, Unknown</li>
+        </ul>
+        <p>
+            Filters are applied client-side using JavaScript. The badge on the filter button shows how many active filters are applied.
+        </p>
+        <div class="note">
+            🔧 To add a new filter option, update the corresponding <code>#pricingOptions</code>, <code>#typeOptions</code>, <code>#methodOptions</code>, <code>#detectionOptions</code>, or <code>#statusOptions</code> section in the modal HTML.
+        </div>
+    </section>
+
+    <!-- ============================== -->
+    <!-- 6. STATUS PAGE -->
+    <!-- ============================== -->
+    <section class="doc-section">
+        <h2>6. Status Page</h2>
+        <p>
+            The <a href="/status" style="color: var(--green);">/status</a> page displays the current online/offline status of every tool on the site.
+        </p>
+        <p>
+            Currently, the statuses are hard-coded in the JavaScript <code>SERVICES</code> array. To update a status, edit the <code>status</code> property of the corresponding object:
+        </p>
+        <pre><code>const SERVICES = [
+    { name: "X-Network", status: "online" },
+    { name: "IXLAutoAnswer", status: "offline" },
+    // ...
+];</code></pre>
+        <p>
+            In the future, this could be replaced with a dynamic backend or scheduled ping checks.
+        </p>
+    </section>
+
+    <!-- ============================== -->
+    <!-- 7. CONTRIBUTING -->
+    <!-- ============================== -->
+    <section class="doc-section">
+        <h2>7. Contributing</h2>
+        <p>
+            This site is open-source and community-driven. Contributions are welcome!
+        </p>
+        <h3>How to add a new tool</h3>
+        <ol>
+            <li>Fork the repository on <a href="https://github.com/HipeopleH/whatcheatsare.online" target="_blank" style="color: var(--green);">GitHub</a></li>
+            <li>Open <code>index.html</code> and find the section for the tool type (Cheats, AI, Proxies, Other)</li>
+            <li>Copy an existing card and modify the <code>data-*</code> attributes and content</li>
+            <li>Submit a pull request with a clear description of the new tool</li>
+        </ol>
+
+        <h3>How to report a broken tool</h3>
+        <ul>
+            <li>Open an issue on GitHub</li>
+            <li>Join the <a href="https://discord.gg/55qN4ucGUF" target="_blank" style="color: var(--green);">Discord</a> and ping the mods</li>
+            <li>Submit a pull request with the updated status</li>
+        </ul>
+
+        <div class="note">
+            ⭐ <strong>Love the project?</strong> Leave a star on GitHub and share it with your friends!
+        </div>
+    </section>
+
+    <!-- ============================== -->
+    <!-- 8. DESIGN SYSTEM -->
+    <!-- ============================== -->
+    <section class="doc-section">
+        <h2>8. Design System</h2>
+        <p>
+            The site uses a clean, minimal aesthetic with a light theme. Colors are defined as CSS variables in the <code>:root</code> selector:
+        </p>
+        <pre><code>:root {
+    --bg: #ffffff;
+    --header: #ffffff;
+    --card: #f5f5f5;
+    --card-hover: #eeeeee;
+    --border: #ddd;
+    --text: #1a1d1f;
+    --muted: #555;
+    --green: #35d16f;
+    --red: #ff4545;
+    --blue: #4a7cf7;
+    --yellow: #eab308;
+    --purple: #8b5cf6;
+    --gray: #888f91;
+}</code></pre>
+        <p>
+            The site is fully responsive, with breakpoints at 750px for mobile devices.
+        </p>
+    </section>
+
+    <!-- ============================== -->
+    <!-- 9. FUTURE PLANS -->
+    <!-- ============================== -->
+    <section class="doc-section">
+        <h2>9. Future Plans</h2>
+        <ul>
+            <li><strong>Dynamic status checks</strong> — automatically ping each tool to check if it's online</li>
+            <li><strong>User submissions</strong> — a form for students to submit new tools directly</li>
+            <li><strong>Backend API</strong> — store tool data in a database for easier updates</li>
+            <li><strong>Community features</strong> — comments, ratings, and reviews for each tool</li>
+            <li><strong>Tool categories</strong> — better organization and filtering</li>
+        </ul>
+        <p>
+            Have an idea? <a href="https://discord.gg/55qN4ucGUF" target="_blank" style="color: var(--green);">Join the Discord</a> and share it!
+        </p>
+    </section>
+
+    <!-- ============================== -->
+    <!-- FOOTER -->
+    <!-- ============================== -->
+    <footer class="footer">
+        © 2026 WCAO. Built by students, for students.
+    </footer>
+
+</main>
+
+</body>
+</html>
