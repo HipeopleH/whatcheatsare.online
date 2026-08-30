@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="in">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,11 +25,11 @@
             --purple: #8b5cf6;
             --gray: #888f91;
         }
-        html { background: our(--bg); }
+        html { background: var(--bg); }
         body {
             margin: 0;
-            background: our(--bg);
-            color: our(--text);
+            background: var(--bg);
+            color: var(--text);
             font-family: Arial, Helvetica, sans-serif;
             padding-top: 70px;
             min-height: 100vh;
@@ -364,8 +364,8 @@
 <main>
 
     <div class="page-title">
-        <h1>Privacy Policy</h1>
-        <p>How we handle your data, what we collect, and why.</p>
+        <h1>🔒 Privacy Policy</h1>
+        <p>How we handle your data, what we collect, and your rights.</p>
     </div>
 
     <section class="privacy-section">
@@ -476,7 +476,7 @@
 <!-- Email Popup -->
 <div id="emailPopup" class="email-popup-overlay">
     <div class="email-popup">
-        <button class="btn-close-popup" onclick="closeEmailPopup()">&times;</button>
+        <button class="btn-close-popup" onclick="closeEmailPopup()">×</button>
         <h3>📧 Email Not Available</h3>
         <p>Email support is currently unavailable. Please use our <strong>Discord</strong> for support and updates instead.</p>
         <a href="https://discord.gg/55qN4ucGUF" target="_blank" class="popup-btn">Join Discord →</a>
