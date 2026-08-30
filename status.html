@@ -116,8 +116,6 @@
             color: var(--muted);
             font-size: 13px;
         }
-
-        /* Site status card */
         .site-status-card {
             background: var(--card);
             border: 2px solid var(--green);
@@ -172,7 +170,6 @@
         .site-status-card .value.online { color: var(--green); }
         .site-status-card .value.offline { color: var(--red); }
         .site-status-card .value.pending { color: var(--yellow); }
-
         .status-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -246,55 +243,45 @@
             font-size: 12px;
             margin-top: 12px;
         }
-
-        /* Footer */
         .footer {
             margin-top: 60px;
             padding: 32px 0 16px;
             border-top: 1px solid var(--border-soft);
         }
-
         .footer-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 40px;
             justify-content: space-between;
         }
-
         .footer-brand {
             flex: 1;
             min-width: 180px;
         }
-
         .footer-brand .name {
             font-weight: 700;
             font-size: 16px;
             margin-bottom: 6px;
             color: var(--text);
         }
-
         .footer-brand .tagline {
             color: var(--muted);
             font-size: 13px;
             margin-bottom: 4px;
         }
-
         .footer-brand .copyright {
             color: var(--muted-2);
             font-size: 12px;
         }
-
         .footer-col {
             min-width: 80px;
         }
-
         .footer-col .label {
             font-weight: 600;
             font-size: 13px;
             margin-bottom: 6px;
             color: var(--text);
         }
-
         .footer-col a {
             display: block;
             color: var(--muted);
@@ -307,21 +294,17 @@
             border: none;
             font-family: inherit;
         }
-
         .footer-col a:hover {
             color: #ddd;
         }
-
         .footer-col .donation-link {
             color: var(--green);
             font-weight: 500;
         }
-
         .footer-col .donation-link:hover {
             color: var(--green);
             opacity: 0.8;
         }
-
         .footer-bottom {
             text-align: center;
             color: var(--muted-2);
@@ -330,7 +313,77 @@
             padding-top: 16px;
             border-top: 1px solid var(--border-soft);
         }
-
+        .email-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .email-popup-overlay.show {
+            display: flex;
+        }
+        .email-popup {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px 36px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            animation: fadeIn 0.2s ease;
+            position: relative;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .email-popup .btn-close-popup {
+            position: absolute;
+            top: 10px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .email-popup .btn-close-popup:hover {
+            color: #ddd;
+        }
+        .email-popup h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            color: var(--text);
+        }
+        .email-popup p {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0 0 20px 0;
+            line-height: 1.5;
+        }
+        .email-popup .popup-btn {
+            display: inline-block;
+            padding: 8px 28px;
+            background: var(--green);
+            color: #0b0d0e;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: opacity 0.12s;
+        }
+        .email-popup .popup-btn:hover {
+            opacity: 0.85;
+        }
         @media (max-width: 750px) {
             header {
                 height: auto;
@@ -370,17 +423,14 @@
         <a href="/"><span style="color: #ffffff;">what</span><span style="color: #35d16f;">cheats</span><span style="color: #ffffff;">are</span><span style="color: #ff4545;">online</span><span style="color: #777777;">.qd.je</span></a>
     </div>
     <div class="header-links">
-        <!-- Home (house) SVG -->
         <a href="/" title="Home">
             <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
             Home
         </a>
-        <!-- Docs (book) SVG -->
         <a href="/docs" title="Docs">
             <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12h8v2H8zm0 4h5v2H8zm0-8h3v2H8z"/></svg>
             Docs
         </a>
-        <!-- Discord SVG -->
         <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
             <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
             Discord
@@ -391,7 +441,6 @@
 
 <main>
     <div class="page-title">
-        <!-- Signal / pulse SVG icon -->
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M4 16 L8 16 L8 8 L12 8 L12 12 L16 12 L16 4 L20 4 L20 20 L4 20 Z" />
             <polyline points="4,20 20,20" />
@@ -402,10 +451,8 @@
         </div>
     </div>
 
-    <!-- SITE STATUS CARD -->
     <div class="site-status-card" id="siteStatusCard">
         <div class="left">
-            <!-- Custom site health icon: a shield with a checkmark -->
             <svg class="site-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3z" />
                 <polyline points="9,12 11,14 15,10" />
@@ -424,13 +471,10 @@
         <span class="legend-item"><span class="dot pending"></span> Pending / Unknown</span>
     </div>
 
-    <div class="status-grid" id="statusGrid">
-        <!-- populated by JavaScript -->
-    </div>
+    <div class="status-grid" id="statusGrid"></div>
 
     <div class="last-updated" id="lastUpdated">Last checked: —</div>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-grid">
             <div class="footer-brand">
@@ -450,7 +494,7 @@
             </div>
             <div class="footer-col">
                 <div class="label">Connect</div>
-                <a href="https://discord.gg/55qN4ucGUF" target="_blank">Discord</a>
+                <a href="https: target="_blank">Discord</a>
                 <a href="#" onclick="showEmailPopup(); return false;">Email</a>
             </div>
             <div class="footer-col">
@@ -462,105 +506,18 @@
             © 2026 WCAO. All rights reserved.
         </div>
     </footer>
-
 </main>
 
-<!-- Email Popup -->
 <div id="emailPopup" class="email-popup-overlay">
     <div class="email-popup">
-        <button class="btn-close-popup" onclick="closeEmailPopup()">&times;</button>
+        <button class="btn-close-popup" onclick="closeEmailPopup()">×</button>
         <h3>📧 Email Not Available</h3>
         <p>Email support is currently unavailable. Please use our <strong>Discord</strong> for support and updates instead.</p>
-        <a href="https://discord.gg/55qN4ucGUF" target="_blank" class="popup-btn">Join Discord →</a>
+        <a href="https: target="_blank" class="popup-btn">Join Discord →</a>
     </div>
 </div>
 
-<style>
-    /* Email Popup */
-    .email-popup-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(4px);
-        z-index: 9999;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .email-popup-overlay.show {
-        display: flex;
-    }
-
-    .email-popup {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 32px 36px;
-        max-width: 420px;
-        width: 90%;
-        text-align: center;
-        animation: fadeIn 0.2s ease;
-        position: relative;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.96); }
-        to { opacity: 1; transform: scale(1); }
-    }
-
-    .email-popup .btn-close-popup {
-        position: absolute;
-        top: 10px;
-        right: 16px;
-        background: none;
-        border: none;
-        color: var(--muted);
-        font-size: 24px;
-        cursor: pointer;
-    }
-
-    .email-popup .btn-close-popup:hover {
-        color: #ddd;
-    }
-
-    .email-popup h3 {
-        margin: 0 0 8px 0;
-        font-size: 18px;
-        color: var(--text);
-    }
-
-    .email-popup p {
-        color: var(--muted);
-        font-size: 14px;
-        margin: 0 0 20px 0;
-        line-height: 1.5;
-    }
-
-    .email-popup .popup-btn {
-        display: inline-block;
-        padding: 8px 28px;
-        background: var(--green);
-        color: #0b0d0e;
-        border: none;
-        border-radius: 6px;
-        font-size: 13px;
-        font-weight: 700;
-        cursor: pointer;
-        text-decoration: none;
-        transition: opacity 0.12s;
-    }
-
-    .email-popup .popup-btn:hover {
-        opacity: 0.85;
-    }
-</style>
-
 <script>
-    // Hard‑coded status list – matches your homepage cards
     const SERVICES = [
         { name: "X-Network", status: "online" },
         { name: "Gimkit Cheats", status: "online" },
@@ -569,14 +526,14 @@
         { name: "MRET", status: "online" },
         { name: "ExamRipper", status: "online" },
         { name: "CheatNetwork", status: "online" },
-        { name: "Borang", status: "online" },
+        { name: "Form", status: "online" },
         { name: "Floodia", status: "online" },
         { name: "Kahoot-Bot", status: "online" },
         { name: "Natural Typist", status: "online" },
         { name: "Gemini", status: "online" },
         { name: "Perplexity AI", status: "offline" },
         { name: "EaseMate AI", status: "online" },
-        { name: "Merlin AI", status: "online" },
+        { name: “Merlin AI”, status: "online" },
         { name: "Hugging Face", status: "online" },
         { name: "QuillBot", status: "online" },
         { name: "Clever AI Humanizer", status: "online" },
@@ -615,23 +572,17 @@
             `;
             grid.appendChild(card);
         });
-        // Update timestamp
         const now = new Date();
         updatedEl.textContent = `Last checked: ${now.toLocaleString()}`;
     }
 
     renderStatuses();
 
-    // Optional: "ping" simulation – re‑render after 2s to show dynamic feel
-    // In a real implementation you'd fetch from a backend or use a WebSocket.
     setTimeout(() => {
-        // You could also randomly flip one or two statuses here for demo.
-        // For now, we just update the timestamp.
         const now = new Date();
         updatedEl.textContent = `Last checked: ${now.toLocaleString()}`;
     }, 2000);
 
-    // Email Popup
     const emailPopup = document.getElementById("emailPopup");
 
     function showEmailPopup() {
