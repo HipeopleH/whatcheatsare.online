@@ -209,13 +209,170 @@
         .badge-purple { background: var(--purple); color: #ffffff; }
         .badge-risky { background: #dc2626; color: #ffffff; }
 
+        /* Footer */
         .footer {
             margin-top: 60px;
             padding: 32px 0 16px;
             border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+        }
+
+        .footer-brand {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .footer-brand .name {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .footer-brand .tagline {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .footer-brand .copyright {
+            color: var(--muted-2);
+            font-size: 12px;
+        }
+
+        .footer-col {
+            min-width: 80px;
+        }
+
+        .footer-col .label {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 2px 0;
+            transition: color 0.12s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+
+        .footer-col a:hover {
+            color: #1a1d1f;
+        }
+
+        .footer-col .donation-link {
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .footer-col .donation-link:hover {
+            color: var(--green);
+            opacity: 0.8;
+        }
+
+        .footer-bottom {
             text-align: center;
             color: var(--muted-2);
             font-size: 12px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Email Popup */
+        .email-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .email-popup-overlay.show {
+            display: flex;
+        }
+
+        .email-popup {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px 36px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            animation: fadeIn 0.2s ease;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .email-popup .btn-close-popup {
+            position: absolute;
+            top: 10px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--muted-2);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .email-popup .btn-close-popup:hover {
+            color: #1a1d1f;
+        }
+
+        .email-popup h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            color: var(--text);
+        }
+
+        .email-popup p {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0 0 20px 0;
+            line-height: 1.5;
+        }
+
+        .email-popup .popup-btn {
+            display: inline-block;
+            padding: 8px 28px;
+            background: var(--green);
+            color: #0b0d0e;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: opacity 0.12s;
+        }
+
+        .email-popup .popup-btn:hover {
+            opacity: 0.85;
         }
 
         @media (max-width: 750px) {
@@ -235,6 +392,10 @@
             .page-title h1 { font-size: 26px; }
             .doc-section h2 { font-size: 20px; }
             .doc-section pre { font-size: 12px; padding: 12px 14px; }
+            .footer-grid {
+                flex-direction: column;
+                gap: 20px;
+            }
         }
     </style>
 </head>
@@ -255,7 +416,7 @@
             <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
             Discord
         </a>
-        <span class="site-update">Updated: 08/28/2026</span>
+        <span class="site-update">Updated: 08/30/2026</span>
     </div>
 </header>
 
@@ -479,10 +640,72 @@
     <!-- FOOTER -->
     <!-- ============================== -->
     <footer class="footer">
-        © 2026 WCAO. Built by students, for students.
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="name">whatcheatsareonline<span style="color: #555b5d;">.qd.je</span></div>
+                <div class="tagline">The community-driven directory of cheats and tools.</div>
+                <div class="copyright">© 2026 WCAO. Built by students, for students.</div>
+            </div>
+            <div class="footer-col">
+                <div class="label">Site</div>
+                <a href="/status">Status</a>
+                <a href="/docs">Docs</a>
+            </div>
+            <div class="footer-col">
+                <div class="label">Legal</div>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+            </div>
+            <div class="footer-col">
+                <div class="label">Connect</div>
+                <a href="https://discord.gg/55qN4ucGUF" target="_blank">Discord</a>
+                <a href="#" onclick="showEmailPopup(); return false;">Email</a>
+            </div>
+            <div class="footer-col">
+                <div class="label">Support</div>
+                <a href="/donations" class="donation-link">Donations →</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 WCAO. All rights reserved.
+        </div>
     </footer>
 
 </main>
+
+<!-- Email Popup -->
+<div id="emailPopup" class="email-popup-overlay">
+    <div class="email-popup">
+        <button class="btn-close-popup" onclick="closeEmailPopup()">&times;</button>
+        <h3>📧 Email Not Available</h3>
+        <p>Email support is currently unavailable. Please use our <strong>Discord</strong> for support and updates instead.</p>
+        <a href="https://discord.gg/55qN4ucGUF" target="_blank" class="popup-btn">Join Discord →</a>
+    </div>
+</div>
+
+<script>
+    const emailPopup = document.getElementById("emailPopup");
+
+    function showEmailPopup() {
+        emailPopup.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeEmailPopup() {
+        emailPopup.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    emailPopup.addEventListener('click', function(e) {
+        if (e.target === this) closeEmailPopup();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (emailPopup.classList.contains('show')) closeEmailPopup();
+        }
+    });
+</script>
 
 </body>
 </html>
