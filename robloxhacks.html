@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content="0; url=/betterweao">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            background: #1a1d1f;
+            color: #e7e9e9;
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+        }
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #333a3d;
+            border-top: 3px solid #35d16f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h1 {
+            font-size: 24px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+        p {
+            color: #888f91;
+            font-size: 14px;
+            margin: 0;
+        }
+        a {
+            color: #35d16f;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .credit {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #6a7275;
+        }
+        .credit a {
+            color: #6a7275;
+        }
+        .credit a:hover {
+            color: #888f91;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spinner"></div>
+        <h1>Redirecting...</h1>
+        <p>Taking you to <a href="/betterweao">BetterWEAO</a> — the Roblox executor directory.</p>
+        <p class="credit">This site was based off of <a href="https://weao.xyz" target="_blank">weao.xyz</a></p>
+        <p style="margin-top: 4px; font-size: 12px; color: #6a7275;">If you are not redirected, <a href="/betterweao">click here</a>.</p>
+    </div>
+</body>
+</html>
