@@ -110,7 +110,33 @@
             padding: 16px 20px; margin: 0;
             overflow-x: auto; font-family: 'Courier New', monospace;
             font-size: 13px; line-height: 1.7; color: #ddd;
-            white-space: pre; max-height: 500px; overflow-y: auto;
+            white-space: pre; max-height: 260px; overflow-y: hidden;
+            transition: max-height 0.25s ease;
+        }
+        .code-block.expanded {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .show-more-btn {
+            display: block;
+            width: 100%;
+            margin-top: 8px;
+            padding: 8px;
+            background: #1d2223;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            color: #aaa;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.12s;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .show-more-btn:hover {
+            background: #272c2e;
+            color: #ddd;
+            border-color: #363c3e;
         }
 
         .footer {
@@ -189,7 +215,9 @@
             </button>
         </div>
 
-        <div class="code-block"><code id="rebootedKeys">loading...</code></div>
+        <div class="code-block" id="rebootedBlock"><code id="rebootedKeys">loading...</code></div>
+
+        <button class="show-more-btn" onclick="toggleShowMore('rebootedBlock', this)">Show More ▾</button>
     </div>
 
     <footer class="footer">
@@ -293,6 +321,13 @@
 
         const original = btn.innerHTML;
         flash(btn, `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Downloaded!`, original);
+    }
+
+    // Show more / show less toggle
+    function toggleShowMore(blockId, btn) {
+        const block = document.getElementById(blockId);
+        block.classList.toggle('expanded');
+        btn.textContent = block.classList.contains('expanded') ? 'Show Less ▴' : 'Show More ▾';
     }
 </script>
 
