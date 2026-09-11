@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Keys · whatcheatsareonline.qd.je</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         * { box-sizing: border-box; }
         :root {
@@ -199,7 +198,7 @@
     <!-- ============================== -->
     <div class="key-section">
         <h2>Rebooted.lol <span class="key-count" id="rebootedCount">loading...</span></h2>
-        <p class="sub">Shared from the community. Copy one, copy all, or download the full list.</p>
+        <p class="sub">Shared from the community. Order is randomized each visit. Copy one, copy all, or download the full list.</p>
 
         <div class="key-actions">
             <button class="key-btn" onclick="copyRandom('rebootedKeys', this)">
@@ -229,19 +228,29 @@
 
 <script>
     // ==========================================
-    // LOAD KEYS FROM EXTERNAL FILE
+    // LOAD KEYS FROM EXTERNAL FILE (SHUFFLED)
     // ==========================================
     fetch('rebooted-keys.txt')
         .then(res => res.text())
         .then(text => {
             const keys = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-            document.getElementById('rebootedKeys').textContent = keys.join('\n');
-            document.getElementById('rebootedCount').textContent = keys.length + ' keys';
+            const shuffled = shuffle([...keys]);  // shuffle a copy
+            document.getElementById('rebootedKeys').textContent = shuffled.join('\n');
+            document.getElementById('rebootedCount').textContent = shuffled.length + ' keys';
         })
         .catch(() => {
             document.getElementById('rebootedKeys').textContent = 'Failed to load keys. Try refreshing.';
             document.getElementById('rebootedCount').textContent = '0 keys';
         });
+
+    // Fisher-Yates shuffle
+    function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
 
     // ==========================================
     // HELPERS
