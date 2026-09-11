@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Keys · whatcheatsareonline.qd.je</title>
+    <style>
+        * { box-sizing: border-box; }
+        :root {
+            --bg: #1a1d1f;
+            --header: #212629;
+            --card: #23282b;
+            --card-hover: #2a3033;
+            --border: #333a3d;
+            --border-soft: #2a3134;
+            --text: #e7e9e9;
+            --muted: #888f91;
+            --muted-2: #6a7275;
+            --green: #35d16f;
+            --red: #ff4545;
+            --blue: #4a7cf7;
+            --yellow: #eab308;
+            --purple: #8b5cf6;
+            --gray: #888f91;
+        }
+        html { background: var(--bg); }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 70px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            background: var(--header);
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .logo { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; user-select: none; cursor: pointer; }
+        .logo a { color: inherit; text-decoration: none; }
+        .logo a span.white { color: #ffffff; }
+        .logo a span.green { color: var(--green); }
+        .logo a span.red { color: var(--red); }
+        .logo a span.gray { color: var(--gray); }
+        .header-links { display: flex; align-items: center; gap: 16px; }
+        .header-links a {
+            display: flex; align-items: center; gap: 6px;
+            color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.12s;
+        }
+        .header-links a:hover { color: #ddd; }
+        .header-links svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+        .header-links .site-update { color: var(--muted-2); font-size: 11px; margin-left: 4px; }
+
+        main { width: 66.6667%; max-width: 950px; margin: 32px auto 60px; }
+        .page-title { margin-bottom: 32px; border-bottom: 2px solid var(--border-soft); padding-bottom: 16px; }
+        .page-title h1 { margin: 0 0 6px; font-size: 32px; letter-spacing: -0.5px; }
+        .page-title p { margin: 0; color: var(--muted); font-size: 14px; }
+
+        .callout {
+            background: #0f2628; border-left: 3px solid #2dd4bf;
+            padding: 12px 16px; border-radius: 4px; color: #99f6e4; font-size: 14px; margin: 12px 0;
+        }
+        .callout.warning { background: #2a1a1a; border-left-color: var(--red); color: #fca5a5; }
+
+        .key-section {
+            margin-bottom: 40px; background: var(--card);
+            border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px;
+        }
+        .key-section h2 {
+            font-size: 20px; font-weight: 700; margin: 0 0 4px 0;
+            color: var(--text); letter-spacing: -0.3px;
+        }
+        .key-section .sub { color: var(--muted); font-size: 13px; margin: 0 0 16px 0; }
+        .key-section .key-count {
+            display: inline-block; font-size: 11px; font-weight: 700;
+            background: var(--green); color: #0b0d0e; padding: 2px 10px;
+            border-radius: 20px; margin-left: 8px; vertical-align: middle;
+        }
+
+        .key-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+        .key-btn {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 7px 14px; background: #1d2223; border: 1px solid var(--border);
+            border-radius: 5px; color: #aaa; font-size: 12px; font-weight: 600;
+            cursor: pointer; transition: 0.12s;
+            font-family: Arial, Helvetica, sans-serif; line-height: 1;
+        }
+        .key-btn:hover { background: #272c2e; color: #ddd; border-color: #363c3e; }
+        .key-btn svg {
+            width: 14px; height: 14px; fill: none; stroke: currentColor;
+            stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
+        }
+        .key-btn.copied {
+            background: var(--green) !important; color: #0b0d0e !important;
+            border-color: var(--green) !important;
+        }
+
+        .code-block {
+            position: relative; background: #111516;
+            border: 1px solid var(--border); border-radius: 6px;
+            padding: 16px 20px; margin: 0;
+            overflow-x: auto; font-family: 'Courier New', monospace;
+            font-size: 13px; line-height: 1.7; color: #ddd;
+            white-space: pre; max-height: 500px; overflow-y: auto;
+        }
+
+        .footer {
+            margin-top: 60px; padding: 32px 0 16px;
+            border-top: 1px solid var(--border-soft);
+            text-align: center; color: var(--muted-2); font-size: 12px;
+        }
+
+        @media (max-width: 750px) {
+            header { height: auto; min-height: 62px; flex-wrap: wrap; padding: 8px 18px; gap: 6px; }
+            .logo { font-size: 20px; }
+            .header-links { gap: 10px; flex-wrap: wrap; }
+            .header-links a { font-size: 11px; }
+            .header-links svg { width: 16px; height: 16px; }
+            body { padding-top: 90px; }
+            main { width: calc(100% - 30px); margin-top: 25px; }
+            .page-title h1 { font-size: 26px; }
+            .key-section { padding: 16px 18px; }
+            .code-block { font-size: 12px; padding: 12px 14px; }
+            .key-actions { gap: 6px; }
+            .key-btn { padding: 6px 12px; font-size: 11px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="/">
+            <span class="white">what</span><span class="green">cheats</span><span class="white">are</span><span class="red">online</span><span class="gray">.qd.je</span>
+        </a>
+    </div>
+    <div class="header-links">
+        <a href="/" title="Home">
+            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+            Home
+        </a>
+        <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            Discord
+        </a>
+        <span class="site-update">Updated: 09/10/2026</span>
+    </div>
+</header>
+
+<main>
+
+    <div class="page-title">
+        <h1>🔑 Free Keys</h1>
+        <p>Community-shared keys for key systems. First come, first served.</p>
+    </div>
+
+    <div class="callout warning">
+        ⚠️ <strong>Disclaimer:</strong> These keys are community-shared. We don't generate or sell them. If they don't work, they've been used. Use at your own risk.
+    </div>
+
+    <!-- ============================== -->
+    <!-- REBOOTED.LOL -->
+    <!-- ============================== -->
+    <div class="key-section">
+        <h2>Rebooted.lol <span class="key-count" id="rebootedCount">loading...</span></h2>
+        <p class="sub">Shared from the community. Copy one, copy all, or download the full list.</p>
+
+        <div class="key-actions">
+            <button class="key-btn" onclick="copyRandom('rebootedKeys', this)">
+                <svg viewBox="0 0 24 24"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+                Copy Random
+            </button>
+            <button class="key-btn" onclick="copyAll('rebootedKeys', this)">
+                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy All
+            </button>
+            <button class="key-btn" onclick="downloadKeys('rebootedKeys', 'rebooted-keys.txt', this)">
+                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download .txt
+            </button>
+        </div>
+
+        <div class="code-block"><code id="rebootedKeys">loading...</code></div>
+    </div>
+
+    <footer class="footer">
+        © 2026 whatcheatsareonline.qd.je. Built by students, for students.
+    </footer>
+
+</main>
+
+<script>
+    // ==========================================
+    // LOAD KEYS FROM EXTERNAL FILE
+    // ==========================================
+    fetch('rebooted-keys.txt')
+        .then(res => res.text())
+        .then(text => {
+            const keys = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            document.getElementById('rebootedKeys').textContent = keys.join('\n');
+            document.getElementById('rebootedCount').textContent = keys.length + ' keys';
+        })
+        .catch(() => {
+            document.getElementById('rebootedKeys').textContent = 'Failed to load keys. Try refreshing.';
+            document.getElementById('rebootedCount').textContent = '0 keys';
+        });
+
+    // ==========================================
+    // HELPERS
+    // ==========================================
+    function getKeyList(id) {
+        const text = document.getElementById(id).textContent;
+        return text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    }
+
+    function copyText(text, btn, original) {
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => {
+                flash(btn, `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Copied!`, original);
+            }).catch(() => fallbackCopy(text, btn, original));
+        } else {
+            fallbackCopy(text, btn, original);
+        }
+    }
+
+    function fallbackCopy(text, btn, original) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+        try {
+            document.execCommand('copy');
+            flash(btn, `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Copied!`, original);
+        } catch (e) {
+            flash(btn, `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Failed`, original);
+        }
+        document.body.removeChild(ta);
+    }
+
+    function flash(btn, text, original) {
+        btn.classList.add('copied');
+        btn.innerHTML = text;
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = original;
+        }, 2000);
+    }
+
+    function copyRandom(id, btn) {
+        const keys = getKeyList(id);
+        if (!keys.length) return;
+        const key = keys[Math.floor(Math.random() * keys.length)];
+        const original = btn.innerHTML;
+        copyText(key, btn, original);
+    }
+
+    function copyAll(id, btn) {
+        const keys = getKeyList(id);
+        if (!keys.length) return;
+        const original = btn.innerHTML;
+        copyText(keys.join('\n'), btn, original);
+    }
+
+    function downloadKeys(id, filename, btn) {
+        const keys = getKeyList(id);
+        if (!keys.length) return;
+
+        const text = keys.join('\n');
+        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+        const original = btn.innerHTML;
+        flash(btn, `<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Downloaded!`, original);
+    }
+</script>
+
+</body>
+</html>
