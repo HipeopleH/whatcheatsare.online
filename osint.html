@@ -1,0 +1,2292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Tools · whatcheatsare.online</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #1a1d1f;
+            --header: #212629;
+            --card: #23282b;
+            --card-hover: #2a3033;
+            --border: #333a3d;
+            --border-soft: #2a3134;
+
+            --text: #e7e9e9;
+            --muted: #888f91;
+            --muted-2: #6a7275;
+
+            --green: #35d16f;
+            --red: #ff4545;
+            --blue: #4a7cf7;
+            --yellow: #eab308;
+            --purple: #8b5cf6;
+        }
+
+        html {
+            background: var(--bg);
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            line-height: 1.5;
+            padding-top: 68px;
+        }
+
+        /* HEADER */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 32px;
+
+            background: var(--header);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .white {
+            color: #fff;
+        }
+
+        .green {
+            color: var(--green);
+        }
+
+        .red {
+            color: var(--red);
+        }
+
+        .gray {
+            color: var(--muted);
+        }
+
+        .header-links {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .header-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color .12s;
+        }
+
+        .header-links a:hover {
+            color: #fff;
+        }
+
+        /* MAIN */
+
+        main {
+            width: 66.6667%;
+            max-width: 950px;
+            margin: 36px auto 60px;
+        }
+
+        .page-title {
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--border-soft);
+        }
+
+        .page-title h1 {
+            margin: 0 0 6px;
+            font-size: 32px;
+            letter-spacing: -.5px;
+        }
+
+        .page-title p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* SEARCH */
+
+        .search-box {
+            margin-bottom: 25px;
+        }
+
+        .search-box input {
+            width: 100%;
+            height: 44px;
+
+            padding: 0 15px;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+
+            color: var(--text);
+            font-size: 13px;
+            outline: none;
+
+            transition: border-color .12s, background .12s;
+        }
+
+        .search-box input::placeholder {
+            color: var(--muted-2);
+        }
+
+        .search-box input:focus {
+            border-color: #465054;
+            background: var(--card-hover);
+        }
+
+        /* CATEGORIES */
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-bottom: 28px;
+        }
+
+        .category {
+            padding: 7px 13px;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 600;
+
+            cursor: pointer;
+            transition: .12s;
+        }
+
+        .category:hover,
+        .category.active {
+            color: #fff;
+            border-color: #465054;
+            background: var(--card-hover);
+        }
+
+        .category.active {
+            color: var(--green);
+        }
+
+        /* SECTIONS */
+
+        .section {
+            margin-bottom: 38px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding-bottom: 8px;
+            margin-bottom: 11px;
+
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .section-title span {
+            color: var(--muted-2);
+            font-size: 11px;
+        }
+
+        /* TOOL GRID */
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .tool {
+            position: relative;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+
+            padding: 17px 19px;
+
+            transition:
+                background .12s,
+                border-color .12s,
+                transform .12s;
+        }
+
+        .tool:hover {
+            background: var(--card-hover);
+            border-color: #3d4649;
+            transform: translateY(-1px);
+        }
+
+        /*
+         * Invisible link covers the whole card.
+         * Labels/status are placed above it with z-index.
+         */
+
+        .tool-link {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border-radius: 7px;
+        }
+
+        .tool-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+
+            margin-bottom: 5px;
+        }
+
+        .tool-name {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .status {
+            position: relative;
+            z-index: 3;
+
+            font-size: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .status.online {
+            color: var(--green);
+        }
+
+        .status.info {
+            color: var(--blue);
+        }
+
+        .status.unknown {
+            color: var(--yellow);
+        }
+
+        .tool-description {
+            margin: 0 0 12px;
+
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .tool-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tags {
+            position: relative;
+            z-index: 3;
+
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 2px 8px;
+
+            background: #303638;
+            border: 1px solid #3a4245;
+            border-radius: 10px;
+
+            color: var(--muted);
+            font-size: 9px;
+            font-weight: 600;
+
+            user-select: none;
+            cursor: default;
+        }
+
+        .tag.green {
+            color: var(--green);
+        }
+
+        .tag.blue {
+            color: #8ab4f8;
+        }
+
+        .tag.purple {
+            color: #c4a7ff;
+        }
+
+        .tag.red {
+            color: #ff7474;
+        }
+
+        .more {
+            position: relative;
+            z-index: 3;
+
+            color: var(--muted-2);
+            font-size: 10px;
+        }
+
+        /* INFO */
+
+        .info-box {
+            margin-top: 28px;
+
+            padding: 15px 17px;
+
+            background: #202527;
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--green);
+            border-radius: 5px;
+
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .info-box strong {
+            color: #ddd;
+        }
+
+        /* NO RESULTS */
+
+        .no-results {
+            display: none;
+
+            padding: 30px;
+
+            text-align: center;
+
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 60px;
+            padding: 25px 0 15px;
+
+            border-top: 1px solid var(--border-soft);
+
+            text-align: center;
+
+            color: var(--muted-2);
+            font-size: 11px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 750px) {
+
+            header {
+                height: auto;
+                min-height: 62px;
+
+                padding: 9px 18px;
+
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .header-links {
+                gap: 10px;
+            }
+
+            .header-links a {
+                font-size: 11px;
+            }
+
+            body {
+                padding-top: 90px;
+            }
+
+            main {
+                width: calc(100% - 30px);
+                margin-top: 25px;
+            }
+
+            .page-title h1 {
+                font-size: 27px;
+            }
+
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .categories {
+                gap: 5px;
+            }
+
+            .category {
+                font-size: 10px;
+                padding: 6px 9px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <a href="/">
+            <span class="white">what</span><span class="green">cheats</span><span class="white">are</span><span class="red">online</span><span class="gray">.qd.je</span>
+        </a>
+    </div>
+
+    <div class="header-links">
+        <a href="/">Home</a>
+        <a href="guide.html">Guide</a>
+        <a href="docs.html">Docs</a>
+    </div>
+
+</header>
+
+
+<main>
+
+    <div class="page-title">
+        <h1>OSINT Tools</h1>
+        <p>Open-source intelligence and public-information research resources.</p>
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="search"
+            placeholder="Search OSINT tools..."
+            autocomplete="off"
+        >
+    </div>
+
+
+    <!-- CATEGORIES -->
+
+    <div class="categories">
+
+        <div class="category active" data-filter="all">ALL</div>
+        <div class="category" data-filter="web">WEB</div>
+        <div class="category" data-filter="domain">DOMAIN</div>
+        <div class="category" data-filter="network">NETWORK</div>
+        <div class="category" data-filter="archive">ARCHIVES</div>
+        <div class="category" data-filter="metadata">METADATA</div>
+        <div class="category" data-filter="account">ACCOUNTS</div>
+        <div class="category" data-filter="email">EMAIL</div>
+        <div class="category" data-filter="image">IMAGES</div>
+        <div class="category" data-filter="company">COMPANIES</div>
+        <div class="category" data-filter="automation">AUTOMATION</div>
+        <div class="category" data-filter="threat">THREAT INTEL</div>
+        <div class="category" data-filter="developer">DEVELOPER</div>
+
+    </div>
+
+
+    <!-- WEB RESEARCH -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Web Research</h2>
+            <span>PUBLIC INFORMATION</span>
+        </div>
+
+        <div class="tool-grid">
+
+
+            <div class="tool" data-category="web research" data-name="google search operators">
+
+                <a class="tool-link"
+                   href="https://www.google.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Google"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Google Search Operators</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Search-engine operators for narrowing and refining public web searches.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">SEARCH</span>
+                        <span class="tag">WEB</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="web" data-name="bing">
+
+                <a class="tool-link"
+                   href="https://www.bing.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Bing"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Bing</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Microsoft search engine useful for general web and image research.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">SEARCH</span>
+                        <span class="tag">WEB</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="web" data-name="duckduckgo">
+
+                <a class="tool-link"
+                   href="https://duckduckgo.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open DuckDuckGo"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">DuckDuckGo</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Privacy-focused search engine for general public web research.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">SEARCH</span>
+                        <span class="tag">PRIVACY</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="web" data-name="publicwww">
+
+                <a class="tool-link"
+                   href="https://publicwww.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open PublicWWW"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">PublicWWW</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Search publicly indexed website source code and web technologies.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">SOURCE</span>
+                        <span class="tag">WEB</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="web image" data-name="google lens">
+
+                <a class="tool-link"
+                   href="https://lens.google.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Google Lens"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Google Lens</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Visual search for identifying objects and finding related public web content.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">IMAGE</span>
+                        <span class="tag">SEARCH</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="web" data-name="common crawl">
+
+                <a class="tool-link"
+                   href="https://commoncrawl.org/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Common Crawl"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Common Crawl</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Open repository of large-scale crawled web data for research and analysis.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag green">WEB DATA</span>
+                        <span class="tag">RESEARCH</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="web" data-name="dorking database">
+
+                <a class="tool-link"
+                   href="https://www.exploit-db.com/google-hacking-database"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Google Hacking Database"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Dorking Database</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Search-query examples and operators for finding publicly indexed information.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">SEARCH</span>
+                        <span class="tag">DORKS</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DOMAIN -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Domain & Network</h2>
+            <span>INFRASTRUCTURE</span>
+        </div>
+
+        <div class="tool-grid">
+
+
+            <div class="tool" data-category="domain" data-name="whois rdap">
+
+                <a class="tool-link"
+                   href="https://www.whois.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open WHOIS"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">WHOIS / RDAP</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Look up publicly available domain registration and allocation information.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">DOMAIN</span>
+                        <span class="tag">RDAP</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="domain network" data-name="dns lookup">
+
+                <a class="tool-link"
+                   href="https://www.nslookup.io/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open DNS Lookup"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">DNS Lookup</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Inspect publicly available DNS records for domains.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">DNS</span>
+                        <span class="tag">NETWORK</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="domain" data-name="dnsdumpster">
+
+                <a class="tool-link"
+                   href="https://dnsdumpster.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open DNSDumpster"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">DNSDumpster</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Domain research tool focused on DNS records and infrastructure information.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">DNS</span>
+                        <span class="tag">DOMAIN</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="domain" data-name="crt.sh certificate transparency">
+
+                <a class="tool-link"
+                   href="https://crt.sh/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open crt.sh"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">crt.sh</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Search publicly logged TLS certificates associated with domains.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">CERTIFICATES</span>
+                        <span class="tag">DOMAIN</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="network" data-name="shodan">
+
+                <a class="tool-link"
+                   href="https://www.shodan.io/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Shodan"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Shodan</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Search engine for internet-connected devices, services, and public network information.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">NETWORK</span>
+                        <span class="tag">DEVICES</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="network" data-name="censys">
+
+                <a class="tool-link"
+                   href="https://search.censys.io/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Censys"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Censys</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Search platform for internet hosts, services, and certificates.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">HOSTS</span>
+                        <span class="tag">NETWORK</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="network" data-name="ipinfo">
+
+                <a class="tool-link"
+                   href="https://ipinfo.io/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open IPinfo"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">IPinfo</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    IP intelligence including ASN, organization, location, and network information.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">IP</span>
+                        <span class="tag">ASN</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="network" data-name="viewdns">
+
+                <a class="tool-link"
+                   href="https://viewdns.info/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open ViewDNS"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">ViewDNS</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Collection of DNS, domain, IP, and network lookup utilities.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">DNS</span>
+                        <span class="tag">LOOKUP</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="network" data-name="greynoise">
+
+                <a class="tool-link"
+                   href="https://www.greynoise.io/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open GreyNoise"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">GreyNoise</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Internet scanner intelligence and IP context for security research.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">IP</span>
+                        <span class="tag">THREAT</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="network" data-name="bgpview">
+
+                <a class="tool-link"
+                   href="https://bgpview.io/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open BGPView"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">BGPView</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Explore publicly available BGP, ASN, prefix, and IP information.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">BGP</span>
+                        <span class="tag">ASN</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ARCHIVES -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Archives & History</h2>
+            <span>HISTORICAL DATA</span>
+        </div>
+
+        <div class="tool-grid">
+
+
+            <div class="tool" data-category="archive" data-name="wayback machine">
+
+                <a class="tool-link"
+                   href="https://web.archive.org/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Wayback Machine"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Wayback Machine</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Browse archived versions of publicly accessible websites and pages.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag green">ARCHIVE</span>
+                        <span class="tag">WEB</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="archive" data-name="archive today">
+
+                <a class="tool-link"
+                   href="https://archive.today/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Archive.today"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Archive.today</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Save and retrieve snapshots of publicly accessible web pages.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag green">ARCHIVE</span>
+                        <span class="tag">WEB</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="archive" data-name="common crawl">
+
+                <a class="tool-link"
+                   href="https://commoncrawl.org/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Common Crawl"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Common Crawl</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Open repository of web crawl data used for research and analysis.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag green">WEB DATA</span>
+                        <span class="tag">ARCHIVE</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="archive" data-name="ghostarchive">
+
+                <a class="tool-link"
+                   href="https://ghostarchive.org/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Ghostarchive"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Ghostarchive</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Web archiving service for preserving publicly accessible pages and media.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag green">ARCHIVE</span>
+                        <span class="tag">MEDIA</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- METADATA -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Metadata & Files</h2>
+            <span>FILE ANALYSIS</span>
+        </div>
+
+        <div class="tool-grid">
+
+
+            <div class="tool" data-category="metadata" data-name="exiftool">
+
+                <a class="tool-link"
+                   href="https://exiftool.org/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open ExifTool"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">ExifTool</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Read and analyze metadata from images, documents, audio, video, and other files.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">METADATA</span>
+                        <span class="tag">FILES</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="metadata" data-name="metadata2go">
+
+                <a class="tool-link"
+                   href="https://www.metadata2go.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Metadata2Go"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Metadata2Go</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Browser-based metadata viewer for supported uploaded files.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">METADATA</span>
+                        <span class="tag">FILES</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="metadata image" data-name="fotoforensics">
+
+                <a class="tool-link"
+                   href="https://fotoforensics.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open FotoForensics"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">FotoForensics</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Image-analysis tools for examining image properties and compression artifacts.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">IMAGE</span>
+                        <span class="tag">ANALYSIS</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="metadata developer" data-name="cyberchef">
+
+                <a class="tool-link"
+                   href="https://gchq.github.io/CyberChef/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open CyberChef"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">CyberChef</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Toolkit for encoding, decoding, parsing, transforming, and analyzing data.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">DATA</span>
+                        <span class="tag">ANALYSIS</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACCOUNTS -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Username & Account Research</h2>
+            <span>PUBLIC ACCOUNTS</span>
+        </div>
+
+        <div class="tool-grid">
+
+
+            <div class="tool" data-category="account research" data-name="sherlock">
+
+                <a class="tool-link"
+                   href="https://github.com/sherlock-project/sherlock"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Sherlock"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Sherlock</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Open-source username investigation tool checking supported public websites.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">USERNAME</span>
+                        <span class="tag">OPEN SOURCE</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="account research" data-name="whatsmyname">
+
+                <a class="tool-link"
+                   href="https://whatsmyname.app/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open WhatsMyName"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">WhatsMyName</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Check whether usernames appear across supported online services.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">USERNAME</span>
+                        <span class="tag">OSINT</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="account" data-name="namechk">
+
+                <a class="tool-link"
+                   href="https://namechk.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Namechk"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Namechk</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Check usernames and domain names across many online services.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">USERNAME</span>
+                        <span class="tag">SOCIAL</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="account" data-name="maigret">
+
+                <a class="tool-link"
+                   href="https://github.com/soxoj/maigret"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Maigret"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Maigret</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Open-source username search tool for checking supported websites.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">USERNAME</span>
+                        <span class="tag">OSINT</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EMAIL -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Email Research</h2>
+            <span>EMAIL INTELLIGENCE</span>
+        </div>
+
+        <div class="tool-grid">
+
+
+            <div class="tool" data-category="email" data-name="hunter">
+
+                <a class="tool-link"
+                   href="https://hunter.io/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Hunter"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Hunter</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Email intelligence and domain research platform focused on professional contact data.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">EMAIL</span>
+                        <span class="tag">DOMAIN</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="email" data-name="emailrep">
+
+                <a class="tool-link"
+                   href="https://emailrep.io/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open EmailRep"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">EmailRep</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Email reputation service providing public-data reputation signals.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">EMAIL</span>
+                        <span class="tag">REPUTATION</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="email" data-name="have i been pwned">
+
+                <a class="tool-link"
+                   href="https://haveibeenpwned.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Have I Been Pwned"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Have I Been Pwned</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Check whether an email address appears in known data breaches.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">BREACHES</span>
+                        <span class="tag">EMAIL</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- IMAGE -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Image & Media Research</h2>
+            <span>VISUAL RESEARCH</span>
+        </div>
+
+        <div class="tool-grid">
+
+
+            <div class="tool" data-category="image research" data-name="tineye">
+
+                <a class="tool-link"
+                   href="https://tineye.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open TinEye"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">TinEye</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Reverse image search engine for finding appearances and related versions of an image.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">IMAGE</span>
+                        <span class="tag">SEARCH</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="image research" data-name="bing visual search">
+
+                <a class="tool-link"
+                   href="https://www.bing.com/visualsearch"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Bing Visual Search"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Bing Visual Search</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Visual search tool for finding related images and public web information.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">IMAGE</span>
+                        <span class="tag">SEARCH</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="image research" data-name="invid">
+
+                <a class="tool-link"
+                   href="https://www.invid-project.eu/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open InVID"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">InVID</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Verification toolkit for analyzing online image and video content.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">VIDEO</span>
+                        <span class="tag">VERIFY</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- COMPANIES -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Companies & Organizations</h2>
+            <span>PUBLIC RECORDS</span>
+        </div>
+
+        <div class="tool-grid">
+
+
+            <div class="tool" data-category="company research" data-name="opencorporates">
+
+                <a class="tool-link"
+                   href="https://opencorporates.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open OpenCorporates"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">OpenCorporates</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Open database of companies and corporate registration information.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">COMPANIES</span>
+                        <span class="tag">RESEARCH</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="company research" data-name="sec edgar">
+
+                <a class="tool-link"
+                   href="https://www.sec.gov/edgar/search/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open SEC EDGAR"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">SEC EDGAR</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    U.S. SEC database containing public company filings and disclosures.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">SEC</span>
+                        <span class="tag">FILINGS</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="company research" data-name="gleif">
+
+                <a class="tool-link"
+                   href="https://www.gleif.org/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open GLEIF"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">GLEIF</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Global Legal Entity Identifier information and organization data.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">COMPANIES</span>
+                        <span class="tag">LEI</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- AUTOMATION -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>OSINT Automation</h2>
+            <span>AUTOMATED RESEARCH</span>
+        </div>
+
+        <div class="tool-grid">
+
+
+            <div class="tool" data-category="automation research" data-name="spiderfoot">
+
+                <a class="tool-link"
+                   href="https://github.com/smicallef/spiderfoot"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open SpiderFoot"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">SpiderFoot</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Open-source OSINT automation platform with many modules for public-information research.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag green">OSINT</span>
+                        <span class="tag">AUTOMATION</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="automation domain" data-name="theharvester">
+
+                <a class="tool-link"
+                   href="https://github.com/laramies/theHarvester"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open theHarvester"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">theHarvester</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    OSINT reconnaissance tool for gathering publicly available information from multiple sources.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag green">OSINT</span>
+                        <span class="tag">RECON</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="automation domain" data-name="owasp amass">
+
+                <a class="tool-link"
+                   href="https://github.com/owasp-amass/amass"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open OWASP Amass"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">OWASP Amass</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Open-source framework for network mapping and external asset discovery.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">DOMAIN</span>
+                        <span class="tag">RECON</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="automation research" data-name="maltego">
+
+                <a class="tool-link"
+                   href="https://www.maltego.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Maltego"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Maltego</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Visual investigation platform for connecting and analyzing relationships between public data.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">GRAPH</span>
+                        <span class="tag">OSINT</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="automation research" data-name="recon-ng">
+
+                <a class="tool-link"
+                   href="https://github.com/lanmaster53/recon-ng"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Recon-ng"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Recon-ng</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Modular reconnaissance framework for structured information gathering.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">RECON</span>
+                        <span class="tag">FRAMEWORK</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- THREAT INTELLIGENCE -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Threat Intelligence</h2>
+            <span>SECURITY RESEARCH</span>
+        </div>
+
+        <div class="tool-grid">
+
+
+            <div class="tool" data-category="threat network" data-name="virustotal">
+
+                <a class="tool-link"
+                   href="https://www.virustotal.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open VirusTotal"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">VirusTotal</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Analyze files, URLs, domains, and IP addresses using aggregated security intelligence.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">THREAT INTEL</span>
+                        <span class="tag">ANALYSIS</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="threat network" data-name="abuseipdb">
+
+                <a class="tool-link"
+                   href="https://www.abuseipdb.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open AbuseIPDB"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">AbuseIPDB</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    IP reputation database containing reports of abusive network activity.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">IP</span>
+                        <span class="tag">REPUTATION</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="threat web" data-name="urlhaus">
+
+                <a class="tool-link"
+                   href="https://urlhaus.abuse.ch/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open URLhaus"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">URLhaus</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Threat-intelligence database focused on malicious URLs and malware distribution.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag red">THREAT</span>
+                        <span class="tag">URL</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="threat web" data-name="phishtank">
+
+                <a class="tool-link"
+                   href="https://phishtank.org/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open PhishTank"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">PhishTank</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Collaborative database for researching reported phishing websites.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag red">PHISHING</span>
+                        <span class="tag">URL</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="threat" data-name="alienvault otx">
+
+                <a class="tool-link"
+                   href="https://otx.alienvault.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open AlienVault OTX"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">AlienVault OTX</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Open threat-intelligence platform containing indicators and community threat information.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag purple">THREAT INTEL</span>
+                        <span class="tag">IOCS</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="threat" data-name="threatfox">
+
+                <a class="tool-link"
+                   href="https://threatfox.abuse.ch/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open ThreatFox"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">ThreatFox</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Community-driven platform for sharing indicators associated with malware and threats.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag red">IOCS</span>
+                        <span class="tag">MALWARE</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DEVELOPER -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <h2>Developer & Analysis</h2>
+            <span>TECHNICAL TOOLS</span>
+        </div>
+
+        <div class="tool-grid">
+
+
+            <div class="tool" data-category="developer" data-name="regex101">
+
+                <a class="tool-link"
+                   href="https://regex101.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open Regex101"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">Regex101</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Interactive regular-expression tester, debugger, and reference.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">REGEX</span>
+                        <span class="tag">DEVELOPER</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="developer" data-name="jwt.io">
+
+                <a class="tool-link"
+                   href="https://jwt.io/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open JWT.io"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">JWT.io</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Inspect and decode JSON Web Token structures for development and debugging.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">JWT</span>
+                        <span class="tag">WEB</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+
+            <div class="tool" data-category="developer metadata" data-name="fileinfo">
+
+                <a class="tool-link"
+                   href="https://fileinfo.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open FileInfo"></a>
+
+                <div class="tool-top">
+                    <div class="tool-name">FileInfo</div>
+                    <div class="status online">● ONLINE</div>
+                </div>
+
+                <p class="tool-description">
+                    Reference database for file extensions, formats, and file types.
+                </p>
+
+                <div class="tool-bottom">
+                    <div class="tags">
+                        <span class="tag blue">FILES</span>
+                        <span class="tag">REFERENCE</span>
+                    </div>
+                    <span class="more">MORE →</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="no-results" id="noResults">
+        No tools found matching your search.
+    </div>
+
+
+    <!-- INFO -->
+
+    <div class="info-box">
+        <strong>What is OSINT?</strong><br>
+        OSINT stands for Open-Source Intelligence. It involves collecting and
+        analyzing information that is publicly available. Use these resources
+        responsibly and respect privacy, laws, and the terms of the services
+        you use.
+    </div>
+
+
+    <footer>
+        whatcheatsare.online · OSINT Directory
+    </footer>
+
+</main>
+
+
+<script>
+
+    const search = document.getElementById("search");
+    const tools = document.querySelectorAll(".tool");
+    const sections = document.querySelectorAll(".section");
+    const categories = document.querySelectorAll(".category");
+    const noResults = document.getElementById("noResults");
+
+    let activeCategory = "all";
+
+
+    function filterTools() {
+
+        const query = search.value.toLowerCase().trim();
+
+        let visibleTools = 0;
+
+        tools.forEach(tool => {
+
+            const text = tool.innerText.toLowerCase();
+            const category = tool.dataset.category || "";
+            const name = tool.dataset.name || "";
+
+            const matchesSearch =
+                !query ||
+                text.includes(query) ||
+                name.includes(query);
+
+            const matchesCategory =
+                activeCategory === "all" ||
+                category.includes(activeCategory);
+
+            const visible =
+                matchesSearch && matchesCategory;
+
+            tool.style.display =
+                visible ? "" : "none";
+
+            if (visible) {
+                visibleTools++;
+            }
+
+        });
+
+
+        sections.forEach(section => {
+
+            const visibleCards =
+                [...section.querySelectorAll(".tool")]
+                    .filter(tool => tool.style.display !== "none");
+
+            section.style.display =
+                visibleCards.length > 0 ? "" : "none";
+
+        });
+
+
+        noResults.style.display =
+            visibleTools === 0 ? "block" : "none";
+
+    }
+
+
+    search.addEventListener("input", filterTools);
+
+
+    categories.forEach(category => {
+
+        category.addEventListener("click", () => {
+
+            categories.forEach(c =>
+                c.classList.remove("active")
+            );
+
+            category.classList.add("active");
+
+            activeCategory =
+                category.dataset.filter;
+
+            filterTools();
+
+        });
+
+    });
+
+
+    /*
+     * Prevent the invisible card link from activating when
+     * the user interacts with labels/tags/status.
+     */
+
+    document.querySelectorAll(".tag, .status").forEach(element => {
+
+        element.addEventListener("click", event => {
+            event.preventDefault();
+            event.stopPropagation();
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
