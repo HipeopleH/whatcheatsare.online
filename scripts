@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripts · whatcheatsareonline.qd.je</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * { box-sizing: border-box; }
+        :root {
+            --bg: #1a1d1f;
+            --header: #212629;
+            --card: #23282b;
+            --card-hover: #2a3033;
+            --border: #333a3d;
+            --border-soft: #2a3134;
+            --text: #e7e9e9;
+            --muted: #888f91;
+            --muted-2: #6a7275;
+            --green: #35d16f;
+            --red: #ff4545;
+            --blue: #4a7cf7;
+            --yellow: #eab308;
+            --gray: #888f91;
+        }
+        html { background: var(--bg); }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 68px;
+            min-height: 100vh;
+        }
+        header {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 100; height: 68px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 32px;
+            background: var(--header);
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .logo { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; user-select: none; }
+        .logo a { color: inherit; text-decoration: none; }
+        .logo a span.white { color: #fff; }
+        .logo a span.green { color: var(--green); }
+        .logo a span.red { color: var(--red); }
+        .logo a span.gray { color: var(--gray); }
+        .header-links { display: flex; align-items: center; gap: 16px; }
+        .header-links a {
+            display: flex; align-items: center; gap: 6px;
+            color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.12s;
+        }
+        .header-links a:hover { color: #ddd; }
+        .header-links svg { width: 20px; height: 20px; fill: currentColor; }
+        .header-links .site-update { color: var(--muted-2); font-size: 11px; margin-left: 4px; }
+
+        main { max-width: 900px; margin: 32px auto 60px; padding: 0 20px; }
+
+        .page-title { margin-bottom: 24px; }
+        .page-title h1 { margin: 0 0 4px; font-size: 30px; letter-spacing: -0.5px; }
+        .page-title p { margin: 0; color: var(--muted); font-size: 14px; }
+
+        .callout {
+            background: #2a1a1a; border-left: 3px solid var(--red);
+            padding: 10px 16px; border-radius: 4px; color: #fca5a5;
+            font-size: 13px; margin-bottom: 24px;
+        }
+
+        .search-wrap { margin-bottom: 16px; }
+        .search {
+            width: 100%; height: 42px; padding: 0 14px;
+            background: #15181a; border: 1px solid var(--border);
+            border-radius: 6px; color: #eee; font-size: 13px;
+            outline: none; transition: border-color 0.12s;
+        }
+        .search::placeholder { color: #626769; }
+        .search:focus { border-color: #383f41; }
+
+        .script-list { display: flex; flex-direction: column; gap: 6px; }
+
+        .script {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: border-color 0.12s, background 0.12s;
+        }
+        .script:hover { background: var(--card-hover); border-color: #3a4245; }
+
+        .script-row {
+            display: flex; align-items: center;
+            padding: 12px 16px; gap: 12px;
+            cursor: pointer; user-select: none;
+        }
+        .script-row .expand-icon {
+            width: 12px; height: 12px; flex-shrink: 0;
+            color: var(--muted); transition: transform 0.18s;
+        }
+        .script.open .script-row .expand-icon { transform: rotate(90deg); }
+
+        .script-name {
+            font-weight: 600; font-size: 14px; flex: 1;
+            color: var(--text);
+        }
+
+        .script-tags { display: flex; gap: 5px; flex-shrink: 0; }
+        .script-tag {
+            font-size: 10px; font-weight: 700;
+            padding: 2px 9px; border-radius: 10px;
+            background: #2a3033; color: #c0c6c8;
+            letter-spacing: 0.3px; white-space: nowrap;
+        }
+        .script-tag.free   { background: var(--green); color: #0b0d0e; }
+        .script-tag.working{ background: var(--green); color: #0b0d0e; }
+        .script-tag.patched{ background: var(--red); color: #fff; }
+        .script-tag.risky  { background: var(--red); color: #fff; }
+        .script-tag.paid   { background: var(--blue); color: #fff; }
+        .script-tag.key    { background: var(--yellow); color: #fff; }
+
+        .script-body {
+            display: none;
+            padding: 0 16px 14px 40px;
+            border-top: 1px solid var(--border-soft);
+        }
+        .script.open .script-body { display: block; }
+
+        .script-body p {
+            margin: 10px 0 10px 0;
+            color: #bbb; font-size: 13px; line-height: 1.55;
+        }
+
+        .code-block {
+            position: relative;
+            background: #111516;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 12px 14px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px; line-height: 1.55; color: #ddd;
+            white-space: pre-wrap; word-break: break-all;
+        }
+        .copy-btn {
+            position: absolute; top: 8px; right: 8px;
+            background: #1d2223; border: 1px solid var(--border);
+            border-radius: 4px; color: #aaa;
+            padding: 4px 12px; cursor: pointer;
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 0.3px;
+            transition: 0.12s;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .copy-btn:hover { background: #272c2e; color: #ddd; }
+        .copy-btn.copied { background: var(--green); color: #0b0d0e; border-color: var(--green); }
+
+        .footer {
+            margin-top: 60px; padding: 32px 0 16px;
+            border-top: 1px solid var(--border-soft);
+            text-align: center; color: var(--muted-2); font-size: 12px;
+        }
+
+        @media (max-width: 750px) {
+            header { height: auto; min-height: 62px; flex-wrap: wrap; padding: 8px 18px; gap: 6px; }
+            .logo { font-size: 20px; }
+            .header-links { gap: 10px; flex-wrap: wrap; }
+            .header-links a { font-size: 11px; }
+            .header-links svg { width: 16px; height: 16px; }
+            body { padding-top: 90px; }
+            .script-body { padding-left: 16px; }
+            .script-tags { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="/">
+            <span class="white">what</span><span class="green">cheats</span><span class="white">are</span><span class="red">online</span><span class="gray">.qd.je</span>
+        </a>
+    </div>
+    <div class="header-links">
+        <a href="/" title="Home">
+            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+            Home
+        </a>
+        <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            Discord
+        </a>
+        <span class="site-update">Updated: 09/14/2026</span>
+    </div>
+</header>
+
+<main>
+
+    <div class="page-title">
+        <h1>Scripts</h1>
+        <p>Scripts I actually use. Click any to expand and copy.</p>
+    </div>
+
+    <div class="callout">
+        ⚠️ Use at your own risk. Scripts can be patched or detected at any time. I don't own any of these.
+    </div>
+
+    <div class="search-wrap">
+        <input class="search" id="search" type="text" placeholder="Search scripts..." autocomplete="off">
+    </div>
+
+    <div class="script-list" id="scriptList">
+
+        <!-- Infinite Yield -->
+        <div class="script" data-search="infinite yield admin universal esp fly noclip">
+            <div class="script-row" onclick="toggleScript(this)">
+                <svg class="expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                <span class="script-name">Infinite Yield</span>
+                <div class="script-tags">
+                    <span class="script-tag free">Free</span>
+                    <span class="script-tag working">Working</span>
+                </div>
+            </div>
+            <div class="script-body">
+                <p>The all-purpose admin script. Works in almost every game without custom anti-cheat. Commands for teleport, fly, noclip, ESP, speed, and more.</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(event, this)">COPY</button>
+<code>loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- VapeVoidware -->
+        <div class="script" data-search="vape voidware bedwars killaura reach auto buy">
+            <div class="script-row" onclick="toggleScript(this)">
+                <svg class="expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                <span class="script-name">VapeVoidware — Bedwars</span>
+                <div class="script-tags">
+                    <span class="script-tag free">Free</span>
+                    <span class="script-tag working">Working</span>
+                </div>
+            </div>
+            <div class="script-body">
+                <p>Bedwars-focused script. Auto-buy, killaura, reach, and bed-related exploits.</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(event, this)">COPY</button>
+<code>loadstring(game:HttpGet("https://files.vapevoidware.xyz/VapeVoidware/VW-Add/main/loader.lua", true))()</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ink Games -->
+        <div class="script" data-search="ink games auto farm utility">
+            <div class="script-row" onclick="toggleScript(this)">
+                <svg class="expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                <span class="script-name">Ink Games</span>
+                <div class="script-tags">
+                    <span class="script-tag free">Free</span>
+                    <span class="script-tag working">Working</span>
+                </div>
+            </div>
+            <div class="script-body">
+                <p>Ink Games script. Auto-farm and utility features for the Ink Games experience.</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(event, this)">COPY</button>
+<code>loadstring(game:HttpGet("https://raw.githubusercontent.com/wefwef34/inkgames.github.io/refs/heads/main/ringta.lua"))()</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Abyssal Doors -->
+        <div class="script" data-search="abyssal doors esp entities items">
+            <div class="script-row" onclick="toggleScript(this)">
+                <svg class="expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                <span class="script-name">Abyssal — Doors</span>
+                <div class="script-tags">
+                    <span class="script-tag free">Free</span>
+                    <span class="script-tag working">Working</span>
+                </div>
+            </div>
+            <div class="script-body">
+                <p>Doors script. ESP for entities, item locations, and door markers.</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(event, this)">COPY</button>
+<code>loadstring(game:HttpGet("https://raw.githubusercontent.com/bocaj111004/Abysall/refs/heads/main/Loader.luau"))()</code>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        © 2026 whatcheatsareonline.qd.je. Built by students, for students.
+    </div>
+
+</main>
+
+<script>
+    function toggleScript(row) {
+        row.parentElement.classList.toggle('open');
+    }
+
+    function copyCode(e, btn) {
+        e.stopPropagation();
+        const code = btn.parentElement.querySelector('code');
+        const text = code.textContent.trim();
+        const original = btn.textContent;
+
+        const done = () => {
+            btn.classList.add('copied');
+            btn.textContent = 'COPIED';
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.textContent = original;
+            }, 2000);
+        };
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(done).catch(() => fallback(text, done));
+        } else {
+            fallback(text, done);
+        }
+    }
+
+    function fallback(text, done) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch {}
+        document.body.removeChild(ta);
+    }
+
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+        const q = search.value.toLowerCase().trim();
+        document.querySelectorAll('.script').forEach(s => {
+            const hay = (s.querySelector('.script-name').textContent + ' ' + (s.dataset.search || '')).toLowerCase();
+            s.style.display = hay.includes(q) ? '' : 'none';
+        });
+    });
+</script>
+
+</body>
+</html>
