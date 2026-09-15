@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cracking · whatcheatsareonline.qd.je</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #1a1d1f;
+            --header: #212629;
+            --card: #23282b;
+            --card-hover: #2a3033;
+            --border: #333a3d;
+            --border-soft: #2a3134;
+            --text: #e7e9e9;
+            --muted: #888f91;
+            --muted-2: #6a7275;
+            --green: #35d16f;
+            --red: #ff4545;
+            --blue: #4a7cf7;
+            --yellow: #eab308;
+            --purple: #8b5cf6;
+            --gray: #888f91;
+        }
+
+        html {
+            background: var(--bg);
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 70px;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            background: var(--header);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .logo a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .logo a span.white {
+            color: #ffffff;
+        }
+
+        .logo a span.green {
+            color: var(--green);
+        }
+
+        .logo a span.red {
+            color: var(--red);
+        }
+
+        .logo a span.gray {
+            color: var(--gray);
+        }
+
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-links a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.12s;
+        }
+
+        .header-links a:hover {
+            color: #ddd;
+        }
+
+        .header-links svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .header-links .site-update {
+            color: var(--muted-2);
+            font-size: 11px;
+            margin-left: 4px;
+        }
+
+        main {
+            width: 66.6667%;
+            max-width: 950px;
+            margin: 32px auto 60px;
+        }
+
+        .page-title {
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--border-soft);
+            padding-bottom: 16px;
+        }
+
+        .page-title h1 {
+            margin: 0 0 6px;
+            font-size: 32px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-title p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .guide-section {
+            margin-bottom: 40px;
+        }
+
+        .guide-section h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            border-bottom: 1px solid var(--border-soft);
+            padding-bottom: 6px;
+        }
+
+        .guide-section p {
+            margin: 0 0 12px 0;
+            color: #bbb;
+        }
+
+        .guide-section .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .guide-section .card-grid .item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 14px 16px;
+            transition: background 0.12s, border-color 0.12s;
+            display: block;
+            color: var(--text);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .guide-section .card-grid .item:hover {
+            background: var(--card-hover);
+            border-color: #3a4245;
+        }
+
+        .guide-section .card-grid .item .name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .guide-section .card-grid .item .desc {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .guide-section .card-grid .item .tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 12px;
+            margin-top: 6px;
+            color: #fff;
+            background: var(--border);
+        }
+
+        .guide-section .card-grid .item .tag.green {
+            background: var(--green);
+        }
+
+        .guide-section .card-grid .item .tag.red {
+            background: var(--red);
+        }
+
+        .guide-section .card-grid .item .tag.yellow {
+            background: var(--yellow);
+        }
+
+        .guide-section .card-grid .item .tag.blue {
+            background: var(--blue);
+        }
+
+        .guide-section .card-grid .item .tag.purple {
+            background: var(--purple);
+        }
+
+        .guide-section .callout {
+            background: #0f2628;
+            border-left: 3px solid var(--green);
+            padding: 12px 16px;
+            border-radius: 4px;
+            color: #99f6c4;
+            font-size: 14px;
+            margin: 12px 0;
+        }
+
+        .guide-section .callout.warning {
+            background: #2a1a1a;
+            border-left-color: var(--red);
+            color: #fca5a5;
+        }
+
+        .guide-section .callout a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        .guide-section .callout a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding: 32px 0 16px;
+            border-top: 1px solid var(--border-soft);
+            text-align: center;
+            color: var(--muted-2);
+            font-size: 12px;
+        }
+
+        @media (max-width: 750px) {
+            header {
+                height: auto;
+                min-height: 62px;
+                flex-wrap: wrap;
+                padding: 8px 18px;
+                gap: 6px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .header-links {
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .header-links a {
+                font-size: 11px;
+            }
+
+            .header-links svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            body {
+                padding-top: 90px;
+            }
+
+            main {
+                width: calc(100% - 30px);
+                margin-top: 25px;
+            }
+
+            .page-title h1 {
+                font-size: 26px;
+            }
+
+            .guide-section .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <a href="/">
+            <span class="white">what</span><span class="green">cheats</span><span class="white">are</span><span class="red">online</span><span class="gray">.qd.je</span>
+        </a>
+    </div>
+
+    <div class="header-links">
+
+        <a href="/" title="Home">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+            </svg>
+            Home
+        </a>
+
+        <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
+            <svg viewBox="0 0 127.14 96.36">
+                <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.15c2.65-27.28-4.48-51.07-19.31-72.16ZM42.45,65.69C36.18,65.69,31,60,31,53s5.18-12.72,11.45-12.72S53.9,46,53.88,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5.18-12.72,11.44-12.72S96.15,46,96.13,53,91,65.69,84.69,65.69Z"/>
+            </svg>
+            Discord
+        </a>
+
+        <span class="site-update">Updated: 09/14/2026</span>
+
+    </div>
+</header>
+
+<main>
+
+    <div class="page-title">
+        <h1>🔧 Cracking</h1>
+        <p>Cracking, patching, analysis, and other related tools.</p>
+    </div>
+
+
+    <!-- ============================== -->
+    <!-- DISCLAIMER -->
+    <!-- ============================== -->
+
+    <div class="guide-section">
+        <div class="callout warning">
+            ⚠️ <strong>Disclaimer:</strong> This page is for educational and research purposes. Only analyze or modify software that you have permission to work with.
+        </div>
+    </div>
+
+
+    <!-- ============================== -->
+    <!-- CRACKED SOFTWARE -->
+    <!-- ============================== -->
+
+    <div class="guide-section">
+
+        <h2>💿 Cracked Software</h2>
+
+        <div class="card-grid">
+
+            <a href="https://www.mediafire.com/file/02tufchqruhhzbe/AutoRenew.py/file" target="_blank" class="item">
+                <div class="name">Adobe Acrobat</div>
+                <div class="desc">AutoRenew.py · trial renewal utility</div>
+                <span class="tag yellow">TRIAL RESET</span>
+            </a>
+
+            <a href="https://www.mediafire.com/file/vog4gdelnrs6zdh/Burp-pro-crack.zip/file" target="_blank" class="item">
+                <div class="name">Burp Suite Professional</div>
+                <div class="desc">Burp-pro-crack.zip</div>
+                <span class="tag red">CRACKED</span>
+            </a>
+
+            <a href="https://www.mediafire.com/file/8q7ev4zytrlva8e/hexlicgen%2528ida-pro%2529.py/file" target="_blank" class="item">
+                <div class="name">IDA Pro</div>
+                <div class="desc">hexlicgen(ida-pro).py</div>
+                <span class="tag red">CRACKED</span>
+            </a>
+
+            <a href="https://www.mediafire.com/file/7pbnj76y5ih6vr3/winrar-bypass.bat/file" target="_blank" class="item">
+                <div class="name">WinRAR</div>
+                <div class="desc">winrar-bypass.bat</div>
+                <span class="tag yellow">LICENSE BYPASS</span>
+            </a>
+
+            <a href="https://www.mediafire.com/file/cv6jt7f3yx887nb/BinaryNinja%2528GetASnack%2529.zip/file" target="_blank" class="item">
+                <div class="name">Binary Ninja</div>
+                <div class="desc">BinaryNinja(GetASnack).zip</div>
+                <span class="tag red">CRACKED</span>
+            </a>
+
+            <a href="/macsplotcracked" class="item">
+                <div class="name">MacSploit</div>
+                <div class="desc">Reposted resource</div>
+                <span class="tag gray">REPOST</span>
+            </a>
+
+        </div>
+    </div>
+
+
+    <!-- ============================== -->
+    <!-- CRACKING TOOLS -->
+    <!-- ============================== -->
+
+    <div class="guide-section">
+
+        <h2>🛠️ Cracking Tools</h2>
+
+        <div class="card-grid">
+
+            <a href="https://x64dbg.com/" target="_blank" class="item">
+                <div class="name">x64dbg</div>
+                <div class="desc">Open-source Windows debugger</div>
+                <span class="tag green">Free</span>
+            </a>
+
+            <a href="https://github.com/dnSpyEx/dnSpy" target="_blank" class="item">
+                <div class="name">dnSpyEx</div>
+                <div class="desc">.NET assembly editor and debugger</div>
+                <span class="tag green">Free</span>
+            </a>
+
+            <a href="https://github.com/horsicq/Detect-It-Easy" target="_blank" class="item">
+                <div class="name">Detect It Easy</div>
+                <div class="desc">Executable identification and analysis</div>
+                <span class="tag green">Free</span>
+            </a>
+
+            <a href="https://github.com/hasherezade/pe-bear" target="_blank" class="item">
+                <div class="name">PE-bear</div>
+                <div class="desc">Portable executable analysis tool</div>
+                <span class="tag green">Free</span>
+            </a>
+
+            <a href="https://www.angusj.com/resourcehacker/" target="_blank" class="item">
+                <div class="name">Resource Hacker</div>
+                <div class="desc">Windows executable resource editor</div>
+                <span class="tag blue">Tool</span>
+            </a>
+
+        </div>
+    </div>
+
+
+    <!-- ============================== -->
+    <!-- REVERSE ENGINEERING -->
+    <!-- ============================== -->
+
+    <div class="guide-section">
+
+        <h2>🔬 Reverse Engineering</h2>
+
+        <div class="card-grid">
+
+            <a href="https://ghidra-sre.org/" target="_blank" class="item">
+                <div class="name">Ghidra</div>
+                <div class="desc">Software reverse-engineering framework</div>
+                <span class="tag green">Free</span>
+            </a>
+
+            <a href="https://cutter.re/" target="_blank" class="item">
+                <div class="name">Cutter</div>
+                <div class="desc">Free graphical reverse-engineering platform</div>
+                <span class="tag green">Free</span>
+            </a>
+
+            <a href="https://github.com/radareorg/radare2" target="_blank" class="item">
+                <div class="name">radare2</div>
+                <div class="desc">Open-source reverse-engineering framework</div>
+                <span class="tag green">Free</span>
+            </a>
+
+            <a href="https://imhex.org/" target="_blank" class="item">
+                <div class="name">ImHex</div>
+                <div class="desc">Hex editor and binary analysis tool</div>
+                <span class="tag green">Free</span>
+            </a>
+
+            <a href="https://www.sweetscape.com/010editor/" target="_blank" class="item">
+                <div class="name">010 Editor</div>
+                <div class="desc">Professional hex and binary editor</div>
+                <span class="tag blue">Tool</span>
+            </a>
+
+            <a href="https://ntinfo.biz/" target="_blank" class="item">
+                <div class="name">CFF Explorer</div>
+                <div class="desc">Portable executable file editor</div>
+                <span class="tag blue">Tool</span>
+            </a>
+
+        </div>
+    </div>
+
+
+    <footer class="footer">
+        © 2026 WCAO. Built by students, for students.
+    </footer>
+
+</main>
+
+</body>
+</html>
