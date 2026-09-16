@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnWorks · Escape School Surveillance · whatcheatsareonline.qd.je</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * { box-sizing: border-box; }
+
+        :root {
+            --bg: #1a1d1f;
+            --bg-deep: #15181a;
+            --header: #212629;
+            --card: #23282b;
+            --card-hover: #2a3033;
+            --border: #333a3d;
+            --border-soft: #2a3134;
+            --text: #e7e9e9;
+            --muted: #888f91;
+            --muted-2: #6a7275;
+            --green: #35d16f;
+            --red: #ff4545;
+            --red-dim: #fca5a5;
+            --teal: #2dd4bf;
+            --teal-dim: #99f6e4;
+        }
+
+        html { background: var(--bg); }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            line-height: 1.7;
+            padding-top: 70px;
+        }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            background: var(--header);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            user-select: none;
+        }
+        .logo a { color: inherit; text-decoration: none; }
+        .logo a span.white { color: #fff; }
+        .logo a span.green { color: var(--green); }
+        .logo a span.red { color: var(--red); }
+        .logo a span.gray { color: var(--muted); }
+
+        .header-links { display: flex; align-items: center; gap: 16px; }
+        .header-links a {
+            display: flex; align-items: center; gap: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.12s;
+        }
+        .header-links a:hover { color: #ddd; }
+        .header-links svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+        .header-links .site-update { color: var(--muted-2); font-size: 11px; margin-left: 4px; }
+
+        main {
+            width: 66.6667%;
+            max-width: 1000px;
+            margin: 32px auto 60px;
+        }
+
+        /* ============ HERO ============ */
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 52px 0 40px;
+        }
+
+        .hero-copy .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: var(--teal);
+            background: rgba(45, 212, 191, 0.08);
+            border: 1px solid rgba(45, 212, 191, 0.25);
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 22px;
+        }
+        .hero-copy .hero-tag .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--teal);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero-copy h1 {
+            margin: 0 0 18px;
+            font-size: 44px;
+            line-height: 1.12;
+            letter-spacing: -1.2px;
+            color: #fff;
+        }
+        .hero-copy h1 .dim { color: var(--muted); }
+        .hero-copy h1 .red { color: var(--red); }
+        .hero-copy h1 .green { color: var(--green); }
+
+        .hero-copy .hero-sub {
+            color: #a9b0b2;
+            font-size: 15px;
+            margin: 0 0 28px;
+            max-width: 480px;
+        }
+        .hero-copy .hero-sub strong { color: #ddd; }
+
+        .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 30px;
+            background: var(--green);
+            color: #0b0d0e;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.12s, opacity 0.12s;
+        }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-primary svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            padding: 13px 28px;
+            background: #1d2223;
+            border: 1px solid var(--border);
+            color: #ccc;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.12s;
+        }
+        .btn-secondary:hover { background: #272c2e; color: #fff; border-color: #3a4245; }
+
+        .hero-meta {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+            margin-top: 26px;
+        }
+        .hero-meta .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .hero-meta .meta-item svg { width: 14px; height: 14px; stroke: var(--green); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+        /* ---- VM mockup ---- */
+
+        .vm-mock {
+            position: relative;
+        }
+
+        .vm-mock .rec-badge {
+            position: absolute;
+            top: -13px;
+            left: -11px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: #2a1414;
+            border: 1px solid #4a2020;
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            color: var(--red-dim);
+        }
+        .vm-mock .rec-badge .rec-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--red);
+            animation: pulse 1.4s infinite;
+        }
+
+        .vm-mock .blocked-badge {
+            position: absolute;
+            bottom: -13px;
+            right: -11px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: #0f2628;
+            border: 1px solid #1a4a4a;
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            color: var(--teal-dim);
+        }
+        .vm-mock .blocked-badge svg { width: 12px; height: 12px; stroke: var(--teal); stroke-width: 2.5; fill: none; stroke-linecap: round; }
+
+        .vm-window {
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+        }
+
+        .vm-titlebar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            background: #1d2224;
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .vm-titlebar .tb-dots { display: flex; gap: 6px; }
+        .vm-titlebar .tb-dots span {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: #3a4245;
+        }
+        .vm-titlebar .tb-url {
+            flex: 1;
+            background: #15181a;
+            border: 1px solid var(--border-soft);
+            border-radius: 5px;
+            padding: 3px 12px;
+            font-size: 11px;
+            color: var(--muted);
+            font-family: 'Courier New', monospace;
+        }
+        .vm-titlebar .tb-url .lock { color: var(--green); }
+
+        .vm-screen {
+            position: relative;
+            height: 240px;
+            background:
+                radial-gradient(ellipse at 30% 20%, #24402e 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 75%, #1d3347 0%, transparent 50%),
+                #101c14;
+            overflow: hidden;
+        }
+
+        .vm-screen .vm-icon {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: #cfe8d6;
+            font-size: 9px;
+        }
+        .vm-screen .vm-icon .ic {
+            width: 34px; height: 34px;
+            background: rgba(255,255,255,0.09);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .vm-screen .vm-icon svg { width: 16px; height: 16px; fill: #d5ecdc; opacity: 0.85; }
+        .vm-screen .vm-icon:nth-child(1) { top: 22px; left: 22px; }
+        .vm-screen .vm-icon:nth-child(2) { top: 22px; left: 78px; }
+        .vm-screen .vm-icon:nth-child(3) { top: 88px; left: 22px; }
+
+        .vm-screen .vm-window-inner {
+            position: absolute;
+            top: 34px; left: 50%;
+            transform: translateX(-50%);
+            width: 62%;
+            background: rgba(16, 22, 18, 0.92);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 7px;
+            overflow: hidden;
+        }
+        .vm-screen .vm-window-inner .w-title {
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.06);
+            font-size: 9px;
+            color: #b8ccbe;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .vm-screen .vm-window-inner .w-body { padding: 12px 14px; }
+        .vm-screen .vm-window-inner .w-line {
+            height: 7px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.12);
+            margin-bottom: 7px;
+        }
+        .vm-screen .vm-window-inner .w-line.short { width: 55%; }
+        .vm-screen .vm-window-inner .w-line.mid { width: 78%; }
+
+        .vm-taskbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 12px;
+            background: rgba(12, 18, 14, 0.9);
+            border-top: 1px solid rgba(255,255,255,0.09);
+        }
+        .vm-taskbar .start {
+            width: 18px; height: 18px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .vm-taskbar .start svg { width: 13px; height: 13px; fill: #d5ecdc; }
+        .vm-taskbar .tb-search {
+            flex: 1;
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            height: 18px;
+            max-width: 130px;
+        }
+        .vm-taskbar .tb-app {
+            width: 18px; height: 18px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        .vm-taskbar .tb-clock {
+            margin-left: auto;
+            font-size: 9px;
+            color: #9fb5a5;
+            font-family: 'Courier New', monospace;
+        }
+
+        .vm-scan {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 69, 69, 0.6), transparent);
+            animation: scanline 4s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes scanline {
+            0% { top: 0; }
+            50% { top: calc(100% - 2px); }
+            100% { top: 0; }
+        }
+
+        /* ============ SECTIONS ============ */
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 56px 0 18px 0;
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+        .section-header .sh-icon {
+            width: 34px; height: 34px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .section-header .sh-icon svg { width: 17px; height: 17px; stroke: var(--red); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .section-header .sh-icon.teal svg { stroke: var(--teal); }
+        .section-header .sh-icon.green svg { stroke: var(--green); }
+
+        .section-header .sh-count {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted-2);
+            letter-spacing: 0.5px;
+        }
+
+        .section-intro {
+            color: #a9b0b2;
+            font-size: 15px;
+            margin: 0 0 18px;
+            max-width: 720px;
+        }
+        .section-intro strong { color: #ddd; }
+        .section-intro a { color: var(--green); text-decoration: none; }
+        .section-intro a:hover { text-decoration: underline; }
+
+        /* ============ SURVEILLANCE CARDS ============ */
+
+        .spy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .spycard {
+            background: #241919;
+            border: 1px solid #3a2424;
+            border-radius: 9px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .spycard:hover {
+            background: #2a1c1c;
+            border-color: #4d2c2c;
+        }
+        .spycard .spy-icon {
+            width: 36px; height: 36px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 69, 69, 0.1);
+            border: 1px solid rgba(255, 69, 69, 0.25);
+            border-radius: 8px;
+        }
+        .spycard .spy-icon svg { width: 17px; height: 17px; stroke: var(--red); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .spycard .spy-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: #fff;
+            margin-bottom: 3px;
+        }
+        .spycard .spy-text {
+            color: var(--red-dim);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .spy-quote {
+            margin-top: 18px;
+            padding: 18px 24px;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--red);
+            border-radius: 6px;
+            font-size: 16px;
+            color: #ddd;
+            font-style: italic;
+        }
+        .spy-quote .attrib {
+            display: block;
+            margin-top: 6px;
+            font-style: normal;
+            font-size: 12px;
+            color: var(--muted-2);
+        }
+
+        /* ============ COMPARE ============ */
+
+        .compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .compare .side {
+            border-radius: 10px;
+            padding: 22px 24px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+        }
+        .compare .side.bad { background: #221919; border-color: #3a2424; }
+        .compare .side.good { background: #10262a; border-color: #1a4a4a; }
+
+        .compare .side .side-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .compare .side .side-head svg { width: 18px; height: 18px; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .compare .side.bad .side-head svg { stroke: var(--red); }
+        .compare .side.good .side-head svg { stroke: var(--teal); }
+        .compare .side .side-title { font-weight: 700; font-size: 15px; }
+        .compare .side.bad .side-title { color: var(--red-dim); }
+        .compare .side.good .side-title { color: var(--teal-dim); }
+
+        .compare .side ul { margin: 0; padding: 0; list-style: none; }
+        .compare .side li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 7px 0;
+        }
+        .compare .side li + li { border-top: 1px solid rgba(255,255,255,0.05); }
+        .compare .side li svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 3px; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .compare .side.bad li svg { stroke: var(--red); }
+        .compare .side.good li svg { stroke: var(--teal); }
+        .compare .side.bad li { color: #d9b5b5; }
+        .compare .side.good li { color: #b0e6dc; }
+
+        /* ============ CALLOUTS ============ */
+
+        .callout {
+            background: #0f2628;
+            border: 1px solid #1a4244;
+            border-left: 3px solid var(--teal);
+            padding: 14px 18px;
+            border-radius: 6px;
+            color: var(--teal-dim);
+            font-size: 14px;
+            margin: 18px 0;
+        }
+        .callout strong { color: #fff; }
+        .callout.warning {
+            background: #2a1919;
+            border-color: #42201f;
+            border-left-color: var(--red);
+            color: var(--red-dim);
+        }
+
+        /* ============ FEATURES ============ */
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 22px;
+            transition: background 0.15s, border-color 0.15s, transform 0.15s;
+        }
+        .feature:hover {
+            background: var(--card-hover);
+            border-color: #3d4649;
+            transform: translateY(-2px);
+        }
+        .feature .f-icon {
+            width: 38px; height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(53, 209, 111, 0.1);
+            border: 1px solid rgba(53, 209, 111, 0.22);
+            border-radius: 9px;
+            margin-bottom: 14px;
+        }
+        .feature .f-icon svg { width: 18px; height: 18px; stroke: var(--green); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .feature .f-name { font-weight: 700; font-size: 15px; margin-bottom: 5px; color: #fff; }
+        .feature .f-desc { color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+        /* ============ LOCKDOWN ============ */
+
+        .lockdown-box {
+            background: linear-gradient(160deg, #1a2430 0%, #16202a 100%);
+            border: 1px solid #2a3a4a;
+            border-radius: 12px;
+            padding: 30px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .lockdown-box::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red), #4a7cf7);
+        }
+        .lockdown-box h3 {
+            margin: 0 0 14px;
+            font-size: 19px;
+            line-height: 1.4;
+            color: #fff;
+            letter-spacing: -0.3px;
+        }
+        .lockdown-box h3 .hl { color: #8ab4f8; }
+        .lockdown-box p {
+            margin: 0 0 12px;
+            color: #b3c0d0;
+            font-size: 14px;
+            line-height: 1.65;
+        }
+        .lockdown-box p:last-child { margin-bottom: 0; }
+        .lockdown-box strong { color: #fff; }
+
+        .lockdown-flow {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            margin: 22px 0 6px;
+        }
+        .lockdown-flow .flow-node {
+            flex: 1;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 9px;
+            padding: 14px 16px;
+            text-align: center;
+        }
+        .lockdown-flow .flow-node .fn-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+        .lockdown-flow .flow-node .fn-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #dce5ef;
+        }
+        .lockdown-flow .flow-arrow {
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            color: var(--muted-2);
+            flex-shrink: 0;
+        }
+        .lockdown-flow .flow-arrow svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .lockdown-flow .flow-node.blind .fn-text { color: var(--red-dim); text-decoration: line-through; text-decoration-color: rgba(255, 69, 69, 0.6); }
+
+        /* ============ STEPS ============ */
+
+        .steps { position: relative; }
+        .steps::before {
+            content: "";
+            position: absolute;
+            left: 19px;
+            top: 24px;
+            bottom: 24px;
+            width: 2px;
+            background: var(--border-soft);
+        }
+        .step {
+            position: relative;
+            display: flex;
+            gap: 20px;
+            padding: 0 0 26px 0;
+        }
+        .step:last-child { padding-bottom: 0; }
+        .step .step-dot {
+            width: 40px; height: 40px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--muted);
+            position: relative;
+            z-index: 1;
+            transition: border-color 0.15s, color 0.15s;
+        }
+        .step:hover .step-dot { border-color: var(--green); color: var(--green); }
+        .step .step-body {
+            flex: 1;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 22px;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .step:hover .step-body { background: var(--card-hover); border-color: #3d4649; }
+        .step .step-body h2 { font-size: 16px; font-weight: 700; margin: 0 0 6px; color: #fff; }
+        .step .step-body p { margin: 0; color: #a9b0b2; font-size: 14px; }
+        .step .step-body a { color: var(--green); text-decoration: none; font-weight: 600; }
+        .step .step-body a:hover { text-decoration: underline; }
+
+        /* ============ FINAL CTA ============ */
+
+        .final-cta {
+            margin-top: 60px;
+            padding: 52px 32px;
+            text-align: center;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(53, 209, 111, 0.07) 0%, transparent 60%),
+                var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .final-cta::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green), var(--teal));
+        }
+        .final-cta .cta-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: var(--green);
+            margin-bottom: 14px;
+        }
+        .final-cta h2 {
+            margin: 0 0 12px;
+            font-size: 34px;
+            letter-spacing: -0.8px;
+            color: #fff;
+            line-height: 1.2;
+        }
+        .final-cta h2 .green { color: var(--green); }
+        .final-cta h2 .dim { color: var(--muted); }
+        .final-cta p {
+            color: #a9b0b2;
+            font-size: 15px;
+            max-width: 480px;
+            margin: 0 auto 28px;
+        }
+        .final-cta .hero-meta { justify-content: center; margin-top: 24px; }
+
+        .footer {
+            margin-top: 60px;
+            padding: 32px 0 16px;
+            border-top: 1px solid var(--border-soft);
+            text-align: center;
+            color: var(--muted-2);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 36px; }
+            .feature-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 750px) {
+            header {
+                height: auto;
+                min-height: 62px;
+                flex-wrap: wrap;
+                padding: 8px 18px;
+                gap: 6px;
+            }
+            .logo { font-size: 20px; }
+            .header-links { gap: 10px; flex-wrap: wrap; }
+            .header-links a { font-size: 11px; }
+            .header-links svg { width: 16px; height: 16px; }
+            body { padding-top: 90px; }
+            main { width: calc(100% - 30px); margin-top: 25px; }
+
+            .hero { padding-top: 20px; }
+            .hero-copy h1 { font-size: 33px; }
+            .spy-grid { grid-template-columns: 1fr; }
+            .compare { grid-template-columns: 1fr; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .lockdown-flow { flex-direction: column; gap: 8px; }
+            .lockdown-flow .flow-arrow { justify-content: center; transform: rotate(90deg); padding: 2px 0; }
+            .final-cta { padding: 36px 20px; }
+            .final-cta h2 { font-size: 26px; }
+            .steps::before { left: 16px; }
+            .step { gap: 12px; }
+            .step .step-dot { width: 34px; height: 34px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="/">
+            <span class="white">what</span><span class="green">cheats</span><span class="white">are</span><span class="red">online</span><span class="gray">.qd.je</span>
+        </a>
+    </div>
+    <div class="header-links">
+        <a href="/" title="Home">
+            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+            Home
+        </a>
+        <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            Discord
+        </a>
+        <span class="site-update">Updated: 09/09/2026</span>
+    </div>
+</header>
+
+<main>
+
+    <!-- ================= HERO ================= -->
+
+    <div class="hero">
+
+        <div class="hero-copy">
+            <div class="hero-tag"><span class="dot"></span>THE BEST FREE ALTERNATIVE TO SCHOOL-CHEATS</div>
+            <h1>
+                School ends at 4.<br>
+                <span class="dim">The</span> <span class="red">computer</span> <span class="dim">doesn't.</span>
+            </h1>
+            <p class="hero-sub">
+                Your school laptop is watching you <strong>24/7</strong> — webcam, microphone, screen, everything.
+                <strong>OnWorks</strong> puts a full Windows 10 machine inside a browser tab, completely free.
+                What happens in the VM <strong>stays in the VM.</strong>
+            </p>
+            <div class="hero-btns">
+                <a href="/vm" class="btn-primary">
+                    Launch Windows 10 VM
+                    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+                <a href="#how" class="btn-secondary">How it works</a>
+            </div>
+            <div class="hero-meta">
+                <div class="meta-item">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    No install
+                </div>
+                <div class="meta-item">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    No account on your device
+                </div>
+                <div class="meta-item">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    $0 — forever
+                </div>
+            </div>
+        </div>
+
+        <!-- VM mockup: a Windows desktop, inside a browser tab -->
+        <div class="vm-mock">
+            <div class="rec-badge">
+                <span class="rec-dot"></span>
+                SCHOOL LAPTOP
+            </div>
+
+            <div class="vm-window">
+                <div class="vm-titlebar">
+                    <div class="tb-dots"><span></span><span></span><span></span></div>
+                    <div class="tb-url"><span class="lock">https://</span>onworks.net — Windows 10</div>
+                </div>
+                <div class="vm-screen">
+                    <div class="vm-scan"></div>
+                    <div class="vm-icon">
+                        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M9 9v11"/></svg></div>
+                        This PC
+                    </div>
+                    <div class="vm-icon">
+                        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18M3 12h18"/></svg></div>
+                        Browser
+                    </div>
+                    <div class="vm-icon">
+                        <div class="ic"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6zM15 2v5h5"/></svg></div>
+                        Your files
+                    </div>
+                    <div class="vm-window-inner">
+                        <div class="w-title">✦ Onworks/WCAO — invisible to monitoring software</div>
+                        <div class="w-body">
+                            <div class="w-line"></div>
+                            <div class="w-line mid"></div>
+                            <div class="w-line short"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vm-taskbar">
+                    <div class="start"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z"/></svg></div>
+                    <div class="tb-search"></div>
+                    <div class="tb-app"></div>
+                    <div class="tb-clock">4:07 PM</div>
+                </div>
+            </div>
+
+            <div class="blocked-badge">
+                <svg viewBox="0 0 24 24"><path d="M12 2L4 6v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10V6l-8-4z"/></svg>
+                SCHOOL SPYWARE: SEES ONLY A TAB
+            </div>
+        </div>
+
+    </div>
+
+    <div class="callout warning">
+        ⚠️ <strong>Disclaimer:</strong> This page is for educational and privacy purposes only. Use at your own risk. We are not responsible for any consequences, disciplinary or otherwise.
+    </div>
+
+    <!-- ================= THE PROBLEM ================= -->
+
+    <div class="section-header">
+        <div class="sh-icon">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        What Your School Can See Right Now
+        <span class="sh-count"></span>
+    </div>
+
+    <p class="section-intro">
+        If you're on a school-issued Chromebook or laptop, it's almost certainly running monitoring software — GoGuardian, Securly, Lightspeed, LanSchool. These tools don't clock out at 4 PM. <strong>They run as long as the computer does.</strong>
+    </p>
+
+    <div class="spy-grid">
+        <div class="spycard">
+            <div class="spy-icon">
+                <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            </div>
+            <div>
+                <div class="spy-title">Your webcam &amp; microphone</div>
+                <div class="spy-text">Whenever they like, they can activate them — and nothing is done about it.</div>
+            </div>
+        </div>
+        <div class="spycard">
+            <div class="spy-icon">
+                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div>
+                <div class="spy-title">Your entire screen, at all times</div>
+                <div class="spy-text">Doing something personal on "your" computer? The school can see it. Every tab, every app.</div>
+            </div>
+        </div>
+        <div class="spycard">
+            <div class="spy-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+            </div>
+            <div>
+                <div class="spy-title">Late at night, in your bedroom</div>
+                <div class="spy-text">Laptop open at 11 PM? On the weekend? That's still their window into your room.</div>
+            </div>
+        </div>
+        <div class="spycard">
+            <div class="spy-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div>
+                <div class="spy-title">Every keystroke &amp; every site</div>
+                <div class="spy-text">Your passwords, your DMs, your searches — all logged on their end, forever.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="spy-quote">
+        You wouldn't accept a teacher sitting in your bedroom every night. So why accept software that does the same thing?
+        <span class="attrib">— the entire premise of this page</span>
+    </div>
+
+    <!-- ================= THE SOLUTION ================= -->
+
+    <div class="section-header">
+        <div class="sh-icon green">
+            <svg viewBox="0 0 24 24"><path d="M12 2L4 6v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10V6l-8-4z"/><polyline points="9 12 11.5 14.5 16 9.5"/></svg>
+        </div>
+        The Fix: OnWorks
+        <span class="sh-count"></span>
+    </div>
+
+    <p class="section-intro">
+        OnWorks is a <strong>completely free Windows 10 virtual machine that runs entirely in your browser.</strong> No downloads, no installs, no USB drives. You open a tab, you get a full desktop — and when you close the tab, it's gone.
+    </p>
+
+    <div class="compare">
+        <div class="side bad">
+            <div class="side-head">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                <div class="side-title">On the school laptop directly</div>
+            </div>
+            <ul>
+                <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Every keystroke logged by monitoring software</li>
+                <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Browsing history reported straight to admins</li>
+                <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Screen and webcam accessible remotely, any time</li>
+                <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Extensions, downloads, and installs blocked</li>
+                <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Everything stored on THEIR machine</li>
+            </ul>
+        </div>
+        <div class="side good">
+            <div class="side-head">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <div class="side-title">Inside an OnWorks VM</div>
+            </div>
+            <ul>
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Your keystrokes exist on a server, not their laptop</li>
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>The school sees one thing: a browser tab</li>
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Nothing touches your webcam or your files</li>
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Full Windows 10 desktop — run what you want</li>
+                <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Close the tab and nothing ever existed</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="callout">
+        💡 <strong>How it works:</strong> The school's spyware lives on the physical machine. An in-browser VM is just pixels inside a tab — the monitoring software can see <em>that</em> a tab is open, but it can't see <em>inside</em> it. They're watching your window while you're in a different building.
+    </div>
+
+    <!-- ================= FEATURES ================= -->
+
+    <div class="section-header">
+        <div class="sh-icon green">
+            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        Why OnWorks
+        <span class="sh-count">6 REASONS</span>
+    </div>
+
+    <div class="feature-grid">
+        <div class="feature">
+            <div class="f-icon"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div class="f-name">Actually 100% Free</div>
+            <div class="f-desc">No trials, no credit card, no "free tier" nonsense. Launch a Windows 10 VM and just use it.</div>
+        </div>
+        <div class="feature">
+            <div class="f-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div class="f-name">Runs In Your Browser</div>
+            <div class="f-desc">Chromebooks, school laptops, library PCs — anything with a browser. Nothing to install.</div>
+        </div>
+        <div class="feature">
+            <div class="f-icon"><svg viewBox="0 0 24 24"><path d="M3 12h3l2-7 4 14 3-10 2 3h4"/></svg></div>
+            <div class="f-name">Zero Traces</div>
+            <div class="f-desc">Nothing is saved to your actual computer. Close the tab and the session is gone — no history, no files, no evidence.</div>
+        </div>
+        <div class="feature">
+            <div class="f-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <div class="f-name">Full Windows 10 Desktop</div>
+            <div class="f-desc">Real Windows, real desktop, real apps. Not a stripped-down remote viewer — an actual machine.</div>
+        </div>
+        <div class="feature">
+            <div class="f-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <div class="f-name">Your Privacy, Back</div>
+            <div class="f-desc">The monitoring software watches the laptop — not the cloud. Your personal stuff stays personal.</div>
+        </div>
+        <div class="feature">
+            <div class="f-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+            <div class="f-name">No Admin Rights Needed</div>
+            <div class="f-desc">Can't install anything on your school laptop? Doesn't matter. You're not installing anything.</div>
+        </div>
+    </div>
+
+    <!-- ================= LOCKDOWN BROWSERS ================= -->
+
+    <div class="section-header">
+        <div class="sh-icon teal">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+        </div>
+        What About Lockdown Browsers?
+        <span class="sh-count">THE SHORT ANSWER: YES</span>
+    </div>
+
+    <div class="lockdown-box">
+        <h3>Lockdown browsers lock down <span class="hl">the school's machine.</span><br>OnWorks isn't the school's machine.</h3>
+        <p>
+            Lockdown browsers like Respondus work by taking over <strong>your laptop</strong> — killing tabs, blocking apps, watching your screen, recording your face. They control the hardware because they were installed on it.
+        </p>
+        <p>
+            A browser-based VM flips that entirely. When your "computer" is a Windows desktop running on a remote server inside a tab, the lockdown software on the host laptop has <strong>no idea what's happening inside it.</strong>
+        </p>
+
+        <div class="lockdown-flow">
+            <div class="flow-node">
+                <div class="fn-label">HOST LAPTOP</div>
+                <div class="fn-text">Lockdown browser engaged</div>
+            </div>
+            <div class="flow-arrow">
+                <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+            <div class="flow-node">
+                <div class="fn-label">BROWSER TAB</div>
+                <div class="fn-text">Just a tab — nothing more visible</div>
+            </div>
+            <div class="flow-arrow">
+                <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+            <div class="flow-node blind">
+                <div class="fn-label">INSIDE THE VM</div>
+                <div class="fn-text">Everything they can't see</div>
+            </div>
+        </div>
+
+        <p style="margin-top: 16px;">
+            The surveillance model assumes you're using their machine. <strong>Stop using their machine.</strong>
+        </p>
+    </div>
+
+    <div class="callout warning">
+        🚨 <strong>Be smart.</strong> Some lockdown/proctoring setups also use webcam checks, room scans, and behavioral flags on the host machine. OnWorks covers the screen-monitoring side, but understand what your specific setup watches before relying on anything.
+    </div>
+
+    <!-- ================= HOW TO USE ================= -->
+
+    <div class="section-header" id="how">
+        <div class="sh-icon green">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        How to Get Started
+        <span class="sh-count">~60 SECONDS</span>
+    </div>
+
+    <div class="steps">
+        <div class="step">
+            <div class="step-dot">1</div>
+            <div class="step-body">
+                <h2>Open the VM page</h2>
+                <p>Head to our <a href="/vm">VM launcher</a> from any browser — including a locked-down school Chromebook. No download, no install, no admin rights.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-dot">2</div>
+            <div class="step-body">
+                <h2>Boot Windows 10</h2>
+                <p>Pick the free Windows 10 machine and wait about a minute. A full desktop appears right inside the tab.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-dot">3</div>
+            <div class="step-body">
+                <h2>Do whatever you want</h2>
+                <p>It's a full Windows desktop. Browse freely, run programs, keep your personal stuff personal — all inside a tab the school can't see into.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-dot">4</div>
+            <div class="step-body">
+                <h2>Close the tab when done</h2>
+                <p>The session ends, the VM resets, and nothing was ever on your actual computer. No files, no history, no leftovers.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FINAL CTA ================= -->
+
+    <div class="final-cta">
+        <div class="cta-tag">TAKE YOUR PRIVACY BACK</div>
+        <h2>Their laptop.<br>Your <span class="green">business.</span></h2>
+        <p>
+            Free Windows 10. In your browser. Out of their reach. There's nothing to lose — it costs nothing and installs nothing.
+        </p>
+        <a href="/vm" class="btn-primary">
+            Launch the VM Now
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <div class="hero-meta">
+            <div class="meta-item">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Free forever
+            </div>
+            <div class="meta-item">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Nothing installed
+            </div>
+            <div class="meta-item">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Nothing left behind
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        © 2026 whatcheatsareonline.qd.je. Built by students, for students.<br>
+        OnWorks is a third-party service — we are not affiliated with or endorsed by them.
+    </footer>
+
+</main>
+
+</body>
+</html>
