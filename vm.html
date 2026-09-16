@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VM Launcher · whatcheatsareonline.qd.je</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * { box-sizing: border-box; }
+
+        :root {
+            --bg: #1a1d1f;
+            --bg-deep: #15181a;
+            --header: #212629;
+            --card: #23282b;
+            --card-hover: #2a3033;
+            --border: #333a3d;
+            --border-soft: #2a3134;
+            --text: #e7e9e9;
+            --muted: #888f91;
+            --muted-2: #6a7275;
+            --green: #35d16f;
+            --red: #ff4545;
+            --red-dim: #fca5a5;
+            --blue: #4a7cf7;
+            --teal: #2dd4bf;
+            --teal-dim: #99f6e4;
+            --yellow: #eab308;
+        }
+
+        html { background: var(--bg); }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            line-height: 1.7;
+            padding-top: 70px;
+        }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            background: var(--header);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .logo { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; user-select: none; }
+        .logo a { color: inherit; text-decoration: none; }
+        .logo a span.white { color: #fff; }
+        .logo a span.green { color: var(--green); }
+        .logo a span.red { color: var(--red); }
+        .logo a span.gray { color: var(--muted); }
+
+        .header-links { display: flex; align-items: center; gap: 16px; }
+        .header-links a {
+            display: flex; align-items: center; gap: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.12s;
+        }
+        .header-links a:hover { color: #ddd; }
+        .header-links svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+        .header-links .site-update { color: var(--muted-2); font-size: 11px; margin-left: 4px; }
+
+        main {
+            width: 80%;
+            max-width: 1150px;
+            margin: 26px auto 60px;
+        }
+
+        /* ============ PAGE HEAD ============ */
+
+        .vm-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding-bottom: 16px;
+            margin-bottom: 18px;
+            border-bottom: 2px solid var(--border-soft);
+        }
+        .vm-head .head-text h1 {
+            margin: 0 0 4px;
+            font-size: 30px;
+            letter-spacing: -0.6px;
+            color: #fff;
+        }
+        .vm-head .head-text h1 .green { color: var(--green); }
+        .vm-head .head-text p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+        .vm-head .head-status {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            color: var(--green);
+            background: rgba(53, 209, 111, 0.1);
+            border: 1px solid rgba(53, 209, 111, 0.25);
+            padding: 5px 14px;
+            border-radius: 20px;
+        }
+        .vm-head .head-status .dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ============ VM BAR ============ */
+
+        .vm-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .vm-bar .vm-bar-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            color: var(--muted-2);
+        }
+        .vm-bar .spacer { flex: 1; }
+
+        .bar-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            height: 36px;
+            padding: 0 16px;
+            background: #1d2223;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: #bbb;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.12s;
+            white-space: nowrap;
+        }
+        .bar-btn:hover { background: #272c2e; color: #eee; border-color: #3d4649; }
+        .bar-btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+        .bar-btn.accent {
+            background: var(--green);
+            border-color: var(--green);
+            color: #0b0d0e;
+        }
+        .bar-btn.accent:hover { opacity: 0.88; background: var(--green); }
+
+        /* ============ EMBED ============ */
+
+        .vm-frame-wrap {
+            position: relative;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 14px 40px rgba(0,0,0,0.4);
+        }
+
+        .vm-frame-wrap .frame-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 14px;
+            background: #1d2224;
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .vm-frame-wrap .frame-top .dots { display: flex; gap: 6px; }
+        .vm-frame-wrap .frame-top .dots span {
+            width: 11px; height: 11px;
+            border-radius: 50%;
+            background: #3a4245;
+        }
+        .vm-frame-wrap .frame-top .frame-url {
+            flex: 1;
+            background: #15181a;
+            border: 1px solid var(--border-soft);
+            border-radius: 5px;
+            padding: 4px 12px;
+            font-size: 11px;
+            color: var(--muted);
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .vm-frame-wrap .frame-top .frame-url .lock { color: var(--green); }
+
+        .vm-frame-wrap iframe {
+            display: block;
+            width: 100%;
+            height: 680px;
+            border: none;
+            background: #fff;
+        }
+
+        /* fullscreen mode */
+        body.vm-fullscreen {
+            overflow: hidden;
+            padding-top: 0;
+        }
+        body.vm-fullscreen header { display: none; }
+        body.vm-fullscreen main {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+        }
+        body.vm-fullscreen .vm-head,
+        body.vm-fullscreen .tips-grid,
+        body.vm-fullscreen .section-header,
+        body.vm-fullscreen .section-intro,
+        body.vm-fullscreen .trouble-grid,
+        body.vm-fullscreen .alt-grid,
+        body.vm-fullscreen .callout,
+        body.vm-fullscreen .footer { display: none; }
+        body.vm-fullscreen .vm-frame-wrap {
+            border-radius: 0;
+            border: none;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        body.vm-fullscreen .vm-frame-wrap iframe {
+            flex: 1;
+            height: auto;
+        }
+
+        /* frame load overlay */
+        .frame-loading {
+            position: absolute;
+            inset: 42px 0 0 0;
+            background: var(--bg-deep);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            z-index: 5;
+            transition: opacity 0.4s;
+        }
+        .frame-loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .frame-loading .spinner {
+            width: 34px; height: 34px;
+            border: 3px solid var(--border);
+            border-top-color: var(--green);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .frame-loading .load-text {
+            color: var(--muted);
+            font-size: 13px;
+        }
+        .frame-loading .load-text strong { color: #ddd; }
+
+        /* ============ CALLOUTS ============ */
+
+        .callout {
+            background: #0f2628;
+            border: 1px solid #1a4244;
+            border-left: 3px solid var(--teal);
+            padding: 13px 17px;
+            border-radius: 6px;
+            color: var(--teal-dim);
+            font-size: 13px;
+            margin: 16px 0;
+        }
+        .callout strong { color: #fff; }
+        .callout.warning {
+            background: #2a1919;
+            border-color: #42201f;
+            border-left-color: var(--red);
+            color: var(--red-dim);
+        }
+        .callout a { color: var(--green); text-decoration: none; }
+        .callout a:hover { text-decoration: underline; }
+
+        /* ============ SECTIONS ============ */
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 46px 0 16px 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+        .section-header .sh-icon {
+            width: 32px; height: 32px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .section-header .sh-icon svg { width: 16px; height: 16px; stroke: var(--green); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .section-header .sh-icon.red svg { stroke: var(--red); }
+        .section-header .sh-icon.yellow svg { stroke: var(--yellow); }
+
+        .section-intro {
+            color: #a9b0b2;
+            font-size: 14px;
+            margin: 0 0 16px;
+            max-width: 760px;
+        }
+        .section-intro strong { color: #ddd; }
+
+        /* ============ TIPS ============ */
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .tip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 18px 20px;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .tip:hover { background: var(--card-hover); border-color: #3d4649; }
+        .tip .tip-num {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--green);
+            background: rgba(53, 209, 111, 0.12);
+            padding: 2px 10px;
+            border-radius: 14px;
+            margin-bottom: 8px;
+        }
+        .tip h3 {
+            margin: 0 0 5px;
+            font-size: 14px;
+            color: #fff;
+        }
+        .tip p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 12.5px;
+            line-height: 1.55;
+        }
+        .tip p strong { color: #ccc; }
+        .tip kbd {
+            background: #15181a;
+            border: 1px solid var(--border);
+            border-bottom-width: 2px;
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: #ddd;
+        }
+
+        /* ============ TROUBLESHOOTING ============ */
+
+        .trouble-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .trouble {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 16px 20px;
+        }
+        .trouble .t-q {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .trouble .t-q svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 3px; stroke: var(--yellow); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .trouble .t-a {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+        .trouble .t-a strong { color: #ccc; }
+
+        /* ============ ALTERNATIVES ============ */
+
+        .alt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 10px;
+        }
+        .alt {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 16px 18px;
+            display: block;
+            color: var(--text);
+            text-decoration: none;
+            transition: background 0.15s, border-color 0.15s, transform 0.15s;
+        }
+        .alt:hover {
+            background: var(--card-hover);
+            border-color: #3d4649;
+            transform: translateY(-2px);
+            color: var(--text);
+        }
+        .alt .name { font-weight: 700; font-size: 14px; color: #fff; }
+        .alt .desc { color: var(--muted); font-size: 12px; margin-top: 2px; line-height: 1.5; }
+        .alt .tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 12px;
+            margin-top: 8px;
+            color: #fff;
+        }
+        .alt .tag.green { background: var(--green); }
+        .alt .tag.yellow { background: var(--yellow); color: #111; }
+        .alt .tag.blue { background: var(--blue); }
+
+        .footer {
+            margin-top: 60px;
+            padding: 32px 0 16px;
+            border-top: 1px solid var(--border-soft);
+            text-align: center;
+            color: var(--muted-2);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 900px) {
+            .tips-grid { grid-template-columns: 1fr 1fr; }
+            .trouble-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 750px) {
+            header {
+                height: auto;
+                min-height: 62px;
+                flex-wrap: wrap;
+                padding: 8px 18px;
+                gap: 6px;
+            }
+            .logo { font-size: 20px; }
+            .header-links { gap: 10px; flex-wrap: wrap; }
+            .header-links a { font-size: 11px; }
+            .header-links svg { width: 16px; height: 16px; }
+            body { padding-top: 90px; }
+            main { width: calc(100% - 30px); margin-top: 20px; }
+            .vm-frame-wrap iframe { height: 480px; }
+            .tips-grid { grid-template-columns: 1fr; }
+            .vm-head .head-text h1 { font-size: 24px; }
+            .bar-btn span { display: none; }
+            .bar-btn { padding: 0 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="/">
+            <span class="white">what</span><span class="green">cheats</span><span class="white">are</span><span class="red">online</span><span class="gray">.qd.je</span>
+        </a>
+    </div>
+    <div class="header-links">
+        <a href="/onworks" title="About OnWorks">
+            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+            About
+        </a>
+        <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            Discord
+        </a>
+        <span class="site-update">Updated: 09/09/2026</span>
+    </div>
+</header>
+
+<main>
+
+    <!-- ============ HEAD ============ -->
+
+    <div class="vm-head">
+        <div class="head-text">
+            <h1>VM <span class="green">Launcher</span></h1>
+            <p>Free Windows 10, right here, right now. No download · no install · no traces.</p>
+        </div>
+        <div class="head-status"><span class="dot"></span>ONWORKS · ONLINE</div>
+    </div>
+
+    <!-- ============ VM BAR ============ -->
+
+    <div class="vm-bar">
+        <span class="vm-bar-label">⠀⠀⠀ALL AVALIABLE VM'S</span>
+        <div class="spacer"></div>
+        <button class="bar-btn accent" id="fullscreenBtn" onclick="toggleFullscreen()" title="Expand the VM to fill your entire screen">
+            <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+            <span>Fullscreen</span>
+        </button>
+        <button class="bar-btn" onclick="reloadFrame()" title="Reload the embed">
+            <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            <span>Reload</span>
+        </button>
+    </div>
+
+    <!-- ============ EMBED ============ -->
+
+    <div class="vm-frame-wrap" id="frameWrap">
+        <div class="frame-top">
+            <div class="dots">
+                
+            </div>
+            
+        </div>
+        <div class="frame-loading" id="frameLoading">
+            <div class="spinner"></div>
+            <div class="load-text">Connecting to <strong>OnWorks</strong>… the VM list is loading.</div>
+        </div>
+        <iframe
+            id="vmFrame"
+            src="https://www.onworks.net/os-distributions/special-os"
+            loading="eager"
+            allow="fullscreen; clipboard-read; clipboard-write; autoplay"
+            referrerpolicy="no-referrer"></iframe>
+    </div>
+
+    <div class="callout">
+        💡 <strong>Quick start:</strong> scroll inside the embed, pick a <strong>Windows 10</strong> machine from the list, and click <strong>Run Online</strong>. The desktop boots in about a minute — right inside this page. If the embed ever acts up, hit <strong>Reload</strong> or open it in a <a href="https://www.onworks.net/os-distributions/special-os" target="_blank">new tab</a> instead.
+    </div>
+
+    <div class="callout warning">
+        🚨 <strong>Remember:</strong> nothing you do inside the VM touches your actual computer — but the browser tab itself is still visible to monitoring software as just a tab. Don't announce what you're doing, and close the tab when you're done. Sessions reset — <strong>save anything you need before closing.</strong>
+    </div>
+
+    <!-- ============ TIPS ============ -->
+
+    <div class="section-header">
+        <div class="sh-icon">
+            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        Get the most out of it
+    </div>
+
+    <div class="tips-grid">
+        <div class="tip">
+            <div class="tip-num">TIP 01</div>
+            <h3>Use fullscreen for real work</h3>
+            <p>Hit the <strong>Fullscreen</strong> button above (or <kbd>F11</kbd> after) — it hides our page entirely and gives the VM the whole screen. From a distance, it just looks like a Windows desktop.</p>
+        </div>
+        <div class="tip">
+            <div class="tip-num">TIP 02</div>
+            <h3>The clipboard is separate</h3>
+            <p>Copy/paste between the VM and your real computer often doesn't work. If you need to move a link or text in, <strong>type it manually</strong> or use a paste site inside the VM's browser.</p>
+        </div>
+        <div class="tip">
+            <div class="tip-num">TIP 03</div>
+            <h3>Free machines = queues</h3>
+            <p>Free VMs are shared and sometimes there's a wait or a usage timer. If one OS is busy, <strong>try another Windows option</strong> in the list — they behave the same.</p>
+        </div>
+        <div class="tip">
+            <div class="tip-num">TIP 04</div>
+            <h3>Don't log into personal accounts on the host</h3>
+            <p>The whole point is separation. <strong>Do your personal stuff inside the VM only.</strong> Logging in on the school laptop itself defeats the entire purpose.</p>
+        </div>
+        <div class="tip">
+            <div class="tip-num">TIP 05</div>
+            <h3>Files don't survive</h3>
+            <p>When the session ends, the VM resets to factory state. Need something later? Upload it to <strong>cloud storage inside the VM</strong> before you close the tab.</p>
+        </div>
+        <div class="tip">
+            <div class="tip-num">TIP 06</div>
+            <h3>Close it properly</h3>
+            <p>Shut down the VM from its start menu or just close the tab — either works. But <strong>check nothing important is open first</strong>, because there's no getting it back.</p>
+        </div>
+    </div>
+
+    <!-- ============ TROUBLESHOOTING ============ -->
+
+    <div class="section-header">
+        <div class="sh-icon yellow">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        Something not working?
+    </div>
+
+    <div class="trouble-grid">
+        <div class="trouble">
+            <div class="t-q">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                The embed is blank or won't load
+            </div>
+            <div class="t-a">Some school networks or extensions block embedded content. Hit <strong>Reload</strong> first; if it stays blank, use the <strong>New tab</strong> button — the same VM runs there, just outside our page.</div>
+        </div>
+        <div class="trouble">
+            <div class="t-q">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                The VM is slow or laggy
+            </div>
+            <div class="t-a">That's normal — you're streaming a remote computer. Close other tabs, avoid fullscreen video inside the VM, and give it a minute after booting before doing anything heavy.</div>
+        </div>
+        <div class="trouble">
+            <div class="t-q">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                It says "all machines are busy"
+            </div>
+            <div class="t-a">Free servers fill up at peak hours. Wait a few minutes and refresh, or try again during off-peak times. You can also try a different OS from the same list.</div>
+        </div>
+        <div class="trouble">
+            <div class="t-q">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                My keyboard/mouse won't work in the VM
+            </div>
+            <div class="t-a"><strong>Click once inside the VM screen first</strong> — the browser needs to give it focus. If it still ignores you, reload the frame and click into the desktop as soon as it appears.</div>
+        </div>
+    </div>
+
+    <!-- ============ ALTERNATIVES ============ -->
+
+    <div class="section-header">
+        <div class="sh-icon red">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+        </div>
+        Other escape routes
+    </div>
+    <p class="section-intro">
+        OnWorks is the best fully-free option, but it's smart to have backups in case it's blocked, busy, or down. <strong>Same rule applies to all of them:</strong> they live in a tab, not on the school's machine.
+    </p>
+
+    <div class="alt-grid">
+        <a href="https://www.onworks.net" target="_blank" class="alt">
+            <div class="name">OnWorks (main site)</div>
+            <div class="desc">The full OS list — Linux distros, other Windows versions, and more.</div>
+            <span class="tag green">Free</span>
+        </a>
+        <a href="https://cobalt.tools" target="_blank" class="alt">
+            <div class="name">Cobalt</div>
+            <div class="desc">No-ads, no-signup media downloader. Runs entirely in a tab.</div>
+            <span class="tag green">Free</span>
+        </a>
+        <a href="https://vscode.dev" target="_blank" class="alt">
+            <div class="name">VS Code Web</div>
+            <div class="desc">Full code editor in the browser — nothing installed, nothing logged locally.</div>
+            <span class="tag blue">Web-based</span>
+        </a>
+        <a href="https://replit.com" target="_blank" class="alt">
+            <div class="name">Replit</div>
+            <div class="desc">Runs code and apps on their servers, not yours. Free tier available.</div>
+            <span class="tag blue">Freemium</span>
+        </a>
+        <a href="https://photoshop.adobe.com" target="_blank" class="alt">
+            <div class="name">Photoshop Web</div>
+            <div class="desc">Real Photoshop in a tab — no install, no license check on your device.</div>
+            <span class="tag yellow">Account</span>
+        </a>
+        <a href="https://geforce.now" target="_blank" class="alt">
+            <div class="name">GeForce NOW</div>
+            <div class="desc">Streams real PC games from NVIDIA servers. Nothing touches the laptop.</div>
+            <span class="tag yellow">Freemium</span>
+        </a>
+    </div>
+
+    <footer class="footer">
+        © 2026 whatcheatsareonline.qd.je. Built by students, for students.<br>
+        The VM above is powered by OnWorks — a third-party service we are not affiliated with or endorsed by. Use at your own risk.
+    </footer>
+
+</main>
+
+<script>
+    const frame = document.getElementById('vmFrame');
+    const loading = document.getElementById('frameLoading');
+    const fsBtn = document.getElementById('fullscreenBtn');
+
+    // Hide the loading overlay once the frame reports it loaded
+    frame.addEventListener('load', () => {
+        setTimeout(() => {
+            loading.classList.add('hidden');
+        }, 500);
+    });
+
+    function toggleFullscreen() {
+        document.body.classList.toggle('vm-fullscreen');
+        const isFs = document.body.classList.contains('vm-fullscreen');
+        fsBtn.querySelector('span').textContent = isFs ? 'Exit Fullscreen' : 'Fullscreen';
+    }
+
+    function reloadFrame() {
+        loading.classList.remove('hidden');
+        frame.src = frame.src;
+    }
+</script>
+</body>
+</html>
