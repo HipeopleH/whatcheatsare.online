@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evadus Setup Guide · whatcheatsareonline.qd.je</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * { box-sizing: border-box; }
+
+        :root {
+            --bg: #1a1d1f;
+            --bg-deep: #15181a;
+            --header: #212629;
+            --card: #23282b;
+            --card-hover: #2a3033;
+            --border: #333a3d;
+            --border-soft: #2a3134;
+            --text: #e7e9e9;
+            --muted: #888f91;
+            --muted-2: #6a7275;
+            --green: #35d16f;
+            --red: #ff4545;
+            --red-dim: #fca5a5;
+            --blue: #4a7cf7;
+            --blue-dim: #8ab4f8;
+            --teal: #2dd4bf;
+            --teal-dim: #99f6e4;
+            --yellow: #eab308;
+        }
+
+        html { background: var(--bg); }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            line-height: 1.7;
+            padding-top: 70px;
+        }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            background: var(--header);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .logo { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; user-select: none; }
+        .logo a { color: inherit; text-decoration: none; }
+        .logo a span.white { color: #fff; }
+        .logo a span.green { color: var(--green); }
+        .logo a span.red { color: var(--red); }
+        .logo a span.gray { color: var(--muted); }
+
+        .header-links { display: flex; align-items: center; gap: 16px; }
+        .header-links a {
+            display: flex; align-items: center; gap: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.12s;
+        }
+        .header-links a:hover { color: #ddd; }
+        .header-links svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+        .header-links .site-update { color: var(--muted-2); font-size: 11px; margin-left: 4px; }
+
+        main {
+            width: 66.6667%;
+            max-width: 950px;
+            margin: 32px auto 60px;
+        }
+
+        .page-title {
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--border-soft);
+            padding-bottom: 16px;
+        }
+        .page-title h1 {
+            margin: 0 0 6px;
+            font-size: 32px;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+        .page-title h1 .green { color: var(--green); }
+        .page-title p { margin: 0; color: var(--muted); font-size: 14px; }
+        .page-title p a { color: var(--green); text-decoration: none; }
+        .page-title p a:hover { text-decoration: underline; }
+
+        /* ============ CALLOUTS ============ */
+
+        .callout {
+            background: #0f2628;
+            border: 1px solid #1a4244;
+            border-left: 3px solid var(--teal);
+            padding: 13px 17px;
+            border-radius: 6px;
+            color: var(--teal-dim);
+            font-size: 13px;
+            margin: 16px 0;
+        }
+        .callout strong { color: #fff; }
+        .callout.info {
+            background: #1a2430;
+            border-color: #26364a;
+            border-left-color: var(--blue);
+            color: var(--blue-dim);
+        }
+
+        .danger-zone {
+            background: #2a1414;
+            border: 1px solid #4a2020;
+            border-left: 4px solid var(--red);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 8px 0 28px;
+        }
+        .danger-zone .dz-title {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--red); font-weight: 700; font-size: 14px;
+            margin-bottom: 6px; letter-spacing: 0.3px;
+        }
+        .danger-zone .dz-title svg { width: 16px; height: 16px; stroke: var(--red); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .danger-zone p { margin: 0 0 6px; color: var(--red-dim); font-size: 13px; }
+        .danger-zone p:last-child { margin-bottom: 0; }
+        .danger-zone strong { color: #fff; }
+
+        /* ============ SECTIONS ============ */
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 48px 0 18px 0;
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+        .section-header .sh-icon {
+            width: 34px; height: 34px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .section-header .sh-icon svg { width: 17px; height: 17px; stroke: var(--green); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .section-header .sh-icon.red svg { stroke: var(--red); }
+        .section-header .sh-icon.yellow svg { stroke: var(--yellow); }
+        .section-header .sh-icon.blue svg { stroke: var(--blue-dim); }
+
+        .section-header .sh-count {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted-2);
+            letter-spacing: 0.5px;
+        }
+
+        .section-intro {
+            color: #a9b0b2;
+            font-size: 15px;
+            margin: 0 0 18px;
+            max-width: 720px;
+        }
+        .section-intro strong { color: #ddd; }
+        .section-intro a { color: var(--green); text-decoration: none; }
+        .section-intro a:hover { text-decoration: underline; }
+
+        /* ============ STEPS ============ */
+
+        .steps { position: relative; }
+        .steps::before {
+            content: "";
+            position: absolute;
+            left: 19px; top: 24px; bottom: 24px;
+            width: 2px;
+            background: var(--border-soft);
+        }
+        .step { position: relative; display: flex; gap: 20px; padding: 0 0 26px 0; }
+        .step:last-child { padding-bottom: 0; }
+        .step .step-dot {
+            width: 40px; height: 40px;
+            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            font-size: 14px; font-weight: 700;
+            color: var(--muted);
+            position: relative; z-index: 1;
+            transition: border-color 0.15s, color 0.15s;
+        }
+        .step:hover .step-dot { border-color: var(--green); color: var(--green); }
+        .step .step-body {
+            flex: 1;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 22px;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .step:hover .step-body { background: var(--card-hover); border-color: #3d4649; }
+        .step .step-body h2 { font-size: 16px; font-weight: 700; margin: 0 0 6px; color: #fff; }
+        .step .step-body p { margin: 0 0 6px; color: #a9b0b2; font-size: 14px; }
+        .step .step-body p:last-child { margin-bottom: 0; }
+        .step .step-body a { color: var(--green); text-decoration: none; font-weight: 600; }
+        .step .step-body a:hover { text-decoration: underline; }
+        .step .step-body strong { color: #ddd; }
+
+        /* ============ TROUBLESHOOTING DROPDOWN ============ */
+
+        .trouble-drop {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .td-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            overflow: hidden;
+            transition: border-color 0.15s;
+        }
+        .td-item.open { border-color: #3d4649; }
+        .td-head {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: Arial, Helvetica, sans-serif;
+            transition: background 0.12s;
+        }
+        .td-head:hover { background: var(--card-hover); }
+        .td-head .td-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: #fff;
+        }
+        .td-head .td-chevron {
+            width: 16px; height: 16px;
+            flex-shrink: 0;
+            stroke: var(--muted);
+            stroke-width: 2.5;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.2s;
+        }
+        .td-item.open .td-chevron { transform: rotate(180deg); stroke: var(--green); }
+        .td-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease;
+        }
+        .td-item.open .td-body { max-height: 800px; }
+        .td-body-inner {
+            padding: 4px 20px 18px 20px;
+            border-top: 1px solid var(--border-soft);
+        }
+        .td-body-inner p {
+            margin: 12px 0 0 0;
+            color: #a9b0b2;
+            font-size: 13.5px;
+            line-height: 1.65;
+        }
+        .td-body-inner p:first-child { margin-top: 14px; }
+        .td-body-inner strong { color: #ddd; }
+        .td-body-inner code {
+            background: #111516;
+            border: 1px solid var(--border-soft);
+            border-radius: 4px;
+            padding: 1px 7px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #ddd;
+        }
+
+        /* ============ CHECKLIST ============ */
+
+        .checklist {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .checklist .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 18px;
+            transition: background 0.12s;
+            cursor: pointer;
+            user-select: none;
+        }
+        .checklist .check-item:hover { background: var(--card-hover); }
+        .checklist .check-item + .check-item { border-top: 1px solid var(--border-soft); }
+        .checklist .c-box {
+            width: 22px; height: 22px;
+            flex-shrink: 0;
+            margin-top: 3px;
+            border: 2px solid var(--border);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            transition: 0.12s;
+        }
+        .checklist .check-item.done .c-box {
+            background: var(--green);
+            border-color: var(--green);
+            color: #0b0d0e;
+        }
+        .checklist .c-box svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .checklist .c-text { font-size: 14px; color: #b8bfc1; }
+        .checklist .c-text strong { color: #fff; }
+        .checklist .check-item.done .c-text { color: var(--muted-2); text-decoration: line-through; text-decoration-color: rgba(53, 209, 111, 0.5); }
+
+        /* ============ CTA ============ */
+
+        .final-cta {
+            margin-top: 56px;
+            padding: 44px 32px;
+            text-align: center;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(53, 209, 111, 0.08) 0%, transparent 60%),
+                var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .final-cta::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green), var(--teal));
+        }
+        .final-cta h2 {
+            margin: 0 0 10px;
+            font-size: 28px;
+            letter-spacing: -0.6px;
+            color: #fff;
+            line-height: 1.25;
+        }
+        .final-cta h2 .green { color: var(--green); }
+        .final-cta p {
+            color: #a9b0b2;
+            font-size: 14px;
+            max-width: 480px;
+            margin: 0 auto 24px;
+        }
+        .final-cta .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: var(--green);
+            color: #0b0d0e;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+            transition: transform 0.12s, opacity 0.12s;
+        }
+        .final-cta .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .final-cta .btn-primary svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+        .footer {
+            margin-top: 60px;
+            padding: 32px 0 16px;
+            border-top: 1px solid var(--border-soft);
+            text-align: center;
+            color: var(--muted-2);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 750px) {
+            header {
+                height: auto;
+                min-height: 62px;
+                flex-wrap: wrap;
+                padding: 8px 18px;
+                gap: 6px;
+            }
+            .logo { font-size: 20px; }
+            .header-links { gap: 10px; flex-wrap: wrap; }
+            .header-links a { font-size: 11px; }
+            .header-links svg { width: 16px; height: 16px; }
+            body { padding-top: 90px; }
+            main { width: calc(100% - 30px); margin-top: 25px; }
+            .page-title h1 { font-size: 26px; }
+            .steps::before { left: 16px; }
+            .step { gap: 12px; }
+            .step .step-dot { width: 34px; height: 34px; font-size: 12px; }
+            .td-head { padding: 13px 16px; }
+            .td-body-inner { padding: 4px 16px 16px 16px; }
+            .final-cta { padding: 32px 20px; }
+            .final-cta h2 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="/">
+            <span class="white">what</span><span class="green">cheats</span><span class="white">are</span><span class="red">online</span><span class="gray">.qd.je</span>
+        </a>
+    </div>
+    <div class="header-links">
+        <a href="/evadus" title="Evadus">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+            Evadus
+        </a>
+        <a href="/" title="Home">
+            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+            Home
+        </a>
+        <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            Discord
+        </a>
+        <span class="site-update">Updated: 09/16/2026</span>
+    </div>
+</header>
+
+<main>
+
+    <!-- ============ PAGE TITLE ============ -->
+
+    <div class="page-title">
+        <h1>Evadus <span class="green">Setup Guide</span></h1>
+        <p>Everything you need to install, configure, and troubleshoot Evadus — <a href="/evadus">back to the main page →</a></p>
+    </div>
+
+    <!-- ============ WARNING ============ -->
+
+    <div class="danger-zone">
+        <div class="dz-title">
+            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            BEFORE YOU START
+        </div>
+        <p><strong>Set this up weeks before your exam, not the night before.</strong> You need time to test against your school's actual LDB build and get comfortable with the controls. Getting caught is an academic integrity violation — expulsion-tier, premeditated category.</p>
+        <p><strong>The Gemini window is visible.</strong> If your exam is screen-recorded (Respondus Monitor) or proctor-reviewed, the AI window is in the recording. Know what your school records before you use this.</p>
+    </div>
+
+    <!-- ============ INSTALL ============ -->
+
+    <div class="section-header">
+        <div class="sh-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        Installation
+        <span class="sh-count">5 MINUTES</span>
+    </div>
+
+    <div class="steps">
+        <div class="step">
+            <div class="step-dot">1</div>
+            <div class="step-body">
+                <h2>Download the installer</h2>
+                <p>From the <a href="/evadus">main Evadus page</a>, hit <strong>Get Evadus</strong> and pick <strong>Official Site</strong> (evadus.net — always the latest version) or <strong>Direct Download</strong> (our Mediafire mirror of the same installer).</p>
+                <p>Your browser will warn that the file could be harmful. That's the standard warning for unsigned installers — <strong>keep the file</strong>.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-dot">2</div>
+            <div class="step-body">
+                <h2>Handle the antivirus flag</h2>
+                <p>Expect a flag — it's a known false positive (full explanation in the troubleshooting section below). The clean fix: add an <strong>exclusion</strong> for the Evadus folder in Windows Security before running the installer, and leave your real-time protection fully on.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-dot">3</div>
+            <div class="step-body">
+                <h2>Windows 11: Smart App Control</h2>
+                <p>If <strong>Smart App Control</strong> is enabled, it will block Evadus immediately — SAC has no exclusion system and blocks all unsigned binaries by design. Turn it off: Windows Security → App &amp; browser control → Smart App Control settings → <strong>Off</strong>.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-dot">4</div>
+            <div class="step-body">
+                <h2>Run the installer</h2>
+                <p>Double-click the installer. You'll hit a <strong>SmartScreen</strong> warning ("Windows protected your PC") — click <strong>More info → Run anyway</strong>. If UAC asks for permission, click <strong>Yes</strong>.</p>
+                <p>Follow the wizard — Next → Install → Finish. Nothing to configure during install.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-dot">5</div>
+            <div class="step-body">
+                <h2>Log in and check your settings</h2>
+                <p>When the launcher appears, click <strong>Login to Evadus</strong> and create a free account. The core functionality is free — no paid tier required.</p>
+                <p>Before your first run, open Evadus's settings and make sure the renderer mode is set to <strong>Any Renderer</strong> — not Protected. See the troubleshooting section below if the window won't load.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="callout">
+        💡 <strong>Installer deleted automatically?</strong> Your AV quarantined it before you could run it. Restore it from Protection History, add the exclusion <em>first</em>, then re-download if needed.
+    </div>
+
+    <!-- ============ TROUBLESHOOTING (DROPDOWN) ============ -->
+
+    <div class="section-header">
+        <div class="sh-icon red">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        Troubleshooting
+        <span class="sh-count">CLICK TO EXPAND</span>
+    </div>
+
+    <div class="trouble-drop">
+
+        <div class="td-item">
+            <button class="td-head" onclick="toggleDrop(this)">
+                <span class="td-title">Why does my antivirus flag it? (False positive, explained)</span>
+                <svg class="td-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="td-body">
+                <div class="td-body-inner">
+                    <p>Evadus is an <strong>injector</strong> — it opens a handle to another process, allocates memory inside it, and runs code there. That exact sequence of Windows calls (<code>OpenProcess</code> → <code>VirtualAllocEx</code> → <code>WriteProcessMemory</code> → <code>CreateRemoteThread</code>) is also how a large portion of real malware works. Antivirus engines can't easily tell "injector doing something the user asked for" from "injector installing a payload," so they flag the <em>pattern</em>, not the behavior.</p>
+                    <p>That's why our scan result matters: <strong>1 of 70 engines flagged it on VirusTotal</strong>, and the single flag is a <strong>low-confidence machine-learning heuristic</strong> — a statistical model saying "this looks sort of like injection software," not "this matches a known threat." A real rat or stealer scores 35-60+ detections with named malware families. One low-confidence ML heuristic on an injector is the textbook false-positive fingerprint. HitmanPro (behavioral second-opinion scanner) came back completely clean as well.</p>
+                    <p><strong>How to avoid the flag without disabling your AV:</strong> add an <strong>exclusion</strong> — Windows Security → Virus &amp; threat protection → Manage settings → Exclusions → Add an exclusion → select the Evadus install folder. With the exclusion in place, real-time protection stays fully on and the file never gets quarantined. Only disable protection temporarily if the exclusion alone doesn't stop it, and re-enable immediately after. And remember: on Windows 11, <strong>Smart App Control</strong> blocks unsigned binaries regardless of exclusions — it has to be off while using Evadus.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="td-item">
+            <button class="td-head" onclick="toggleDrop(this)">
+                <span class="td-title">Installed but the window won't load or open</span>
+                <svg class="td-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="td-body">
+                <div class="td-body-inner">
+                    <p>Check the <strong>renderer mode</strong> in Evadus's settings. If it's set to <strong>Protected</strong> — or any setting other than standard — the window can fail to render on some setups. This is the most common cause of "installed but nothing appears."</p>
+                    <p>Switch it to <strong>Any Renderer</strong>, then <strong>fully restart Evadus</strong> — quit it from the system tray and relaunch, don't just toggle the window. Test again.</p>
+                    <p>If it still won't render after that, note your Windows version and GPU and report it in the Discord so we can document the cause.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="td-item">
+            <button class="td-head" onclick="toggleDrop(this)">
+                <span class="td-title">The installer won't run / disappears instantly</span>
+                <svg class="td-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="td-body">
+                <div class="td-body-inner">
+                    <p>Your antivirus quarantined it before it could execute, or Smart App Control is on. Check <strong>Windows Security → Protection History</strong> for the quarantine, add the exclusion (see the first item above), and turn SAC off on Windows 11. Re-download the installer if the file was deleted.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="td-item">
+            <button class="td-head" onclick="toggleDrop(this)">
+                <span class="td-title">The Gemini window doesn't open inside LDB</span>
+                <svg class="td-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="td-body">
+                <div class="td-body-inner">
+                    <p>Most likely your school runs a <strong>different LDB version</strong> than the one we confirmed (2.1.5.01). Note your LDB version and report it in the Discord — if a build is broken, the status on the main page changes. <strong>Do not use it on a real exam untested.</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="td-item">
+            <button class="td-head" onclick="toggleDrop(this)">
+                <span class="td-title">Something got flagged mid-exam / LDB acted weird</span>
+                <svg class="td-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="td-body">
+                <div class="td-body-inner">
+                    <p><strong>Stop. Close it, finish the exam honestly or talk to your teacher about a technical issue.</strong> Pushing through a flagged session turns a technical problem into a documented one. Then report what happened in the Discord so everyone learns from it.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============ PRE-EXAM CHECKLIST ============ -->
+
+    <div class="section-header">
+        <div class="sh-icon yellow">
+            <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        Pre-exam checklist
+        <span class="sh-count">RUN THIS THE NIGHT BEFORE</span>
+    </div>
+
+    <p class="section-intro">
+        Click each item as you confirm it. If every box isn't checked, you're not ready.
+    </p>
+
+    <div class="checklist">
+        <div class="check-item" onclick="this.classList.toggle('done')">
+            <div class="c-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="c-text"><strong>Tested on YOUR school's LDB build.</strong> Launched LockDown Browser on a practice quiz and confirmed the Gemini window opens, sits where you put it, and hides when told. We verified 2.1.5.01 — if your school runs something else, this is mandatory.</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('done')">
+            <div class="c-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="c-text"><strong>Renderer set to Any Renderer.</strong> The window opens reliably — you didn't skip the settings check in install step 5.</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('done')">
+            <div class="c-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="c-text"><strong>Overlay positioned and sized.</strong> Not covering the exam UI, small enough to dismiss as a system widget at a glance.</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('done')">
+            <div class="c-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="c-text"><strong>Antivirus re-enabled with exclusion in place.</strong> Evadus runs without tripping it, and your machine isn't sitting unprotected.</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('done')">
+            <div class="c-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="c-text"><strong>You know what your school records.</strong> Check whether your exams use Respondus Monitor (webcam/screen recording) — if they do, a visible AI window is in the footage. Decide with eyes open.</div>
+        </div>
+        <div class="check-item" onclick="this.classList.toggle('done')">
+            <div class="c-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="c-text"><strong>Practice quiz completed start to finish.</strong> Not "the window opened" — a full quiz, with the window shown and hidden multiple times, under time pressure.</div>
+        </div>
+    </div>
+
+    <!-- ============ CTA ============ -->
+
+    <div class="final-cta">
+        <h2>Setup done? <span class="green">Report your result.</span></h2>
+        <p>
+            Your LDB version + whether it worked keeps the status honest for everyone. Takes 30 seconds in the Discord — and it's how a tool stays confirmed instead of silently going dead.
+        </p>
+        <a href="https://discord.gg/55qN4ucGUF" target="_blank" class="btn-primary">
+            Report in the Discord
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+    </div>
+
+    <footer class="footer">
+        © 2026 whatcheatsareonline.qd.je. Built by students, for students.<br>
+        Evadus is a third-party product — we are not affiliated with or endorsed by them. This guide is for educational purposes only. Use at your own risk.
+    </footer>
+
+</main>
+
+<script>
+    function toggleDrop(btn) {
+        const item = btn.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.td-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+    }
+</script>
+
+</body>
+</html>
