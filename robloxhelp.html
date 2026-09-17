@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Executor Guide · whatcheatsareonline.qd.je</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        :root {
+            --bg: #1a1d1f;
+            --header: #212629;
+            --card: #23282b;
+            --card-hover: #2a3033;
+            --border: #333a3d;
+            --border-soft: #2a3134;
+            --text: #e7e9e9;
+            --muted: #888f91;
+            --muted-2: #6a7275;
+            --green: #35d16f;
+            --red: #ff4545;
+            --blue: #4a7cf7;
+            --yellow: #eab308;
+            --purple: #8b5cf6;
+            --gray: #888f91;
+        }
+        html { background: var(--bg); }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 70px;
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            background: var(--header);
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            user-select: none;
+            cursor: pointer;
+        }
+        .logo a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .logo a span.white { color: #ffffff; }
+        .logo a span.green { color: var(--green); }
+        .logo a span.red { color: #red; }
+        .logo a span.red { color: var(--red); }
+        .logo a span.gray { color: var(--gray); }
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .header-links a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.12s;
+        }
+        .header-links a:hover {
+            color: #ddd;
+        }
+        .header-links svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+        .header-links .site-update {
+            color: var(--muted-2);
+            font-size: 11px;
+            margin-left: 4px;
+        }
+
+        .top-spacer {
+            height: 48px;
+        }
+
+        .layout {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 32px;
+            align-items: flex-start;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 90px;
+            flex: 0 0 220px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 16px;
+            max-height: calc(100vh - 110px);
+            overflow-y: auto;
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        .sidebar .sidebar-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-soft);
+        }
+        .sidebar a {
+            display: block;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            transition: background 0.12s, color 0.12s;
+            margin-bottom: 2px;
+            cursor: pointer;
+        }
+        .sidebar a:hover {
+            background: var(--card-hover);
+            color: #ddd;
+        }
+        .sidebar a.active {
+            background: var(--green);
+            color: #0b0d0e;
+            font-weight: 600;
+        }
+
+        .content {
+            flex: 1;
+            min-width: 0;
+            padding-bottom: 40px;
+        }
+
+        .page-title {
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--border-soft);
+            padding-bottom: 16px;
+        }
+        .page-title h1 {
+            margin: 0 0 6px;
+            font-size: 32px;
+            letter-spacing: -0.5px;
+        }
+        .page-title p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .guide-section {
+            margin-bottom: 40px;
+            scroll-margin-top: 80px;
+        }
+        .guide-section h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            border-bottom: 1px solid var(--border-soft);
+            padding-bottom: 6px;
+        }
+        .guide-section h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin: 18px 0 8px 0;
+            color: #ccc;
+        }
+        .guide-section p {
+            margin: 0 0 12px 0;
+            color: #bbb;
+        }
+        .guide-section ul {
+            margin: 8px 0 16px 20px;
+            color: #bbb;
+        }
+        .guide-section li {
+            margin-bottom: 4px;
+        }
+        .guide-section code {
+            background: #111516;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #ddd;
+            border: 1px solid var(--border);
+            font-family: monospace;
+        }
+        .guide-section .step-box {
+            background: #111516;
+            border-left: 3px solid var(--green);
+            padding: 14px 18px;
+            border-radius: 4px;
+            margin: 12px 0;
+        }
+        .guide-section .step-box .step-num {
+            color: var(--green);
+            font-weight: 700;
+            margin-right: 6px;
+        }
+        .guide-section .callout {
+            background: #0f2628;
+            border-left: 3px solid var(--teal);
+            padding: 12px 16px;
+            border-radius: 4px;
+            color: #99f6e4;
+            font-size: 14px;
+            margin: 12px 0;
+        }
+        .guide-section .callout.warning {
+            background: #2a1a1a;
+            border-left-color: var(--red);
+            color: #fca5a5;
+        }
+        .guide-section .callout.danger {
+            background: #2a1414;
+            border: 1px solid #4a2020;
+            border-left-color: var(--red);
+            color: #fca5a5;
+        }
+        .guide-section .callout a {
+            color: var(--green);
+            text-decoration: none;
+        }
+        .guide-section .callout a:hover {
+            text-decoration: underline;
+        }
+        .guide-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 16px 0;
+            font-size: 14px;
+        }
+        .guide-section table th {
+            background: var(--card);
+            color: var(--text);
+            text-align: left;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            font-weight: 600;
+        }
+        .guide-section table td {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            color: #bbb;
+        }
+        .guide-section table tr:hover td {
+            background: var(--card-hover);
+        }
+
+        .code-block {
+            position: relative;
+            background: #111516;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin: 12px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12.5px;
+            line-height: 1.7;
+            color: #ddd;
+            white-space: pre;
+        }
+        .code-block .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #1d2223;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: #aaa;
+            padding: 4px 12px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            transition: 0.12s;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .code-block .copy-btn:hover { background: #272c2e; color: #ddd; }
+        .code-block .copy-btn.copied { background: var(--green); color: #0b0d0e; border-color: var(--green); }
+
+        .footer {
+            margin-top: 40px;
+            padding: 32px 0 16px;
+            border-top: 1px solid var(--border-soft);
+            text-align: center;
+            color: var(--muted-2);
+            font-size: 12px;
+        }
+
+        @media (max-width: 820px) {
+            .layout {
+                flex-direction: column;
+                padding: 0 16px;
+            }
+            .sidebar {
+                position: relative;
+                top: 0;
+                flex: 1 1 auto;
+                width: 100%;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 14px 16px;
+            }
+            .sidebar .sidebar-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+            .sidebar a {
+                display: inline-block;
+                font-size: 12px;
+                padding: 4px 10px;
+                margin-bottom: 0;
+            }
+            .sidebar .sidebar-title {
+                margin-bottom: 8px;
+            }
+            .guide-section h2 {
+                font-size: 20px;
+            }
+            .top-spacer {
+                height: 24px;
+            }
+        }
+
+        @media (max-width: 750px) {
+            header {
+                height: auto;
+                min-height: 62px;
+                flex-wrap: wrap;
+                padding: 8px 18px;
+                gap: 6px;
+            }
+            .logo { font-size: 20px; }
+            .header-links { gap: 10px; flex-wrap: wrap; }
+            .header-links a { font-size: 11px; }
+            .header-links svg { width: 16px; height: 16px; }
+            body { padding-top: 90px; }
+            .page-title h1 { font-size: 26px; }
+            .guide-section table { font-size: 12px; }
+            .guide-section table th,
+            .guide-section table td { padding: 6px 8px; }
+            .top-spacer { height: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="/">
+            <span class="white">what</span><span class="green">cheats</span><span class="white">are</span><span class="red">online</span><span class="gray">.qd.je</span>
+        </a>
+    </div>
+    <div class="header-links">
+        <a href="/roblox" title="Roblox Executors">
+            <svg viewBox="0 0 24 24"><path d="M18.926 23.998 0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z"/></svg>
+            Executors
+        </a>
+        <a href="/" title="Home">
+            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+            Home
+        </a>
+        <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
+            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            Discord
+        </a>
+        <span class="site-update">Updated: 09/16/2026</span>
+    </div>
+</header>
+
+<div class="top-spacer"></div>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-title">📖 On this page</div>
+        <div class="sidebar-links">
+            <a href="#the-truth">The Truth About YouTube</a>
+            <a href="#executors-explained">What Executors Actually Are</a>
+            <a href="#where-to-get">Where to Safely Get Executors</a>
+            <a href="#false-positives">Why Antivirus Flags Everything</a>
+            <a href="#malicious-scripts">Malicious Scripts Are Real</a>
+            <a href="#setup">Setting Up Your Executor</a>
+            <a href="#safety">Safety Rules</a>
+        </div>
+    </aside>
+
+    <main class="content">
+
+        <div class="page-title">
+            <h1>🎮 Roblox Executor Guide</h1>
+            <p>Everything YouTube tutorials won't tell you — how execs work, why they get flagged, and how to not get robbed.</p>
+        </div>
+
+        <!-- ============ THE TRUTH ============ -->
+
+        <section class="guide-section" id="the-truth">
+            <h2>Never Trust YouTube "Executor" Videos</h2>
+            <p>
+                If you found this page from a YouTube video promising a <strong>"FREE ROBLOX EXECUTOR WORKING 2026 NO KEY SYSTEM"</strong> — close that tab. Here's the reality of the YouTube executor scene:
+            </p>
+            <ul>
+                <li><strong>Most "free executor" videos are scams.</strong> The download link goes to a link-shortener ad-farm, a fake executor that steals your Roblox account, or straight-up malware. The video was made for ad revenue, not to help you.</li>
+                <li><strong>The comments are botted.</strong> "OMG IT ACTUALLY WORKS" with 50 likes? Bought engagement. Real users don't comment that on a working hack — they just use it.</li>
+                <li><strong>"Working 2026" in the title means nothing.</strong> Roblox updates weekly. Any video older than a week or two is already dead, no matter what the title claims.</li>
+                <li><strong>Key systems in videos are the worst kind.</strong> They funnel you through ad walls ("complete 3 offers!") where the creator gets paid per click, and the "key" at the end often unlocks nothing — or a token logger.</li>
+            </ul>
+            <div class="callout danger">
+                🚨 <strong>The #1 way people get their Roblox accounts and items stolen:</strong> downloading an executor from a YouTube description instead of the official source. .ROBLOSECURITY cookies and session tokens are the #1 target of fake executors.
+            </div>
+            <p>
+                The rule that keeps you safe: <strong>only download executors from their official site, verified by a community you trust.</strong> Which brings us to where you actually get them.
+            </p>
+        </section>
+
+        <!-- ============ EXECUTORS EXPLAINED ============ -->
+
+        <section class="guide-section" id="executors-explained">
+            <h2>What an Executor Actually Is</h2>
+            <p>
+                The single most common misunderstanding in the entire scene, and the one YouTube never explains: <strong>the executor is not the hack. The executor is the method.</strong>
+            </p>
+            <p>
+                Think of it like this:
+            </p>
+            <table>
+                <thead>
+                    <tr><th>Concept</th><th>What it is</th><th>Analogy</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Executor</strong></td><td>The tool that runs code inside Roblox</td><td>The game console</td></tr>
+                    <tr><td><strong>Script</strong></td><td>The actual code with the features</td><td>The game cartridge</td></tr>
+                </tbody>
+            </table>
+            <p>
+                An executor like <strong>Solara</strong>, <strong>Xeno</strong>, or <strong>Delta</strong> does one thing: it <strong>injects Lua code into the Roblox process</strong> and runs it. That's it. The executor doesn't fly for you, aim for you, or give you ESP — the <strong>scripts</strong> you run through it do.
+            </p>
+            <p>
+                This is why the same executor can be used for harmless utility scripts one day and full aimbot cheats the next — it's a generic code runner, and the scripts decide what happens. When you see "SCRIPTS PASS THROUGH EXECS," this is what that means:
+            </p>
+            <div class="callout">
+                💡 <strong>The flow:</strong> you copy a script (like the ones on our <a href="/scripts" style="color: var(--green);">Scripts page</a>) → paste it into the executor's editor → attach/inject into Roblox → the executor runs that code inside the game. The script is the payload; the executor is just the delivery system.
+            </div>
+            <p>
+                Two things follow from this that matter to you:
+            </p>
+            <ul>
+                <li><strong>Script quality matters more than executor quality.</strong> A great script on a decent executor beats a garbage script on the best executor.</li>
+                <li><strong>Scripts can be dangerous too</strong> — the executor runs whatever you paste, including malicious code. More on that below, because it's the part nobody warns you about.</li>
+            </ul>
+        </section>
+
+        <!-- ============ WHERE TO GET ============ -->
+
+        <section class="guide-section" id="where-to-get">
+            <h2>Where to Safely Get Executors</h2>
+            <p>
+                <strong>WEAO (weao.xyz) is safe.</strong> It's the community-standard directory for Roblox executors — it tracks which executors are working, which are detected, and which are dead, updated continuously. It's the same philosophy as this site: a community-maintained status board instead of YouTube hype.
+            </p>
+            <p>
+                We also maintain our own vetted executor list on the <a href="/roblox" style="color: var(--green);">Roblox Executors page</a>, with the same status system as the rest of the site. Between the two:
+            </p>
+            <ul>
+                <li><strong>Check the status date.</strong> An executor listed as "working" three weeks ago may be dead after today's Roblox update. Status freshness matters more than the status itself.</li>
+                <li><strong>Download from the official site linked on the card</strong> — not from a video description, not from a Discord DM, not from a "mirror."</li>
+                <li><strong>Official sites change.</strong> When an executor gets taken down, scammers register lookalike domains within hours. If a link looks slightly off, verify it against WEAO or our page before downloading.</li>
+            </ul>
+            <div class="callout warning">
+                ⚠️ <strong>The mirror rule:</strong> if a download isn't from the domain listed on the executor's official card, it's not the executor. Fake mirrors are the #2 way accounts get stolen (after YouTube videos).
+            </div>
+        </section>
+
+        <!-- ============ FALSE POSITIVES ============ -->
+
+        <section class="guide-section" id="false-positives">
+            <h2>Why Your Antivirus Flags Every Executor</h2>
+            <p>
+                Every executor on earth gets flagged by Windows Defender. Every single one. If you've ever wondered why — here's the actual reason, and why <strong>(most of) the flags are false positives:</strong>
+            </p>
+            <h3>The technical reason</h3>
+            <p>
+                Executors work by <strong>attaching to the Roblox process and injecting code into it</strong>. To do that, they use the same Windows API calls that malware uses: opening a handle to another process, allocating memory inside it, writing bytes, and executing them. Your antivirus sees:
+            </p>
+            <div class="code-block"><code>OpenProcess → VirtualAllocEx → WriteProcessMemory → CreateRemoteThread</code></div>
+            <p>
+                …and it cannot tell the difference between "cheat tool the user chose to run" and "malware installing itself." So it flags the <strong>pattern</strong>. That's what a false positive is: the detection system correctly identifying the technique, but wrongly attributing the intent.
+            </p>
+            <h3>How to read the flags</h3>
+            <table>
+                <thead>
+                    <tr><th>VirusTotal Result</th><th>What It Means</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>0-5 detections, generic names</strong> like <code>W32/AITool.C</code>, <code> Trojan.Injector.Generic</code></td><td>Classic FP pattern — heuristics flagging the injection technique. Normal for any real executor.</td></tr>
+                    <tr><td><strong>30-60+ detections, named families</strong> like <code>Stealer</code>, <code>RedLine</code>, <code>AgentTesla</code></td><td>🚨 Actual malware. Do not run. This is a token logger wearing an executor's name.</td></tr>
+                </tbody>
+            </table>
+            <p>
+                This is exactly the FP literacy we apply to every tool on this site — it's how we cleared Evadus (1/70, single low-confidence ML heuristic) and how you can check anything yourself on <strong>virustotal.com</strong> before running it.
+            </p>
+            <h3>The safe way to handle it</h3>
+            <div class="step-box">
+                <p><span class="step-num">1.</span> Scan the file on virustotal.com BEFORE running it</p>
+                <p><span class="step-num">2.</span> Read the result using the table above — few generic flags = normal, many named families = run away</p>
+                <p><span class="step-num">3.</span> If it's clean-but-flagged, add an <strong>exclusion</strong> in Windows Security for the executor's folder</p>
+                <p><span class="step-num">4.</span> Keep real-time protection ON — exclusions let you run the tool without turning off your defenses</p>
+            </div>
+            <div class="callout warning">
+                ⚠️ <strong>FP ≠ safe automatically.</strong> A false positive means the *pattern* was flagged, not that the file is clean. The two-step check is: VT scan for named malware families (rules out stealers) + official source (rules out repackaging). You need both.
+            </div>
+        </section>
+
+        <!-- ============ MALICIOUS SCRIPTS ============ -->
+
+        <section class="guide-section" id="malicious-scripts">
+            <h2>Malicious Scripts Are Real — and Nobody Warns You</h2>
+            <p>
+                Here's the part the whole scene glosses over: you can do everything right — official executor, clean download, VT-checked — and still get robbed, because <strong>the script you paste can be malicious.</strong>
+            </p>
+            <p>
+                Remember: the executor runs whatever you give it, with the same access to your game session that any legit script has. A malicious script doesn't need to escape the game — it can do everything from <em>inside</em> it:
+            </p>
+            <ul>
+                <li><strong>Token/cookie theft via obfuscated code</strong> — scripts are often minified or obfuscated, and buried in the mess can be a request that ships your session to someone's server</li>
+                <li><strong>Trade scams</strong> — scripts that spam-open trades, auto-accept bad trades, or drop your items in-game</li>
+                <li><strong>Account takeover</strong> — changing your account settings, email, or kicking your sessions</li>
+                <li><strong>Backdoors in "leaked" scripts</strong> — scripts taken from Discord "leak" channels are frequently modified before being passed around</li>
+            </ul>
+            <h3>How to protect yourself</h3>
+            <ul>
+                <li><strong>Only run scripts from sources you trust</strong> — our <a href="/scripts" style="color: var(--green);">Scripts page</a> only lists scripts we've actually read and used ourselves</li>
+                <li><strong>Read loadstrings before running them.</strong> A loadstring like the ones on our page is one line — it points at the real script on GitHub. That's auditable. A giant pasted blob of obfuscated Lua is not.</li>
+                <li><strong>Be suspicious of obfuscation.</strong> Legit script devs sometimes obfuscate, but "totally unreadable" + "from a random Discord" = no</li>
+                <li><strong>Use an alt account.</strong> Not optional. Test every new script on an alt before it touches your main. This is the executor scene's oldest rule for a reason.</li>
+            </ul>
+            <div class="callout danger">
+                🚨 <strong>The golden rule:</strong> your executor being clean doesn't make the script clean. Vet both. We vet ours — <a href="/scripts" style="color: var(--green);">see the Scripts page</a> for the list we actually use.
+            </div>
+        </section>
+
+        <!-- ============ SETUP ============ -->
+
+        <section class="guide-section" id="setup">
+            <h2>Setting Up Your Executor</h2>
+            <p>
+                The setup process is nearly identical for every executor. Once you've picked one from the <a href="/roblox" style="color: var(--green);">executor list</a>:
+            </p>
+            <div class="step-box">
+                <p><span class="step-num">1.</span> <strong>Download from the official site</strong> (the link on the executor's card — not YouTube, not a mirror)</p>
+                <p><span class="step-num">2.</span> <strong>VT-scan the file</strong> before running — expect a few generic injector flags, that's the FP pattern</p>
+                <p><span class="step-num">3.</span> <strong>Handle the antivirus</strong> — add an exclusion for the executor folder (Windows Security → Virus &amp; threat protection → Manage settings → Exclusions). On Windows 11, Smart App Control must be off for unsigned executors</p>
+                <p><span class="step-num">4.</span> <strong>Run the installer or exe</strong> — SmartScreen will warn ("unsigned"), click More info → Run anyway</p>
+                <p><span class="step-num">5.</span> <strong>Open Roblox and join a game</strong> — most executors require Roblox to be running before injection</p>
+                <p><span class="step-num">6.</span> <strong>Attach/inject</strong> — click the Attach or Inject button in the executor. Wait for the "success" confirmation. Some executors do this automatically</p>
+                <p><span class="step-num">7.</span> <strong>Paste your script</strong> into the editor tab — grab one from our <a href="/scripts" style="color: var(--green);">Scripts page</a></p>
+                <p><span class="step-num">8.</span> <strong>Execute</strong> — the script runs inside the game. Most scripts pop up a GUI with toggles; a few run instantly</p>
+            </div>
+            <h3>Troubleshooting the basics</h3>
+            <table>
+                <thead>
+                    <tr><th>Problem</th><th>Fix</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>"Attach" fails or hangs</td><td>Roblox updated and the executor hasn't — check its status on WEAO or our page. Wait for an executor update.</td></tr>
+                    <tr><td>Script does nothing</td><td>Game-specific script in the wrong game, or the script is patched. Check the script's notes.</td></tr>
+                    <tr><td>Executor crashes Roblox</td><td>Version mismatch — same fix as attach failure. Also try re-attaching after rejoining the game.</td></tr>
+                    <tr><td>Antivirus deleted the executor</td><td>Restore from Protection History, add the exclusion FIRST, then re-extract/re-download.</td></tr>
+                    <tr><td>"Unsupported version" on key system</td><td>Executor is dead after a Roblox update — check status before wasting time on keys.</td></tr>
+                </tbody>
+            </table>
+            <div class="callout">
+                💡 <strong>Order matters:</strong> join the game <em>first</em>, then attach. Injecting before Roblox is fully loaded is the most common cause of failed attachment on a working executor.
+            </div>
+        </section>
+
+        <!-- ============ SAFETY ============ -->
+
+        <section class="guide-section" id="safety">
+            <h2>Safety Rules — The Short Version</h2>
+            <ul>
+                <li><strong>No YouTube downloads.</strong> Ever. Official sites only, verified through WEAO or this site.</li>
+                <li><strong>Alt account for testing.</strong> Every new executor, every new script — alt first, always.</li>
+                <li><strong>VT-scan everything.</strong> Few generic flags = normal. Named malware families = delete it.</li>
+                <li><strong>Vet scripts like you vet executors.</strong> Loadstrings from trusted sources, readable code, nothing obfuscated from random Discords.</li>
+                <li><strong>Never paste .ROBLOSECURITY cookies or account details anywhere.</strong> No legit tool needs them. Anyone asking is stealing your account.</li>
+                <li><strong>Check status dates before troubleshooting.</strong> If the executor died in today's Roblox update, no amount of reinstalling fixes that.</li>
+                <li><strong>Don't cheat on your main in obvious ways.</strong> Detection isn't just software — it's players reporting the guy flying with infinite jump in a lobby.</li>
+            </ul>
+            <div class="callout warning">
+                🚨 <strong>Disclaimer:</strong> All of this is use-at-your-own-risk. Roblox bans accounts caught exploiting, and no executor is undetectable forever. We're not responsible for bans, stolen items, or anything else that happens when you run third-party code in a game.
+            </div>
+        </section>
+
+        <footer class="footer">
+            © 2026 whatcheatsareonline.qd.je. Built by students, for students.<br>
+            Executor statuses change with every Roblox update — check <a href="/roblox" style="color: var(--green); text-decoration: none;">the executor list</a> before downloading anything.
+        </footer>
+
+    </main>
+
+</div>
+
+<script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerOffset = 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    const sections = document.querySelectorAll('.guide-section');
+    const navLinks = document.querySelectorAll('.sidebar a');
+
+    function updateActiveLink() {
+        let current = '';
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= 120) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateActiveLink);
+    window.addEventListener('load', updateActiveLink);
+</script>
+
+</body>
+</html>
