@@ -1,351 +1,488 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guide · whatcheatsareonline.qd.je</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        :root {
-            --bg: #1a1d1f;
-            --header: #212629;
-            --card: #23282b;
-            --card-hover: #2a3033;
-            --border: #333a3d;
-            --border-soft: #2a3134;
-            --text: #e7e9e9;
-            --muted: #888f91;
-            --muted-2: #6a7275;
-            --green: #35d16f;
-            --red: #ff4545;
-            --blue: #4a7cf7;
-            --yellow: #eab308;
-            --purple: #8b5cf6;
-            --gray: #888f91;
-        }
-        html { background: var(--bg); }
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: Arial, Helvetica, sans-serif;
-            padding-top: 70px;
-            min-height: 100vh;
-            line-height: 1.7;
-        }
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            height: 68px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-            background: var(--header);
-            border-bottom: 1px solid var(--border-soft);
-        }
-        .logo {
-            font-size: 26px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            user-select: none;
-            cursor: pointer;
-        }
-        .logo a {
-            color: inherit;
-            text-decoration: none;
-        }
-        .logo a span.white { color: #ffffff; }
-        .logo a span.green { color: var(--green); }
-        .logo a span.red { color: var(--red); }
-        .logo a span.gray { color: var(--gray); }
-        .header-links {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .header-links a {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.12s;
-        }
-        .header-links a:hover {
-            color: #ddd;
-        }
-        .header-links svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-            flex-shrink: 0;
-        }
-        .header-links .site-update {
-            color: var(--muted-2);
-            font-size: 11px;
-            margin-left: 4px;
-        }
 
-        .top-spacer {
-            height: 48px;
-        }
 
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    :root {
+        --bg: #1a1d1f;
+        --header: #212629;
+        --card: #23282b;
+        --card-hover: #2a3033;
+        --border: #333a3d;
+        --border-soft: #2a3134;
+        --text: #e7e9e9;
+        --muted: #888f91;
+        --muted-2: #6a7275;
+        --green: #35d16f;
+        --red: #ff4545;
+        --blue: #4a7cf7;
+        --yellow: #eab308;
+        --purple: #8b5cf6;
+        --teal: #2dd4bf;
+        --gray: #888f91;
+    }
+
+    html {
+        background: var(--bg);
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
+        padding-top: 70px;
+        min-height: 100vh;
+        line-height: 1.7;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+        background: var(--header);
+        border-bottom: 1px solid var(--border-soft);
+    }
+
+    .logo {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        user-select: none;
+    }
+
+    .logo a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .logo .white {
+        color: #fff;
+    }
+
+    .logo .green {
+        color: var(--green);
+    }
+
+    .logo .red {
+        color: var(--red);
+    }
+
+    .logo .gray {
+        color: var(--gray);
+    }
+
+    .header-links {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .header-links a {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 13px;
+        transition: color .12s;
+    }
+
+    .header-links a:hover {
+        color: #ddd;
+    }
+
+    .header-links svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+    }
+
+    .site-update {
+        color: var(--muted-2);
+        font-size: 11px;
+        margin-left: 4px;
+    }
+
+    .top-spacer {
+        height: 40px;
+    }
+
+    .layout {
+        display: flex;
+        max-width: 1220px;
+        margin: 0 auto;
+        padding: 0 20px;
+        gap: 32px;
+        align-items: flex-start;
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 90px;
+        flex: 0 0 225px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 20px 16px;
+        max-height: calc(100vh - 110px);
+        overflow-y: auto;
+    }
+
+    .sidebar::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+    }
+
+    .sidebar-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: .5px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border-soft);
+    }
+
+    .sidebar a {
+        display: block;
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 13px;
+        padding: 6px 10px;
+        border-radius: 4px;
+        margin-bottom: 2px;
+        transition: background .12s, color .12s;
+    }
+
+    .sidebar a:hover {
+        background: var(--card-hover);
+        color: #ddd;
+    }
+
+    .sidebar a.active {
+        background: var(--green);
+        color: #0b0d0e;
+        font-weight: 600;
+    }
+
+    .sidebar .group {
+        color: var(--muted-2);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: .7px;
+        margin: 18px 10px 5px;
+    }
+
+    .content {
+        flex: 1;
+        min-width: 0;
+        padding-bottom: 50px;
+    }
+
+    .page-title {
+        margin-bottom: 38px;
+        border-bottom: 2px solid var(--border-soft);
+        padding-bottom: 18px;
+    }
+
+    .page-title h1 {
+        margin: 0 0 6px;
+        font-size: 34px;
+        letter-spacing: -.7px;
+    }
+
+    .page-title p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+    }
+
+    .guide-section {
+        margin-bottom: 46px;
+        scroll-margin-top: 82px;
+    }
+
+    .guide-section h2 {
+        font-size: 23px;
+        margin: 0 0 12px;
+        color: var(--text);
+        letter-spacing: -.3px;
+        border-bottom: 1px solid var(--border-soft);
+        padding-bottom: 7px;
+    }
+
+    .guide-section h3 {
+        font-size: 17px;
+        margin: 22px 0 8px;
+        color: #ccc;
+    }
+
+    .guide-section p {
+        margin: 0 0 13px;
+        color: #bbb;
+    }
+
+    .guide-section ul {
+        margin: 8px 0 18px 20px;
+        color: #bbb;
+    }
+
+    .guide-section li {
+        margin-bottom: 5px;
+    }
+
+    .guide-section a {
+        color: var(--green);
+        text-decoration: none;
+    }
+
+    .guide-section a:hover {
+        text-decoration: underline;
+    }
+
+    code {
+        background: #111516;
+        padding: 2px 7px;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+        color: #ddd;
+        font-family: monospace;
+        font-size: 13px;
+    }
+
+    .step-box {
+        background: #111516;
+        border-left: 3px solid var(--green);
+        padding: 14px 18px;
+        border-radius: 4px;
+        margin: 14px 0;
+    }
+
+    .step-box p {
+        margin: 0 0 6px;
+    }
+
+    .step-box p:last-child {
+        margin-bottom: 0;
+    }
+
+    .step-num {
+        color: var(--green);
+        font-weight: 700;
+        margin-right: 6px;
+    }
+
+    .callout {
+        background: #0f2628;
+        border-left: 3px solid var(--teal);
+        padding: 13px 16px;
+        border-radius: 4px;
+        color: #99f6e4;
+        font-size: 14px;
+        margin: 14px 0;
+    }
+
+    .callout.warning {
+        background: #2a1a1a;
+        border-left-color: var(--red);
+        color: #fca5a5;
+    }
+
+    .callout.info {
+        background: #171f2d;
+        border-left-color: var(--blue);
+        color: #bfdbfe;
+    }
+
+    .callout.yellow {
+        background: #28220e;
+        border-left-color: var(--yellow);
+        color: #fde68a;
+    }
+
+    .category-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .category-header .emoji {
+        font-size: 25px;
+    }
+
+    .category-header h2 {
+        margin: 0;
+        border: 0;
+        padding: 0;
+    }
+
+    .mini-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        padding: 15px 17px;
+        margin: 12px 0;
+    }
+
+    .mini-card strong {
+        color: var(--text);
+    }
+
+    .mini-card p:last-child {
+        margin-bottom: 0;
+    }
+
+    .tag {
+        display: inline-block;
+        padding: 2px 7px;
+        border-radius: 4px;
+        background: #111516;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 11px;
+        font-family: monospace;
+        margin-right: 4px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 14px 0 18px;
+        font-size: 14px;
+    }
+
+    th {
+        background: var(--card);
+        color: var(--text);
+        text-align: left;
+        padding: 9px 12px;
+        border: 1px solid var(--border);
+    }
+
+    td {
+        padding: 9px 12px;
+        border: 1px solid var(--border);
+        color: #bbb;
+    }
+
+    tr:hover td {
+        background: var(--card-hover);
+    }
+
+    .faq-question {
+        color: var(--text);
+        font-weight: 600;
+    }
+
+    .footer {
+        margin-top: 50px;
+        padding: 32px 0 16px;
+        border-top: 1px solid var(--border-soft);
+        text-align: center;
+        color: var(--muted-2);
+        font-size: 12px;
+    }
+
+    @media (max-width: 820px) {
         .layout {
-            display: flex;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            gap: 32px;
-            align-items: flex-start;
+            flex-direction: column;
+            padding: 0 16px;
         }
 
         .sidebar {
-            position: sticky;
-            top: 90px;
-            flex: 0 0 220px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px 16px;
-            max-height: calc(100vh - 110px);
-            overflow-y: auto;
-        }
-        .sidebar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .sidebar::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        .sidebar::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 4px;
-        }
-        .sidebar .sidebar-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-soft);
-        }
-        .sidebar a {
-            display: block;
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 13px;
-            padding: 6px 10px;
-            border-radius: 4px;
-            transition: background 0.12s, color 0.12s;
-            margin-bottom: 2px;
-            cursor: pointer;
-        }
-        .sidebar a:hover {
-            background: var(--card-hover);
-            color: #ddd;
-        }
-        .sidebar a.active {
-            background: var(--green);
-            color: #0b0d0e;
-            font-weight: 600;
-        }
-
-        .content {
-            flex: 1;
-            min-width: 0;
-            padding-bottom: 40px;
-        }
-
-        .page-title {
-            margin-bottom: 32px;
-            border-bottom: 2px solid var(--border-soft);
-            padding-bottom: 16px;
-        }
-        .page-title h1 {
-            margin: 0 0 6px;
-            font-size: 32px;
-            letter-spacing: -0.5px;
-        }
-        .page-title p {
-            margin: 0;
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        .guide-section {
-            margin-bottom: 40px;
-            scroll-margin-top: 80px;
-        }
-        .guide-section h2 {
-            font-size: 22px;
-            font-weight: 700;
-            margin: 0 0 12px 0;
-            color: var(--text);
-            letter-spacing: -0.3px;
-            border-bottom: 1px solid var(--border-soft);
-            padding-bottom: 6px;
-        }
-        .guide-section h3 {
-            font-size: 17px;
-            font-weight: 600;
-            margin: 18px 0 8px 0;
-            color: #ccc;
-        }
-        .guide-section p {
-            margin: 0 0 12px 0;
-            color: #bbb;
-        }
-        .guide-section ul {
-            margin: 8px 0 16px 20px;
-            color: #bbb;
-        }
-        .guide-section li {
-            margin-bottom: 4px;
-        }
-        .guide-section code {
-            background: #111516;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #ddd;
-            border: 1px solid var(--border);
-            font-family: monospace;
-        }
-        .guide-section .step-box {
-            background: #111516;
-            border-left: 3px solid var(--green);
-            padding: 14px 18px;
-            border-radius: 4px;
-            margin: 12px 0;
-        }
-        .guide-section .step-box .step-num {
-            color: var(--green);
-            font-weight: 700;
-            margin-right: 6px;
-        }
-        .guide-section .callout {
-            background: #0f2628;
-            border-left: 3px solid var(--teal);
-            padding: 12px 16px;
-            border-radius: 4px;
-            color: #99f6e4;
-            font-size: 14px;
-            margin: 12px 0;
-        }
-        .guide-section .callout.warning {
-            background: #2a1a1a;
-            border-left-color: var(--red);
-            color: #fca5a5;
-        }
-        .guide-section .callout a {
-            color: var(--green);
-            text-decoration: none;
-        }
-        .guide-section .callout a:hover {
-            text-decoration: underline;
-        }
-        .guide-section table {
+            position: relative;
+            top: 0;
             width: 100%;
-            border-collapse: collapse;
-            margin: 12px 0 16px 0;
-            font-size: 14px;
-        }
-        .guide-section table th {
-            background: var(--card);
-            color: var(--text);
-            text-align: left;
-            padding: 8px 12px;
-            border: 1px solid var(--border);
-            font-weight: 600;
-        }
-        .guide-section table td {
-            padding: 8px 12px;
-            border: 1px solid var(--border);
-            color: #bbb;
-        }
-        .guide-section table tr:hover td {
-            background: var(--card-hover);
-        }
-        .guide-section .glossary-term {
-            font-weight: 600;
-            color: var(--text);
+            max-height: none;
+            margin-bottom: 24px;
         }
 
-        .footer {
-            margin-top: 40px;
-            padding: 32px 0 16px;
-            border-top: 1px solid var(--border-soft);
-            text-align: center;
-            color: var(--muted-2);
-            font-size: 12px;
+        .sidebar-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
         }
 
-        @media (max-width: 820px) {
-            .layout {
-                flex-direction: column;
-                padding: 0 16px;
-            }
-            .sidebar {
-                position: relative;
-                top: 0;
-                flex: 1 1 auto;
-                width: 100%;
-                max-height: none;
-                margin-bottom: 24px;
-                padding: 14px 16px;
-            }
-            .sidebar .sidebar-links {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-            .sidebar a {
-                display: inline-block;
-                font-size: 12px;
-                padding: 4px 10px;
-                margin-bottom: 0;
-            }
-            .sidebar .sidebar-title {
-                margin-bottom: 8px;
-            }
-            .guide-section h2 {
-                font-size: 20px;
-            }
-            .top-spacer {
-                height: 24px;
-            }
+        .sidebar a {
+            display: inline-block;
+            margin: 0;
         }
 
-        @media (max-width: 750px) {
-            header {
-                height: auto;
-                min-height: 62px;
-                flex-wrap: wrap;
-                padding: 8px 18px;
-                gap: 6px;
-            }
-            .logo { font-size: 20px; }
-            .header-links { gap: 10px; flex-wrap: wrap; }
-            .header-links a { font-size: 11px; }
-            .header-links svg { width: 16px; height: 16px; }
-            body { padding-top: 90px; }
-            .page-title h1 { font-size: 26px; }
-            .guide-section table { font-size: 12px; }
-            .guide-section table th,
-            .guide-section table td { padding: 6px 8px; }
-            .top-spacer { height: 16px; }
+        .sidebar .group {
+            width: 100%;
+            margin: 10px 10px 2px;
         }
-    </style>
+    }
+
+    @media (max-width: 750px) {
+        header {
+            height: auto;
+            min-height: 62px;
+            flex-wrap: wrap;
+            padding: 8px 18px;
+            gap: 6px;
+        }
+
+        .logo {
+            font-size: 20px;
+        }
+
+        .header-links {
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .header-links a {
+            font-size: 11px;
+        }
+
+        .header-links svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        body {
+            padding-top: 90px;
+        }
+
+        .page-title h1 {
+            font-size: 27px;
+        }
+
+        .top-spacer {
+            height: 18px;
+        }
+    }
+</style>
+
+
 </head>
+
 <body>
 
 <header>
@@ -354,295 +491,941 @@
             <span class="white">what</span><span class="green">cheats</span><span class="white">are</span><span class="red">online</span><span class="gray">.qd.je</span>
         </a>
     </div>
-    <div class="header-links">
-        <a href="/" title="Home">
-            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
-            Home
-        </a>
-        <a href="/docs" title="Docs">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><path d="M8 12h8v2H8zm0 4h5v2H8zm0-8h3v2H8z"/></svg>
-            Docs
-        </a>
-        <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
-            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-            Discord
-        </a>
-        <span class="site-update">Updated: 08/28/2026</span>
-    </div>
+
+
+<div class="header-links">
+    <a href="/" title="Home">
+        <svg viewBox="0 0 24 24">
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+        </svg>
+        Home
+    </a>
+
+    <a href="/docs" title="Docs">
+        <svg viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+            <path d="M8 12h8v2H8zm0 4h5v2H8zm0-8h3v2H8z"/>
+        </svg>
+        Docs
+    </a>
+
+    <a href="https://discord.gg/55qN4ucGUF" target="_blank" rel="noopener" title="Discord">
+        <svg viewBox="0 0 24 24">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 1-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+        </svg>
+        Discord
+    </a>
+
+    <span class="site-update">Updated: 09/17/2026</span>
+</div>
+
+
 </header>
 
 <div class="top-spacer"></div>
 
 <div class="layout">
 
-    <aside class="sidebar">
-        <div class="sidebar-title">📖 On this page</div>
-        <div class="sidebar-links">
-            <a href="#welcome">Welcome</a>
-            <a href="#getting-started">Getting Started</a>
-            <a href="#categories">Tool Categories</a>
-            <a href="#bookmarklets">Bookmarklets</a>
-            <a href="#extensions">Chrome Extensions</a>
-            <a href="#web-based">Web-based Tools</a>
-            <a href="#tampermonkey">Tampermonkey</a>
-            <a href="#external">External Tools</a>
-            <a href="#safety">Safety Tips</a>
-            <a href="#donations">Donations</a>
-            <a href="#contribute">How to Contribute</a>
-            <a href="#faq">FAQ</a>
-            <a href="#glossary">Glossary</a>
+
+<aside class="sidebar">
+    <div class="sidebar-title">📖 On this page</div>
+
+    <div class="sidebar-links">
+        <a href="#welcome">Welcome</a>
+        <a href="#getting-started">Getting Started</a>
+        <a href="#navigation">Navigating WCAO</a>
+
+        <div class="group">Categories</div>
+
+        <a href="#cheats">Cheats</a>
+        <a href="#evadus">Evadus</a>
+        <a href="#webvm">WebVM</a>
+        <a href="#ai">AI</a>
+        <a href="#docs">Docs</a>
+        <a href="#roblox">Roblox</a>
+        <a href="#scripts">Scripts</a>
+        <a href="#freekeys">Free Keys</a>
+        <a href="#osint">OSINT</a>
+        <a href="#cracking">Cracking</a>
+        <a href="#piracy">Piracy</a>
+        <a href="#security">Security</a>
+
+        <div class="group">Reference</div>
+
+        <a href="#tool-types">Tool Types</a>
+        <a href="#status">Status & Compatibility</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#safety">Safety & Privacy</a>
+        <a href="#contribute">Contributing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#glossary">Glossary</a>
+    </div>
+</aside>
+
+<main class="content">
+
+    <div class="page-title">
+        <h1>📘 Guide</h1>
+        <p>A guide to navigating WCAO, understanding its categories, and using the site's resources.</p>
+    </div>
+
+    <!-- WELCOME -->
+
+    <section class="guide-section" id="welcome">
+        <h2>Welcome</h2>
+
+        <p>
+            <strong>whatcheatsareonline.qd.je</strong> (WCAO) is a community-driven directory
+            of online tools, resources, documentation, utilities, and other projects.
+        </p>
+
+        <p>
+            The homepage is designed to help you find a resource quickly, while individual
+            pages provide more information about specific projects.
+        </p>
+
+        <div class="callout">
+            💡 <strong>Guide vs. Docs:</strong> This page explains how WCAO is organized.
+            The <a href="/docs">Docs</a> section contains more technical documentation for
+            specific tools and projects.
         </div>
-    </aside>
+    </section>
 
-    <main class="content">
+    <!-- GETTING STARTED -->
 
-        <div class="page-title">
-            <h1>📘 Guide</h1>
-            <p>Everything you need to know to get started with WCAO.</p>
+    <section class="guide-section" id="getting-started">
+        <h2>Getting Started</h2>
+
+        <p>
+            Most WCAO pages follow the same basic workflow:
+        </p>
+
+        <div class="step-box">
+            <p><span class="step-num">1.</span> Find the category or tool you are looking for.</p>
+            <p><span class="step-num">2.</span> Open the tool's dedicated page.</p>
+            <p><span class="step-num">3.</span> Check its current status, compatibility, and notes.</p>
+            <p><span class="step-num">4.</span> Read the documentation before using unfamiliar software.</p>
+            <p><span class="step-num">5.</span> Check the project's official resources for changes or updates.</p>
         </div>
 
-        <section class="guide-section" id="welcome">
-            <h2>Welcome</h2>
+        <div class="callout warning">
+            ⚠️ WCAO is a directory, not a guarantee that every listed tool is current,
+            safe, compatible, or available. Always check the individual page and source
+            before trusting a resource.
+        </div>
+    </section>
+
+    <!-- NAVIGATION -->
+
+    <section class="guide-section" id="navigation">
+        <h2>Navigating WCAO</h2>
+
+        <p>
+            The homepage organizes resources into category cards. Selecting a card takes you
+            to the relevant section or page.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Element</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Status</strong></td>
+                    <td>Shows whether a listed service is currently reported as online or offline.</td>
+                </tr>
+                <tr>
+                    <td><strong>Last Update</strong></td>
+                    <td>Shows when the listed status or resource information was last updated.</td>
+                </tr>
+                <tr>
+                    <td><strong>Website</strong></td>
+                    <td>Opens the project's external website when one is available.</td>
+                </tr>
+                <tr>
+                    <td><strong>More</strong></td>
+                    <td>Opens additional WCAO documentation or information.</td>
+                </tr>
+                <tr>
+                    <td><strong>Discord</strong></td>
+                    <td>Links to a project's community when an official community link is available.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- CHEATS -->
+
+    <section class="guide-section" id="cheats">
+        <div class="category-header">
+            <span class="emoji">⚡</span>
+            <h2>Cheats</h2>
+        </div>
+
+        <p>
+            The Cheats category contains game and platform-related tools. Availability,
+            compatibility, and behavior can change frequently as the platforms they interact
+            with are updated.
+        </p>
+
+        <div class="callout yellow">
+            ⚠️ A tool being listed on WCAO does not mean it is currently compatible.
+            Check the tool's status and version information before relying on it.
+        </div>
+
+        <h3>Common issues</h3>
+        <ul>
+            <li>The target platform updated.</li>
+            <li>A tool's backend went offline.</li>
+            <li>A script or extension no longer matches the current site.</li>
+            <li>A previously supported version is no longer supported.</li>
+        </ul>
+    </section>
+
+    <!-- EVADUS -->
+
+    <section class="guide-section" id="evadus">
+        <div class="category-header">
+            <span class="emoji">🧩</span>
+            <h2>Evadus</h2>
+        </div>
+
+        <p>
+            Evadus has its own dedicated section because it is a Windows desktop project
+            with version-specific behavior and substantially more technical documentation
+            than a typical web tool.
+        </p>
+
+        <div class="mini-card">
+            <strong>📄 Main page</strong>
             <p>
-                You found the guide! This site is a community-driven directory of cheats, tools, proxies, and AI assistants built by students, for students. Whether you need help with schoolwork, gaming, or just want to bypass a filter — we've got you covered.
+                Read <a href="/evadus">/evadus</a> for the project's overview, supported
+                environment information, limitations, and technical explanation.
             </p>
-            <div class="callout">
-                💡 <strong>Remember:</strong> Use these tools responsibly. They're meant to help, not get you in trouble.
-            </div>
-        </section>
+        </div>
 
-        <section class="guide-section" id="getting-started">
-            <h2>Getting Started</h2>
+        <div class="mini-card">
+            <strong>🔧 Help & troubleshooting</strong>
             <p>
-                Using the site is simple:
+                The dedicated <a href="/evadushelp">Evadus Help</a> page contains
+                compatibility notes, troubleshooting information, and testing guidance.
             </p>
-            <ul>
-                <li><strong>Pick a tool</strong> from the list on the homepage</li>
-                <li><strong>Check the status</strong> (green = online, red = offline)</li>
-                <li><strong>Look at the price</strong> (Free, Paid, API-key, or Freemium)</li>
-                <li><strong>Choose your execution method</strong> (bookmarklet, extension, etc.)</li>
-                <li><strong>Follow the instructions</strong> below for your method</li>
-            </ul>
-        </section>
+        </div>
 
-        <section class="guide-section" id="categories">
-            <h2>Tool Categories</h2>
-            <table>
-                <thead>
-                    <tr><th>Category</th><th>What It Does</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>⚡ Cheats</strong></td><td>Hacks for games and school platforms</td></tr>
-                    <tr><td><strong>💬 AI</strong></td><td>AI chatbots and writing assistants</td></tr>
-                    <tr><td><strong>🌐 Proxies</strong></td><td>Bypass school filters</td></tr>
-                    <tr><td><strong>📦 Other</strong></td><td>Useful utilities and tools</td></tr>
-                </tbody>
-            </table>
-        </section>
+        <div class="callout warning">
+            ⚠️ Evadus is version-dependent. Behavior observed on one Respondus LockDown
+            Browser build should not automatically be assumed to work on another.
+            Recorded or proctored sessions may also expose visible application windows.
+        </div>
 
-        <section class="guide-section" id="bookmarklets">
-            <h2>How to Use Bookmarklets</h2>
-            <p>Bookmarklets are bookmarks that run JavaScript code. They're quick and easy to use.</p>
-            <div class="step-box">
-                <p><span class="step-num">1.</span> Copy the bookmarklet code from the tool's website</p>
-                <p><span class="step-num">2.</span> Create a new bookmark in your browser</p>
-                <p><span class="step-num">3.</span> Paste the code as the URL</p>
-                <p><span class="step-num">4.</span> Click the bookmark when you're on the target site</p>
-                <p><span class="step-num">5.</span> Enjoy! 🎉</p>
-            </div>
-        </section>
+        <h3>Renderer troubleshooting</h3>
 
-        <section class="guide-section" id="extensions">
-            <h2>How to Use Chrome Extensions</h2>
-            <div class="step-box">
-                <p><span class="step-num">1.</span> Click the link to the Chrome Web Store</p>
-                <p><span class="step-num">2.</span> Click "Add to Chrome"</p>
-                <p><span class="step-num">3.</span> Pin the extension for easy access</p>
-                <p><span class="step-num">4.</span> Use it on the target site</p>
-            </div>
-            <div class="callout warning">
-                ⚠️ Some school Chromebooks block extensions. If that's the case, try a bookmarklet or web-based tool instead.
-            </div>
-        </section>
+        <p>
+            If Evadus reports that monitoring is active but the expected window does not
+            appear, check the application's renderer configuration.
+        </p>
 
-        <section class="guide-section" id="web-based">
-            <h2>How to Use Web-based Tools</h2>
-            <div class="step-box">
-                <p><span class="step-num">1.</span> Click the website link</p>
-                <p><span class="step-num">2.</span> Follow the on-screen instructions</p>
-                <p><span class="step-num">3.</span> Usually just paste a game code or URL</p>
-            </div>
-        </section>
+        <div class="callout info">
+            <strong>Renderer:</strong> Use a supported standard renderer rather than
+            <strong>Protected</strong>. If the issue persists, record the Respondus
+            version, selected renderer, and exact status/error message for troubleshooting.
+        </div>
+    </section>
 
-        <section class="guide-section" id="tampermonkey">
-            <h2>How to Use Tampermonkey Scripts</h2>
-            <div class="step-box">
-                <p><span class="step-num">1.</span> Install the Tampermonkey extension from the Chrome Web Store</p>
-                <p><span class="step-num">2.</span> Click the script link (usually a <code>.user.js</code> file)</p>
-                <p><span class="step-num">3.</span> Tampermonkey will ask to install it — click "Install"</p>
-                <p><span class="step-num">4.</span> Enable the script and refresh the target page</p>
-            </div>
-            <div class="callout">
-                🔧 Tampermonkey scripts only work if you have the extension installed. Make sure it's enabled!
-            </div>
-        </section>
+    <!-- WEBVM -->
 
-        <section class="guide-section" id="external">
-            <h2>How to Use External Tools</h2>
-            <p>Some tools run locally on your computer. These are usually downloads from GitHub.</p>
-            <div class="step-box">
-                <p><span class="step-num">1.</span> Download the file from GitHub</p>
-                <p><span class="step-num">2.</span> Run it on your computer</p>
-                <p><span class="step-num">3.</span> Follow the tool's specific instructions</p>
-            </div>
-            <div class="callout warning">
-                ⚠️ Only download external tools from trusted sources. Check the Discord server for reviews before running anything.
-            </div>
-        </section>
+    <section class="guide-section" id="webvm">
+        <div class="category-header">
+            <span class="emoji">🖥️</span>
+            <h2>WebVM</h2>
+        </div>
 
-        <section class="guide-section" id="safety">
-            <h2>Safety Tips</h2>
+        <p>
+            WebVM-related pages provide browser-accessible virtual-machine resources.
+            These are useful for experimenting with a separate computing environment
+            without installing a complete operating system locally.
+        </p>
 
-            <h3>🛡️ Avoid Detection</h3>
-            <ul>
-                <li>Don't use cheats during proctored exams</li>
-                <li>Clear your browser history after using tools</li>
-                <li>Use incognito/private mode</li>
-                <li>Don't brag about cheating — keep it low-key</li>
-            </ul>
-
-            <h3>🧪 Avoid Malware</h3>
-            <ul>
-                <li>Only use tools from trusted sources</li>
-                <li>Check the Discord server for reviews</li>
-                <li>Use <strong>uBlock Origin</strong> to block sketchy ads</li>
-                <li>Don't download suspicious <code>.exe</code> files</li>
-            </ul>
-
-            <h3>🌐 Use a VPN (if needed)</h3>
-            <ul>
-                <li>If a tool is blocked by your school, try a proxy or VPN</li>
-                <li><strong>X-VPN</strong> is a good free option</li>
-                <li>Check the Proxies section for more options</li>
-            </ul>
-
-            <div class="callout warning">
-                🚨 <strong>Disclaimer:</strong> We are not responsible for any consequences of using these tools. Use at your own risk.
-            </div>
-        </section>
-
-        <section class="guide-section" id="donations">
-            <h2>Donations</h2>
+        <div class="mini-card">
+            <strong>/webvm</strong>
             <p>
-                This site is completely free and always will be. But keeping it running costs money — and we're just students building this in our free time.
+                The WebVM page provides information about browser-based virtualized
+                environments and their limitations.
             </p>
+        </div>
+
+        <div class="mini-card">
+            <strong>/vm</strong>
             <p>
-                <strong>Why we take donations:</strong>
+                The VM page provides another browser-based virtual machine resource.
+                Availability and performance depend on the external service.
             </p>
-            <ul>
-                <li><strong>💰 A proper .com domain</strong> — right now we're on <code>.qd.je</code>, which gets flagged by some school filters. A <code>.com</code> domain means <strong>no VPN required</strong> for most users, making the site way more accessible.</li>
-                <li><strong>📢 Marketing & growth</strong> — we want to get this site in front of more students who need it. A little budget for promotion helps us reach people who could actually use these tools.</li>
-                <li><strong>🛠️ Server costs</strong> — if we ever move beyond GitHub Pages, we'll need to cover hosting.</li>
-            </ul>
-            <div class="callout">
-                💚 <strong>Every bit helps.</strong> Even sharing the site with a friend is a huge help. If you can chip in, we'd be grateful — and we'll keep this project alive and free for everyone.
-            </div>
-        </section>
+        </div>
 
-        <section class="guide-section" id="contribute">
-            <h2>How to Contribute</h2>
-            <p>
-                This site is open-source and community-driven. Here's how you can help:
-            </p>
-            <ul>
-                <li><strong>Join the <a href="https://discord.gg/55qN4ucGUF" target="_blank" style="color: var(--green);">Discord</a></strong> — share tools, report issues, and chat with the community</li>
-                <li><strong>Report broken tools</strong> — let us know if something's offline</li>
-                <li><strong>Submit a new tool</strong> — open a pull request on <a href="https://github.com/HipeopleH/whatcheatsare.online" target="_blank" style="color: var(--green);">GitHub</a></li>
-                <li><strong>Leave a star</strong> — if you like the project, star it on GitHub</li>
-                <li><strong>Suggest features</strong> — have an idea? Share it on Discord or GitHub</li>
-            </ul>
-            <div class="callout">
-                ⭐ <strong>Every contribution helps!</strong> Whether it's a new tool, a bug report, or just spreading the word — you're making this project better for everyone.
-            </div>
-        </section>
+        <h3>Important limitations</h3>
+        <ul>
+            <li>Browser VMs can be significantly slower than a local computer.</li>
+            <li>Files or installed software may not persist between sessions.</li>
+            <li>Clipboard, networking, graphics, and hardware access can be limited.</li>
+            <li>Do not assume a browser VM provides anonymity or invisibility.</li>
+        </ul>
+      <a href="/webvm" class="help-button">[ Need help? ]</a>
+    </section>
 
-        <section class="guide-section" id="faq">
-            <h2>FAQ</h2>
-            <table>
-                <thead>
-                    <tr><th>Question</th><th>Answer</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>Are these tools legal?</strong></td><td>Most are in a gray area — use at your own risk.</td></tr>
-                    <tr><td><strong>Will I get caught?</strong></td><td>Probably not if you follow the safety tips.</td></tr>
-                    <tr><td><strong>Are these tools free?</strong></td><td>Some are free, some have premium options. Check the badge on each card.</td></tr>
-                    <tr><td><strong>How do I know if a tool is online?</strong></td><td>Check the status badge (green = online, red = offline).</td></tr>
-                    <tr><td><strong>What if a tool doesn't work?</strong></td><td>Check the Discord or report it on GitHub.</td></tr>
-                    <tr><td><strong>Can I request a tool?</strong></td><td>Yes! Join the Discord and let us know what you need.</td></tr>
-                </tbody>
-            </table>
-        </section>
+    <!-- AI -->
 
-        <section class="guide-section" id="glossary">
-            <h2>Glossary</h2>
-            <ul>
-                <li><span class="glossary-term">Bookmarklet</span> — A bookmark that runs JavaScript code on a webpage</li>
-                <li><span class="glossary-term">Tampermonkey</span> — A browser extension that runs user scripts</li>
-                <li><span class="glossary-term">Proxy</span> — A service that hides your IP and bypasses filters</li>
-                <li><span class="glossary-term">API-key</span> — A key required to use a tool (often paid)</li>
-                <li><span class="glossary-term">Undetected</span> — The tool hasn't been flagged by the platform</li>
-                <li><span class="glossary-term">Freemium</span> — Free with optional paid features</li>
-                <li><span class="glossary-term">GoGuardian / Securly</span> — School monitoring software that blocks certain sites</li>
-            </ul>
-        </section>
+    <section class="guide-section" id="ai">
+        <div class="category-header">
+            <span class="emoji">💬</span>
+            <h2>AI</h2>
+        </div>
 
-        <footer class="footer">
-            © 2026 WCAO. Built by students, for students.
-        </footer>
+        <p>
+            The AI category contains AI assistants and related utilities.
+            Different services can have different account, model, rate-limit, and
+            API requirements.
+        </p>
 
-    </main>
+        <h3>Before using an AI tool</h3>
+        <ul>
+            <li>Check whether an account is required.</li>
+            <li>Check whether the service is free, paid, or limited.</li>
+            <li>Check which model or provider the tool uses.</li>
+            <li>Do not submit passwords, private documents, or sensitive information to an unfamiliar service.</li>
+        </ul>
+    </section>
+
+    <!-- DOCS -->
+
+    <section class="guide-section" id="docs">
+        <div class="category-header">
+            <span class="emoji">📄</span>
+            <h2>Docs</h2>
+        </div>
+
+        <p>
+            The Docs section contains technical documentation and reference material.
+            Unlike the main Guide, these pages can focus on a particular project,
+            implementation, or technical subject.
+        </p>
+
+        <div class="callout">
+            📚 If you are trying to understand <em>how something works</em> rather than
+            simply find it, start with the relevant documentation page.
+        </div>
+    </section>
+
+    <!-- ROBLOX -->
+
+    <section class="guide-section" id="roblox">
+        <div class="category-header">
+            <span class="emoji">🎮</span>
+            <h2>Roblox Executors</h2>
+        </div>
+
+        <p>
+            The Roblox section contains Roblox-related tools and resources. Compatibility
+            is particularly important here because Roblox updates can cause previously
+            compatible software to stop working.
+        </p>
+
+        <h3>Version compatibility</h3>
+
+        <p>
+            If a tool requires an older Roblox build, the required version matters.
+            Running a different Roblox version can result in unsupported-version errors,
+            crashes, or the tool simply not functioning.
+        </p>
+
+        <div class="callout info">
+            🔄 <strong>RDD:</strong>
+            <a href="https://rdd.weao.gg" target="_blank" rel="noopener">rdd.weao.gg</a>
+            is the WEAO RDD (Roblox Deployment Downloader) resource. Its interface
+            provides options for downloading the latest or previous Roblox builds,
+            including a <strong>Download Previous</strong> option for obtaining the
+            previous build.
+        </div>
+
+        <p>
+            RDD also supports selecting a binary type and specifying a version hash.
+            See the RDD interface itself for the currently available options.
+        </p>
+
+        <h3>Common Roblox compatibility problems</h3>
+
+        <ul>
+            <li><strong>Unsupported version:</strong> the tool expects a different Roblox build.</li>
+            <li><strong>Roblox updated:</strong> a previously working tool may need an update.</li>
+            <li><strong>Version mismatch:</strong> the client and tool are not targeting the same build.</li>
+            <li><strong>Tool update required:</strong> the software itself may need a newer release.</li>
+        </ul>
+
+        <div class="callout warning">
+            ⚠️ Only use software and versions that you are permitted to use. Roblox
+            version compatibility does not guarantee that a particular tool will work.
+        </div>
+      <a href="/robloxhelp" class="help-button">[ Need help? ]</a>
+    </section>
+
+    <!-- SCRIPTS -->
+
+    <section class="guide-section" id="scripts">
+        <div class="category-header">
+            <span class="emoji">📜</span>
+            <h2>Scripts</h2>
+        </div>
+
+        <p>
+            Scripts are small programs intended to automate or modify behavior in a
+            supported environment. WCAO may list browser userscripts, platform scripts,
+            and other scripting resources.
+        </p>
+
+        <h3>Common script formats</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Typical environment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>.user.js</code></td>
+                    <td>Userscript managers such as Tampermonkey</td>
+                </tr>
+                <tr>
+                    <td>JavaScript</td>
+                    <td>Web pages and browser-based tools</td>
+                </tr>
+                <tr>
+                    <td>Python</td>
+                    <td>Local automation and utilities</td>
+                </tr>
+                <tr>
+                    <td>Other</td>
+                    <td>Project-specific runtimes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout warning">
+            ⚠️ Read unfamiliar scripts before running them. A script can have access to
+            whatever permissions its execution environment provides.
+        </div>
+    </section>
+
+    <!-- FREE KEYS -->
+
+    <section class="guide-section" id="freekeys">
+        <div class="category-header">
+            <span class="emoji">🔑</span>
+            <h2>Free Keys</h2>
+        </div>
+
+        <p>
+            The Free Keys section contains resources related to access keys, temporary
+            keys, or key systems used by listed tools.
+        </p>
+
+        <h3>Why keys change</h3>
+        <ul>
+            <li>Keys can expire.</li>
+            <li>Key providers can change their systems.</li>
+            <li>Links can stop working.</li>
+            <li>Rate limits or verification requirements can change.</li>
+        </ul>
+
+        <div class="callout yellow">
+            🔑 A key page being online does not necessarily mean the key itself is valid.
+            Check the relevant tool's current documentation.
+        </div>
+    </section>
+
+    <!-- OSINT -->
+
+    <section class="guide-section" id="osint">
+        <div class="category-header">
+            <span class="emoji">🔎</span>
+            <h2>OSINT</h2>
+        </div>
+
+        <p>
+            OSINT stands for <strong>Open-Source Intelligence</strong>. This category
+            covers tools and resources for finding and analyzing information that is
+            publicly available.
+        </p>
+
+        <h3>Responsible OSINT</h3>
+        <ul>
+            <li>Use information from legitimate public sources.</li>
+            <li>Respect privacy and applicable laws.</li>
+            <li>Do not use tools to harass, threaten, or target people.</li>
+            <li>Verify important information using multiple sources.</li>
+        </ul>
+      <a href="/osinthelp" class="help-button">[ Need help? ]</a>
+    </section>
+
+    <!-- CRACKING -->
+
+    <section class="guide-section" id="cracking">
+        <div class="category-header">
+            <span class="emoji">🔧</span>
+            <h2>Cracking & Reverse Engineering</h2>
+        </div>
+
+        <p>
+            The Cracking section contains reverse-engineering and software-analysis
+            resources. These can include debuggers, disassemblers, binary-analysis
+            utilities, and related technical tools.
+        </p>
+
+        <h3>Common tool types</h3>
+        <ul>
+            <li>Disassemblers</li>
+            <li>Debuggers</li>
+            <li>Hex editors</li>
+            <li>PE and executable analyzers</li>
+            <li>Resource inspection tools</li>
+            <li>Decompilers</li>
+        </ul>
+
+        <div class="callout warning">
+            ⚠️ Only analyze software you are authorized to inspect, modify, or test.
+            Do not assume that a technical capability gives you permission to use it
+            against software or systems you do not own.
+        </div>
+      <a href="/crackhelp" class="help-button">[ Need help? ]</a>
+    </section>
+
+    <!-- PIRACY -->
+
+    <section class="guide-section" id="piracy">
+        <div class="category-header">
+            <span class="emoji">🏴‍☠️</span>
+            <h2>Piracy</h2>
+        </div>
+
+        <p>
+            The Piracy section identifies resources related to software, media, and
+            other content distribution. Availability and legality vary by resource and
+            jurisdiction.
+        </p>
+
+        <div class="callout warning">
+            ⚠️ Copyright law and licensing restrictions still apply. A resource being
+            listed in a directory does not make copyrighted distribution authorized.
+        </div>
+    </section>
+
+    <!-- SECURITY -->
+
+    <section class="guide-section" id="security">
+        <div class="category-header">
+            <span class="emoji">🛡️</span>
+            <h2>Security</h2>
+        </div>
+
+        <p>
+            Security resources cover privacy, monitoring, analysis, and defensive
+            security topics.
+        </p>
+
+        <h3>Security basics</h3>
+        <ul>
+            <li>Keep operating systems and browsers updated.</li>
+            <li>Download software from sources you can verify.</li>
+            <li>Be cautious with unsigned executables.</li>
+            <li>Do not treat an antivirus result as absolute proof that software is safe or malicious.</li>
+            <li>Use separate test environments when experimenting with unfamiliar software.</li>
+        </ul>
+
+        <div class="callout info">
+            🔐 See the dedicated <a href="/privacy">Privacy</a> page for WCAO's
+            privacy and monitoring-related information.
+        </div>
+    </section>
+
+    <!-- TOOL TYPES -->
+
+    <section class="guide-section" id="tool-types">
+        <h2>Tool Types</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Web-based</strong></td>
+                    <td>Runs primarily inside a browser.</td>
+                </tr>
+                <tr>
+                    <td><strong>Bookmarklet</strong></td>
+                    <td>A bookmark containing JavaScript that can run on a webpage.</td>
+                </tr>
+                <tr>
+                    <td><strong>Userscript</strong></td>
+                    <td>A script run through a userscript manager.</td>
+                </tr>
+                <tr>
+                    <td><strong>Extension</strong></td>
+                    <td>A browser extension that adds functionality to the browser.</td>
+                </tr>
+                <tr>
+                    <td><strong>Desktop</strong></td>
+                    <td>A locally installed Windows, macOS, or Linux application.</td>
+                </tr>
+                <tr>
+                    <td><strong>WebVM</strong></td>
+                    <td>A virtualized environment accessed through a web browser.</td>
+                </tr>
+                <tr>
+                    <td><strong>Documentation</strong></td>
+                    <td>Reference material rather than an executable tool.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- STATUS -->
+
+    <section class="guide-section" id="status">
+        <h2>Status & Compatibility</h2>
+
+        <p>
+            Status information is useful, but it should not be treated as a guarantee.
+            A green status generally means the resource was recently observed as available;
+            it does not guarantee that it will work on every device or version.
+        </p>
+
+        <div class="mini-card">
+            <span class="tag">ONLINE</span>
+            The service is currently reported as available.
+        </div>
+
+        <div class="mini-card">
+            <span class="tag">OFFLINE</span>
+            The service is currently reported as unavailable or has not responded normally.
+        </div>
+
+        <div class="mini-card">
+            <span class="tag">VERSION DEPENDENT</span>
+            Compatibility depends on a specific software or platform version.
+        </div>
+
+        <div class="callout">
+            📌 When a tool suddenly stops working, check whether the underlying platform
+            updated before assuming the tool itself is permanently broken.
+        </div>
+    </section>
+
+    <!-- TROUBLESHOOTING -->
+
+    <section class="guide-section" id="troubleshooting">
+        <h2>Troubleshooting</h2>
+
+        <h3>The website does not load</h3>
+        <ul>
+            <li>Refresh the page.</li>
+            <li>Try another browser.</li>
+            <li>Check whether the external service is currently online.</li>
+            <li>Check the project's official status page or community.</li>
+        </ul>
+
+        <h3>A tool says it is unsupported</h3>
+        <p>
+            Check the tool's required version. Platform updates can invalidate older
+            versions of software.
+        </p>
+
+        <h3>A userscript does nothing</h3>
+        <ul>
+            <li>Check that the userscript manager is enabled.</li>
+            <li>Check that the script is enabled.</li>
+            <li>Make sure the script's site permissions match the page you're using.</li>
+            <li>Check whether the target website changed.</li>
+        </ul>
+
+        <h3>A desktop application won't open</h3>
+        <ul>
+            <li>Check that your operating system is supported.</li>
+            <li>Check the application's documented version requirements.</li>
+            <li>Read any error message instead of repeatedly launching it.</li>
+            <li>Check whether the application requires an account or additional dependency.</li>
+        </ul>
+
+        <h3>Evadus says "Monitoring" but nothing appears</h3>
+
+        <div class="callout info">
+            Check the renderer configuration. A supported standard renderer should be
+            selected rather than <strong>Protected</strong>. If it still fails, record
+            the Respondus version, renderer, and exact status message and consult
+            <a href="/evadushelp">Evadus Help</a>.
+        </div>
+
+        <h3>Still broken?</h3>
+        <p>
+            Report the problem through the project's official community or the
+            WCAO GitHub repository. Include the tool name, version, operating system,
+            and exact error message when possible.
+        </p>
+    </section>
+
+    <!-- SAFETY -->
+
+    <section class="guide-section" id="safety">
+        <h2>Safety & Privacy</h2>
+
+        <h3>Downloads</h3>
+        <ul>
+            <li>Prefer official project sources.</li>
+            <li>Be cautious with unknown executables and archives.</li>
+            <li>Check the file name, source, and publisher before opening software.</li>
+            <li>Do not enter passwords into an unfamiliar site simply because it appears in a directory.</li>
+        </ul>
+
+        <h3>Privacy</h3>
+        <ul>
+            <li>Do not upload private documents to services you do not trust.</li>
+            <li>Do not reuse important passwords on unfamiliar services.</li>
+            <li>Remember that browser-based services can still collect information.</li>
+            <li>A VM, proxy, or private browsing window does not automatically make you anonymous.</li>
+        </ul>
+
+        <h3>School and managed devices</h3>
+
+        <div class="callout warning">
+            ⚠️ School-managed devices and networks can have policies, filtering,
+            monitoring, or software restrictions that vary by district and device.
+            WCAO does not guarantee that a resource will work on a managed device.
+        </div>
+    </section>
+
+    <!-- CONTRIBUTING -->
+
+    <section class="guide-section" id="contribute">
+        <h2>Contributing</h2>
+
+        <p>
+            WCAO is community-driven. If you find something broken, outdated, or missing,
+            you can help improve the directory.
+        </p>
+
+        <div class="step-box">
+            <p><span class="step-num">1.</span> Find the relevant project or category.</p>
+            <p><span class="step-num">2.</span> Verify the information before reporting it.</p>
+            <p><span class="step-num">3.</span> Report broken links, incorrect information, or compatibility problems.</p>
+            <p><span class="step-num">4.</span> Submit changes through GitHub when appropriate.</p>
+        </div>
+
+        <ul>
+            <li>
+                <strong>GitHub:</strong>
+                <a href="https://github.com/HipeopleH/whatcheatsare.online" target="_blank" rel="noopener">
+                    HipeopleH/whatcheatsare.online
+                </a>
+            </li>
+            <li>
+                <strong>Discord:</strong>
+                <a href="https://discord.gg/55qN4ucGUF" target="_blank" rel="noopener">
+                    WCAO Community
+                </a>
+            </li>
+        </ul>
+
+        <div class="callout">
+            ⭐ Good reports include the exact error, affected version, date, and
+            steps needed to reproduce the problem.
+        </div>
+    </section>
+
+    <!-- FAQ -->
+
+    <section class="guide-section" id="faq">
+        <h2>FAQ</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Answer</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="faq-question">Is everything on WCAO currently working?</td>
+                    <td>No. Tools can go offline or become incompatible after updates.</td>
+                </tr>
+
+                <tr>
+                    <td class="faq-question">Why does a tool stop working after an update?</td>
+                    <td>The underlying platform may have changed its code, API, version, or security behavior.</td>
+                </tr>
+
+                <tr>
+                    <td class="faq-question">Are all tools free?</td>
+                    <td>No. Some resources are free, while others may require accounts, paid features, or other access requirements.</td>
+                </tr>
+
+                <tr>
+                    <td class="faq-question">What does VERSION DEPENDENT mean?</td>
+                    <td>It means the tool's compatibility depends on a particular software or platform version.</td>
+                </tr>
+
+                <tr>
+                    <td class="faq-question">Where should I look for technical documentation?</td>
+                    <td>Start with the dedicated tool page or the <a href="/docs">Docs</a> section.</td>
+                </tr>
+
+                <tr>
+                    <td class="faq-question">Where is the Evadus troubleshooting guide?</td>
+                    <td>See <a href="/evadushelp">/evadushelp</a>.</td>
+                </tr>
+
+                <tr>
+                    <td class="faq-question">Where can I report a broken resource?</td>
+                    <td>Use the project's community when available, or submit an issue/pull request through the WCAO GitHub repository.</td>
+                </tr>
+
+                <tr>
+                    <td class="faq-question">Does WCAO guarantee that a listed resource is safe?</td>
+                    <td>No. Always evaluate the source, permissions, reputation, and behavior of software before using it.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- GLOSSARY -->
+
+    <section class="guide-section" id="glossary">
+        <h2>Glossary</h2>
+
+        <ul>
+            <li>
+                <span class="faq-question">Bookmarklet</span>
+                — A bookmark containing JavaScript that runs in the browser.
+            </li>
+
+            <li>
+                <span class="faq-question">API</span>
+                — An interface that allows software to communicate with another service.
+            </li>
+
+            <li>
+                <span class="faq-question">API key</span>
+                — A credential used by an application to access an API.
+            </li>
+
+            <li>
+                <span class="faq-question">Executor</span>
+                — Software designed to execute scripts in a particular environment.
+            </li>
+
+            <li>
+                <span class="faq-question">OSINT</span>
+                — Open-Source Intelligence; research using publicly available information.
+            </li>
+
+            <li>
+                <span class="faq-question">Proxy</span>
+                — An intermediary through which network requests can be routed.
+            </li>
+
+            <li>
+                <span class="faq-question">Renderer</span>
+                — A component responsible for displaying or rendering content.
+            </li>
+
+            <li>
+                <span class="faq-question">Userscript</span>
+                — A script designed to run through a userscript manager.
+            </li>
+
+            <li>
+                <span class="faq-question">WebVM</span>
+                — A virtualized computing environment accessed through a web browser.
+            </li>
+
+            <li>
+                <span class="faq-question">Freemium</span>
+                — A service with a free tier and optional paid features.
+            </li>
+
+            <li>
+                <span class="faq-question">Version dependent</span>
+                — A resource whose behavior or compatibility depends on a particular software version.
+            </li>
+        </ul>
+    </section>
+
+    <footer class="footer">
+        © 2026 WCAO. Built by students, for students.
+    </footer>
+
+</main>
+`
 
 </div>
 
 <script>
-    document.querySelectorAll('.sidebar a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
+    const navLinks = document.querySelectorAll('.sidebar a');
+    const sections = document.querySelectorAll('.guide-section');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                const headerOffset = 80;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            if (!targetId || !targetId.startsWith('#')) return;
+
+            e.preventDefault();
+
+            const target = document.querySelector(targetId);
+
+            if (target) {
+                const offset = 82;
+                const position =
+                    target.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    offset;
+
                 window.scrollTo({
-                    top: offsetPosition,
+                    top: position,
                     behavior: 'smooth'
                 });
             }
         });
     });
 
-    const sections = document.querySelectorAll('.guide-section');
-    const navLinks = document.querySelectorAll('.sidebar a');
-
     function updateActiveLink() {
         let current = '';
+
         sections.forEach(section => {
             const rect = section.getBoundingClientRect();
-            if (rect.top <= 120) {
-                current = section.getAttribute('id');
+
+            if (rect.top <= 130) {
+                current = section.id;
             }
         });
 
         navLinks.forEach(link => {
             link.classList.remove('active');
+
             if (link.getAttribute('href') === '#' + current) {
                 link.classList.add('active');
             }
         });
     }
 
-    window.addEventListener('scroll', updateActiveLink);
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
     window.addEventListener('load', updateActiveLink);
 </script>
 
