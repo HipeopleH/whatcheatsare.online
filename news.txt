@@ -1,0 +1,11 @@
+[2026-10-03]
+- Added Cracked Potassium to the executors list.
+
+[2026-10-04]
+- Added World to the executors list.
+- Added cracked user.bin to Cracked Potassium.
+
+[2026-10-05]
+- Added the WCAO script hub.
+- Created news.txt.
+- Updated scripts.html.
