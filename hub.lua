@@ -207,6 +207,7 @@ local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "WCAOHub"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.DisplayOrder = 999999 -- Keeps it on top of other Core/Player GUIs
 ScreenGui.Parent = PlayerGui
 
 --------------------------------------------------
@@ -864,5 +865,5 @@ Refresh()
 
 AutoExecuteCurrentGame()
 
-print("[WCAO] Hub loaded.")
+print("ITS VIBECODED! The AI is dumb and is like "legal code" or shit just ignore it. None of these scripts are mine.")
 print("[WCAO] Entries:", #GameOrder)
