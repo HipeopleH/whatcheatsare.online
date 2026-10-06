@@ -1586,234 +1586,71 @@
 
         async function loadNews() {
 
-            const newsList =
-                document.getElementById("news-list");
+    const newsList =
+        document.getElementById("news-list");
 
+    try {
 
-            try {
+        const response =
+            await fetch("/news.txt", {
+                cache: "no-store"
+            });
 
-                const response =
-                    await fetch("/news.txt", {
-                        cache: "no-store"
-                    });
+        if (!response.ok) {
+            throw new Error("Failed to load news.txt");
+        }
 
+        const text =
+            await response.text();
 
-                if (!response.ok) {
-                    throw new Error("Failed to load news.txt");
-                }
+        const lines =
+            text
+                .split(/\r?\n/)
+                .map(line => line.trim())
+                .filter(line => line.length > 0);
 
+        newsList.innerHTML = "";
 
-                const text =
-                    await response.text();
+        let currentDate = "";
 
+        lines.forEach(line => {
 
-                const lines =
-                    text
-                        .split(/\r?\n/)
-                        .map(line => line.trim())
-                        .filter(line => line.length > 0);
+            /* Date heading */
+            if (
+                line.startsWith("[") &&
+                line.endsWith("]")
+            ) {
 
+                currentDate =
+                    line.slice(1, -1).trim();
 
-                newsList.innerHTML = "";
+                return;
+            }
 
 
-                /*
-                    news.txt format:
+            /* News bullet */
+            if (line.startsWith("-")) {
 
-                    DATE|TAG|TITLE|DESCRIPTION
-
-                    Example:
-
-                    10/05/2026|NEW|World added to the directory|A new executor has been added.
-                */
-
-
-                lines.slice(0, 5).forEach(line => {
-
-                    const parts =
-                        line.split("|");
-
-
-                    if (parts.length < 4) {
-                        return;
-                    }
-
-
-                    const date =
-                        parts[0].trim();
-
-                    const tag =
-                        parts[1].trim();
-
-                    const title =
-                        parts[2].trim();
-
-                    const description =
-                        parts.slice(3).join("|").trim();
-
-
-                    const item =
-                        document.createElement("a");
-
-
-                    item.className = "news-item";
-
-                    item.href = "/news";
-
-
-                    const dateElement =
-                        document.createElement("div");
-
-                    dateElement.className =
-                        "news-date";
-
-                    dateElement.textContent =
-                        date;
-
-
-                    const content =
-                        document.createElement("div");
-
-                    content.className =
-                        "news-content";
-
-
-                    const titleElement =
-                        document.createElement("div");
-
-                    titleElement.className =
-                        "news-title";
-
-
-                    const tagElement =
-                        document.createElement("span");
-
-                    tagElement.className =
-                        "news-tag " +
-                        tag.toLowerCase();
-
-
-                    tagElement.textContent =
-                        tag;
-
-
-                    titleElement.appendChild(
-                        tagElement
-                    );
-
-
-                    titleElement.appendChild(
-                        document.createTextNode(
-                            title
-                        )
-                    );
-
-
-                    const descriptionElement =
-                        document.createElement("div");
-
-                    descriptionElement.className =
-                        "news-description";
-
-                    descriptionElement.textContent =
-                        description;
-
-
-                    content.appendChild(
-                        titleElement
-                    );
-
-
-                    content.appendChild(
-                        descriptionElement
-                    );
-
-
-                    const arrow =
-                        document.createElement("div");
-
-                    arrow.className =
-                        "news-arrow";
-
-                    arrow.textContent =
-                        "›";
-
-
-                    item.appendChild(
-                        dateElement
-                    );
-
-
-                    item.appendChild(
-                        content
-                    );
-
-
-                    item.appendChild(
-                        arrow
-                    );
-
-
-                    newsList.appendChild(
-                        item
-                    );
-
-                });
-
-
-                if (
-                    newsList.children.length === 0
-                ) {
-
-                    const empty =
-                        document.createElement("div");
-
-                    empty.className =
-                        "news-item";
-
-
-                    const content =
-                        document.createElement("div");
-
-                    content.className =
-                        "news-content";
-
-
-                    const title =
-                        document.createElement("div");
-
-                    title.className =
-                        "news-title";
-
-                    title.textContent =
-                        "No news yet.";
-
-
-                    content.appendChild(title);
-
-                    empty.appendChild(content);
-
-                    newsList.appendChild(empty);
-
-                }
-
-
-            } catch (error) {
-
-                console.error(
-                    "News loading failed:",
-                    error
-                );
-
-
-                newsList.innerHTML = "";
-
+                const message =
+                    line.slice(1).trim();
 
                 const item =
-                    document.createElement("div");
+                    document.createElement("a");
 
                 item.className =
                     "news-item";
+
+                item.href = "/news";
+
+
+                const dateElement =
+                    document.createElement("div");
+
+                dateElement.className =
+                    "news-date";
+
+                dateElement.textContent =
+                    currentDate;
 
 
                 const content =
@@ -1823,40 +1660,144 @@
                     "news-content";
 
 
-                const title =
+                const titleElement =
                     document.createElement("div");
 
-                title.className =
+                titleElement.className =
                     "news-title";
 
-                title.textContent =
-                    "Unable to load news.";
+                titleElement.textContent =
+                    message;
 
 
-                const description =
+                content.appendChild(
+                    titleElement
+                );
+
+
+                item.appendChild(
+                    dateElement
+                );
+
+                item.appendChild(
+                    content
+                );
+
+
+                const arrow =
                     document.createElement("div");
 
-                description.className =
-                    "news-description";
+                arrow.className =
+                    "news-arrow";
 
-                description.textContent =
-                    "Check that news.txt exists in the site root.";
+                arrow.textContent =
+                    "›";
+
+                item.appendChild(
+                    arrow
+                );
 
 
-                content.appendChild(title);
-
-                content.appendChild(description);
-
-                item.appendChild(content);
-
-                newsList.appendChild(item);
+                newsList.appendChild(
+                    item
+                );
 
             }
+
+        });
+
+
+        if (newsList.children.length === 0) {
+
+            const empty =
+                document.createElement("div");
+
+            empty.className =
+                "news-item";
+
+
+            const content =
+                document.createElement("div");
+
+            content.className =
+                "news-content";
+
+
+            const title =
+                document.createElement("div");
+
+            title.className =
+                "news-title";
+
+            title.textContent =
+                "No news yet.";
+
+
+            content.appendChild(title);
+            empty.appendChild(content);
+
+            newsList.appendChild(empty);
 
         }
 
 
-        loadNews();
+    } catch (error) {
+
+        console.error(
+            "News loading failed:",
+            error
+        );
+
+
+        newsList.innerHTML = "";
+
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "news-item";
+
+
+        const content =
+            document.createElement("div");
+
+        content.className =
+            "news-content";
+
+
+        const title =
+            document.createElement("div");
+
+        title.className =
+            "news-title";
+
+        title.textContent =
+            "Unable to load news.";
+
+
+        const description =
+            document.createElement("div");
+
+        description.className =
+            "news-description";
+
+        description.textContent =
+            "Check that news.txt exists in the site root.";
+
+
+        content.appendChild(title);
+        content.appendChild(description);
+
+        item.appendChild(content);
+
+        newsList.appendChild(item);
+
+    }
+
+}
+
+loadNews();
 
     </script>
 
