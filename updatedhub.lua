@@ -865,5 +865,5 @@ Refresh()
 
 AutoExecuteCurrentGame()
 
-print("ITS VIBECODED! The AI is dumb and is like "legal code" or shit just ignore it. None of these scripts are mine.")
+print("ITS VIBECODED! The AI is dumb and is like legal code or shit just ignore it. None of these scripts are mine.")
 print("[WCAO] Entries:", #GameOrder)
