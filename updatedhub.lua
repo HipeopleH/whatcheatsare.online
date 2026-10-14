@@ -5,6 +5,7 @@
 
     Entries:
       Infinite Yield
+      Steal an Egg
       BedWars
       99 Nights
       Ink Games
@@ -45,6 +46,16 @@ local Scripts = {
 
         Code = function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+        end
+    },
+
+    ["Steal an Egg"] = {
+        Raw = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseZax/Loader/refs/heads/main/.lua"))()',
+        AutoExecute = false,
+        PlaceIds = {},
+
+        Code = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/PulseZax/Loader/refs/heads/main/.lua"))()
         end
     },
 
@@ -185,6 +196,7 @@ local Scripts = {
 
 local GameOrder = {
     "Infinite Yield",
+    "Steal an Egg",
     "BedWars",
     "99 Nights",
     "Ink Games",
@@ -660,9 +672,9 @@ local function Refresh()
 
     ScriptList.CanvasSize = UDim2.new(
         0,
-        0,
-        0,
-        ListLayout.AbsoluteContentSize.Y + 10
+      0,
+      0,
+      ListLayout.AbsoluteContentSize.Y + 10
     )
 
 end
