@@ -31,6 +31,7 @@
 
         html {
             background: var(--bg);
+            scroll-behavior: smooth;
         }
 
         body {
@@ -63,6 +64,7 @@
             letter-spacing: -0.5px;
             user-select: none;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .header-links {
@@ -1124,9 +1126,9 @@
 <body>
 
 <header>
-    <div class="logo">
+    <a href="#" class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); search.value=''; filterCards(); return false;">
         <span style="color: #ffffff;">what</span><span style="color: #35d16f;">cheats</span><span style="color: #ffffff;">are</span><span style="color: #ff4545;">online</span><span style="color: #777777;">.qd.je</span>
-    </div>
+    </a>
     <div class="header-links">
         <a href="https://discord.gg/55qN4ucGUF" target="_blank" title="Discord">
             <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
@@ -1144,7 +1146,7 @@
             <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-13h-2v6l5.25 3.15L17 12.23l-4-2.37V7z"/></svg>
             RobloxHacks
         </a>
-        <span class="site-update">Updated: 09/09/2026</span>
+        <span class="site-update">Updated: 10/26/2026</span>
     </div>
 </header>
 
@@ -1186,6 +1188,62 @@
 
         <!-- ===== CHEATS ===== -->
         <div class="section-header" data-section="cheats">⚡ Cheats</div>
+
+        <article class="exec-card" data-platform="IXL-bot" data-games="IXL" data-methods="Userscript Tampermonkey" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="1.0">
+            <div class="top-row">
+                <h2 class="exec-name">IXL-bot</h2>
+                <button class="detail-btn" onclick="openDetail('IXL-bot', 'A high-performance automated bot script for IXL problems. Fast, clean, and fully open source.', 'Free', 'Userscript, Tampermonkey', 'Undetected', 'Online', '10/26/2026', 'https://github.com/HipeopleH/IXL-bot', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 10/26/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://github.com/HipeopleH/IXL-bot" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://github.com/HipeopleH/IXL-bot')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Userscript</span>
+                    <span class="method">Tampermonkey</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
+
+        <article class="exec-card" data-platform="Formative-bot" data-games="GoFormative Formative" data-methods="Userscript Tampermonkey" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="1.0">
+            <div class="top-row">
+                <h2 class="exec-name">Formative-bot</h2>
+                <button class="detail-btn" onclick="openDetail('Formative-bot', 'An automated helper script designed specifically for goformative assignments. Streamlines your workflow effortlessly.', 'Free', 'Userscript, Tampermonkey', 'Undetected', 'Online', '10/26/2026', 'https://github.com/HipeopleH/Formative-bot', '')">DETAILS</button>
+                <div class="badge-group">
+                    <span class="badge badge-version">v1.0</span>
+                    <span class="badge badge-price free">Free</span>
+                </div>
+            </div>
+            <div class="status-area">
+                <div class="status online"><span class="status-square">█</span>ONLINE</div>
+                <div class="last-update">Last update: 10/26/2026</div>
+            </div>
+            <div class="bottom">
+                <div class="buttons">
+                    <button onclick="showCheats(this)">CHEATS</button>
+                    <a href="https://github.com/HipeopleH/Formative-bot" target="_blank">WEBSITE</a>
+                    <button onclick="noDiscordPopup('https://github.com/HipeopleH/Formative-bot')">DISCORD</button>
+                </div>
+                <div class="methods">
+                    <span class="methods-label">Execution:</span>
+                    <span class="method">Userscript</span>
+                    <span class="method">Tampermonkey</span>
+                </div>
+            </div>
+            <div class="status-wall"></div>
+        </article>
 
         <article class="exec-card" data-platform="X-Network" data-games="Blooket Kahoot Prodigy" data-methods="Bookmarklet Inspect Web-based" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="8.0.0x">
             <div class="top-row">
@@ -1265,61 +1323,6 @@
                 </div>
                 <div class="methods">
                     <span class="methods-label">Execution:</span>
-                    <span class="method">Bookmarklet</span>
-                </div>
-            </div>
-            <div class="status-wall"></div>
-        </article>
-
-        <article class="exec-card offline" data-platform="IXLAutoAnswer" data-games="IXL" data-methods="Tampermonkey" data-price="API-key" data-type="Cheats" data-detection="Undetected" data-status="Offline" data-version="8.7">
-            <div class="top-row">
-                <h2 class="exec-name">IXLAutoAnswer</h2>
-                <button class="detail-btn" onclick="openDetail('IXLAutoAnswer', 'A Tampermonkey script that auto-answers IXL problems using an OpenAI API key. Currently offline.', 'API-key', 'Tampermonkey', 'Undetected', 'Offline', '1/14/2026', 'https://github.com/Felix3322/IXLAutoAnswer_OpenAI_API_Requid', '')">DETAILS</button>
-                <div class="badge-group">
-                    <span class="badge badge-version">v8.7</span>
-                    <span class="badge badge-price api-key">API-key</span>
-                </div>
-            </div>
-            <div class="status-area">
-                <div class="status offline"><span class="status-square">█</span>OFFLINE</div>
-                <div class="last-update">Last update: 1/14/2026</div>
-            </div>
-            <div class="bottom">
-                <div class="buttons">
-                    <button onclick="showCheats(this)">CHEATS</button>
-                    <a href="https://github.com/Felix3322/IXLAutoAnswer_OpenAI_API_Requid" target="_blank">WEBSITE</a>
-                    <button onclick="noDiscordPopup('https://github.com/Felix3322/IXLAutoAnswer_OpenAI_API_Requid')">DISCORD</button>
-                </div>
-                <div class="methods">
-                    <span class="methods-label">Execution:</span>
-                    <span class="method">Tampermonkey</span>
-                </div>
-            </div>
-            <div class="status-wall"></div>
-        </article>
-
-        <article class="exec-card" data-platform="MRET" data-games="DeltaMath IXL" data-methods="Web-based Bookmarklet" data-price="Free" data-type="Cheats" data-detection="Undetected" data-status="Online" data-version="3">
-            <div class="top-row">
-                <h2 class="exec-name">MRET</h2>
-                <button class="detail-btn" onclick="openDetail('MRET', 'The best free IXL cheat available — also works on DeltaMath. Web-based and bookmarklet methods.', 'Free', 'Web-based, Bookmarklet', 'Undetected', 'Online', '8/17/2026', 'https://mret.northstreetumc.org/-/', 'https://discord.gg/BE2qA9vGhT')">DETAILS</button>
-                <div class="badge-group">
-                    <span class="badge badge-version">v3</span>
-                    <span class="badge badge-price free">Free</span>
-                </div>
-            </div>
-            <div class="status-area">
-                <div class="status online"><span class="status-square">█</span>ONLINE</div>
-                <div class="last-update">Last update: 8/17/2026</div>
-            </div>
-            <div class="bottom">
-                <div class="buttons">
-                    <button onclick="showCheats(this)">CHEATS</button>
-                    <a href="https://mret.northstreetumc.org/-/" target="_blank">WEBSITE</a>
-                    <a href="https://discord.gg/BE2qA9vGhT" target="_blank">DISCORD</a>
-                </div>
-                <div class="methods">
-                    <span class="methods-label">Execution:</span>
-                    <span class="method">Web-based</span>
                     <span class="method">Bookmarklet</span>
                 </div>
             </div>
@@ -2203,6 +2206,7 @@
                 <label><input type="checkbox" value="Tampermonkey"> Tampermonkey</label>
                 <label><input type="checkbox" value="Chrome Extension"> Chrome Extension</label>
                 <label><input type="checkbox" value="External"> External</label>
+                <label><input type="checkbox" value="Userscript"> Userscript</label>
                 <label><input type="checkbox" value="Code"> Code</label>
             </div>
         </div>
@@ -2282,19 +2286,15 @@
     const closeTermsModal = document.getElementById("closeTermsModal");
     const emailPopup = document.getElementById("emailPopup");
 
-    function openTerms() {
-        termsModal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeTerms() {
-        termsModal.classList.remove('show');
-        document.body.style.overflow = '';
-    }
-
-    closeTermsModal.addEventListener('click', closeTerms);
-    termsModal.addEventListener('click', function(e) {
-        if (e.target === this) closeTerms();
+    // Add active toggle classes to filter labels when checkboxes change
+    document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', function() {
+            if (this.checked) {
+                this.closest('label').classList.add('active');
+            } else {
+                this.closest('label').classList.remove('active');
+            }
+        });
     });
 
     function showEmailPopup() {
@@ -2358,7 +2358,7 @@
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             if (detailOverlay.classList.contains('show')) closeDetail();
-            if (termsModal.classList.contains('show')) closeTerms();
+            if (termsModal.classList.contains('show')) closeTermsModal.click();
             if (filterModal.classList.contains('show')) filterModal.classList.remove('show');
             if (aboutModal.classList.contains('show')) aboutModal.classList.remove('show');
             if (emailPopup.classList.contains('show')) closeEmailPopup();
@@ -2436,14 +2436,6 @@
                 this.remove();
             }
         });
-
-        const escHandler = function(e) {
-            if (e.key === 'Escape') {
-                overlay.remove();
-                document.removeEventListener('keydown', escHandler);
-            }
-        };
-        document.addEventListener('keydown', escHandler);
     }
 
     function showCheats(button) {
@@ -2579,13 +2571,20 @@
     });
 
     resetFilter.addEventListener("click", () => {
-        document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+            cb.closest('label').classList.remove('active');
+        });
         filterModal.classList.remove("show");
         filterCards();
     });
 
     clearAll.addEventListener("click", () => {
-        document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+            cb.closest('label').classList.remove('active');
+        });
+        updateBadge();
     });
 
     search.addEventListener("input", filterCards);
